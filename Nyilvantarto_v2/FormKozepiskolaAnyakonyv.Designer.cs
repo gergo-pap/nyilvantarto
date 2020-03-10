@@ -89,7 +89,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label21.Location = new System.Drawing.Point(648, 268);
+            this.label21.Location = new System.Drawing.Point(656, 264);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(58, 17);
             this.label21.TabIndex = 138;
@@ -98,7 +98,7 @@
             // numericUpDownVizsgaVegKeres
             // 
             this.numericUpDownVizsgaVegKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownVizsgaVegKeres.Location = new System.Drawing.Point(611, 223);
+            this.numericUpDownVizsgaVegKeres.Location = new System.Drawing.Point(619, 219);
             this.numericUpDownVizsgaVegKeres.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -117,12 +117,13 @@
             0,
             0,
             0});
+            this.numericUpDownVizsgaVegKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaVegKeres_ValueChanged);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label20.Location = new System.Drawing.Point(463, 223);
+            this.label20.Location = new System.Drawing.Point(471, 219);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(89, 17);
             this.label20.TabIndex = 137;
@@ -132,7 +133,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label18.Location = new System.Drawing.Point(27, 245);
+            this.label18.Location = new System.Drawing.Point(35, 241);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(89, 17);
             this.label18.TabIndex = 135;
@@ -141,7 +142,7 @@
             // numericUpDownEvFeltoltVeg
             // 
             this.numericUpDownEvFeltoltVeg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownEvFeltoltVeg.Location = new System.Drawing.Point(167, 239);
+            this.numericUpDownEvFeltoltVeg.Location = new System.Drawing.Point(175, 235);
             this.numericUpDownEvFeltoltVeg.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -165,7 +166,7 @@
             // 
             this.groupBoxJelszo.Controls.Add(this.textBoxJelszo);
             this.groupBoxJelszo.Controls.Add(this.label17);
-            this.groupBoxJelszo.Location = new System.Drawing.Point(466, 457);
+            this.groupBoxJelszo.Location = new System.Drawing.Point(474, 453);
             this.groupBoxJelszo.Name = "groupBoxJelszo";
             this.groupBoxJelszo.Size = new System.Drawing.Size(220, 39);
             this.groupBoxJelszo.TabIndex = 133;
@@ -200,7 +201,7 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.numericUpDownEvKezdetModositas);
             this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(30, 324);
+            this.groupBox1.Location = new System.Drawing.Point(38, 320);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(315, 177);
             this.groupBox1.TabIndex = 132;
@@ -322,7 +323,7 @@
             // 
             // buttonModositas
             // 
-            this.buttonModositas.Location = new System.Drawing.Point(544, 509);
+            this.buttonModositas.Location = new System.Drawing.Point(552, 505);
             this.buttonModositas.Name = "buttonModositas";
             this.buttonModositas.Size = new System.Drawing.Size(265, 23);
             this.buttonModositas.TabIndex = 131;
@@ -333,7 +334,7 @@
             // buttonTorles
             // 
             this.buttonTorles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonTorles.Location = new System.Drawing.Point(684, 468);
+            this.buttonTorles.Location = new System.Drawing.Point(692, 464);
             this.buttonTorles.Name = "buttonTorles";
             this.buttonTorles.Size = new System.Drawing.Size(125, 23);
             this.buttonTorles.TabIndex = 130;
@@ -355,7 +356,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(463, 270);
+            this.label11.Location = new System.Drawing.Point(471, 266);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(87, 17);
             this.label11.TabIndex = 128;
@@ -365,7 +366,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(719, 268);
+            this.label10.Location = new System.Drawing.Point(727, 264);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 17);
             this.label10.TabIndex = 127;
@@ -375,7 +376,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(565, 268);
+            this.label9.Location = new System.Drawing.Point(573, 264);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 17);
             this.label9.TabIndex = 126;
@@ -385,7 +386,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(463, 156);
+            this.label8.Location = new System.Drawing.Point(471, 152);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 17);
             this.label8.TabIndex = 125;
@@ -394,7 +395,7 @@
             // textBoxAnyjaNeveKeres
             // 
             this.textBoxAnyjaNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveKeres.Location = new System.Drawing.Point(609, 153);
+            this.textBoxAnyjaNeveKeres.Location = new System.Drawing.Point(617, 149);
             this.textBoxAnyjaNeveKeres.Name = "textBoxAnyjaNeveKeres";
             this.textBoxAnyjaNeveKeres.Size = new System.Drawing.Size(186, 23);
             this.textBoxAnyjaNeveKeres.TabIndex = 112;
@@ -404,7 +405,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(27, 154);
+            this.label7.Location = new System.Drawing.Point(35, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(82, 17);
             this.label7.TabIndex = 124;
@@ -413,7 +414,7 @@
             // textBoxAnyjaNeveFeltolt
             // 
             this.textBoxAnyjaNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveFeltolt.Location = new System.Drawing.Point(167, 155);
+            this.textBoxAnyjaNeveFeltolt.Location = new System.Drawing.Point(175, 151);
             this.textBoxAnyjaNeveFeltolt.Name = "textBoxAnyjaNeveFeltolt";
             this.textBoxAnyjaNeveFeltolt.Size = new System.Drawing.Size(178, 23);
             this.textBoxAnyjaNeveFeltolt.TabIndex = 105;
@@ -424,7 +425,7 @@
             this.listBoxKeresesEredmenye.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxKeresesEredmenye.FormattingEnabled = true;
             this.listBoxKeresesEredmenye.ItemHeight = 16;
-            this.listBoxKeresesEredmenye.Location = new System.Drawing.Point(466, 290);
+            this.listBoxKeresesEredmenye.Location = new System.Drawing.Point(474, 286);
             this.listBoxKeresesEredmenye.Name = "listBoxKeresesEredmenye";
             this.listBoxKeresesEredmenye.Size = new System.Drawing.Size(331, 132);
             this.listBoxKeresesEredmenye.TabIndex = 114;
@@ -432,7 +433,7 @@
             // numericUpDownVizsgaKezdetKeres
             // 
             this.numericUpDownVizsgaKezdetKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownVizsgaKezdetKeres.Location = new System.Drawing.Point(609, 188);
+            this.numericUpDownVizsgaKezdetKeres.Location = new System.Drawing.Point(617, 184);
             this.numericUpDownVizsgaKezdetKeres.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -451,12 +452,13 @@
             0,
             0,
             0});
+            this.numericUpDownVizsgaKezdetKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaKezdetKeres_ValueChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(461, 188);
+            this.label6.Location = new System.Drawing.Point(469, 184);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(108, 17);
             this.label6.TabIndex = 123;
@@ -466,7 +468,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(463, 130);
+            this.label5.Location = new System.Drawing.Point(471, 126);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 17);
             this.label5.TabIndex = 122;
@@ -475,7 +477,7 @@
             // textBoxTanuloNeveKeres
             // 
             this.textBoxTanuloNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxTanuloNeveKeres.Location = new System.Drawing.Point(609, 127);
+            this.textBoxTanuloNeveKeres.Location = new System.Drawing.Point(617, 123);
             this.textBoxTanuloNeveKeres.Name = "textBoxTanuloNeveKeres";
             this.textBoxTanuloNeveKeres.Size = new System.Drawing.Size(186, 23);
             this.textBoxTanuloNeveKeres.TabIndex = 111;
@@ -485,7 +487,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(670, 97);
+            this.label4.Location = new System.Drawing.Point(678, 93);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 17);
             this.label4.TabIndex = 121;
@@ -495,7 +497,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(27, 214);
+            this.label3.Location = new System.Drawing.Point(35, 210);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 17);
             this.label3.TabIndex = 120;
@@ -504,7 +506,7 @@
             // numericUpDownEvFeltoltKezdet
             // 
             this.numericUpDownEvFeltoltKezdet.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownEvFeltoltKezdet.Location = new System.Drawing.Point(167, 208);
+            this.numericUpDownEvFeltoltKezdet.Location = new System.Drawing.Point(175, 204);
             this.numericUpDownEvFeltoltKezdet.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -529,7 +531,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(27, 127);
+            this.label2.Location = new System.Drawing.Point(35, 123);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 17);
             this.label2.TabIndex = 119;
@@ -538,7 +540,7 @@
             // textBoxTanuloNeveFeltolt
             // 
             this.textBoxTanuloNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxTanuloNeveFeltolt.Location = new System.Drawing.Point(167, 128);
+            this.textBoxTanuloNeveFeltolt.Location = new System.Drawing.Point(175, 124);
             this.textBoxTanuloNeveFeltolt.Name = "textBoxTanuloNeveFeltolt";
             this.textBoxTanuloNeveFeltolt.Size = new System.Drawing.Size(178, 23);
             this.textBoxTanuloNeveFeltolt.TabIndex = 104;
@@ -548,7 +550,7 @@
             // 
             this.textBoxEleresi.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxEleresi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxEleresi.Location = new System.Drawing.Point(167, 268);
+            this.textBoxEleresi.Location = new System.Drawing.Point(175, 264);
             this.textBoxEleresi.Name = "textBoxEleresi";
             this.textBoxEleresi.ReadOnly = true;
             this.textBoxEleresi.Size = new System.Drawing.Size(178, 23);
@@ -558,7 +560,7 @@
             // buttonTallozas
             // 
             this.buttonTallozas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonTallozas.Location = new System.Drawing.Point(30, 271);
+            this.buttonTallozas.Location = new System.Drawing.Point(38, 267);
             this.buttonTallozas.Name = "buttonTallozas";
             this.buttonTallozas.Size = new System.Drawing.Size(88, 23);
             this.buttonTallozas.TabIndex = 109;
@@ -570,7 +572,7 @@
             // 
             this.labelDokumentumFelvétel.AutoSize = true;
             this.labelDokumentumFelvétel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelDokumentumFelvétel.Location = new System.Drawing.Point(182, 97);
+            this.labelDokumentumFelvétel.Location = new System.Drawing.Point(190, 93);
             this.labelDokumentumFelvétel.Name = "labelDokumentumFelvétel";
             this.labelDokumentumFelvétel.Size = new System.Drawing.Size(163, 17);
             this.labelDokumentumFelvétel.TabIndex = 118;
@@ -580,7 +582,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(27, 182);
+            this.label1.Location = new System.Drawing.Point(35, 178);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 17);
             this.label1.TabIndex = 117;
@@ -590,7 +592,7 @@
             // 
             this.textBoxDokumentumNeve.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxDokumentumNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxDokumentumNeve.Location = new System.Drawing.Point(167, 182);
+            this.textBoxDokumentumNeve.Location = new System.Drawing.Point(175, 178);
             this.textBoxDokumentumNeve.Name = "textBoxDokumentumNeve";
             this.textBoxDokumentumNeve.Size = new System.Drawing.Size(178, 23);
             this.textBoxDokumentumNeve.TabIndex = 106;
@@ -599,7 +601,7 @@
             // buttonLetoltes
             // 
             this.buttonLetoltes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonLetoltes.Location = new System.Drawing.Point(544, 428);
+            this.buttonLetoltes.Location = new System.Drawing.Point(552, 424);
             this.buttonLetoltes.Name = "buttonLetoltes";
             this.buttonLetoltes.Size = new System.Drawing.Size(265, 23);
             this.buttonLetoltes.TabIndex = 115;
@@ -610,7 +612,7 @@
             // buttonFeltoltes
             // 
             this.buttonFeltoltes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonFeltoltes.Location = new System.Drawing.Point(202, 297);
+            this.buttonFeltoltes.Location = new System.Drawing.Point(210, 293);
             this.buttonFeltoltes.Name = "buttonFeltoltes";
             this.buttonFeltoltes.Size = new System.Drawing.Size(104, 23);
             this.buttonFeltoltes.TabIndex = 110;
@@ -620,7 +622,7 @@
             // 
             // buttonVissza
             // 
-            this.buttonVissza.Location = new System.Drawing.Point(7, 545);
+            this.buttonVissza.Location = new System.Drawing.Point(15, 541);
             this.buttonVissza.Name = "buttonVissza";
             this.buttonVissza.Size = new System.Drawing.Size(92, 29);
             this.buttonVissza.TabIndex = 116;
@@ -632,7 +634,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label22.Location = new System.Drawing.Point(325, 25);
+            this.label22.Location = new System.Drawing.Point(333, 21);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(234, 25);
             this.label22.TabIndex = 139;

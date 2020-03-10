@@ -548,5 +548,15 @@ namespace Nyilvantarto_v2
         {
             numericUpDownEvVegModositas.Value = numericUpDownEvKezdetModositas.Value + 4;
         }
+
+        private void numericUpDownVizsgaKezdetKeres_ValueChanged(object sender, EventArgs e)
+        {
+            keres("szva_erettsegiEvKezdet", numericUpDownVizsgaKezdetKeres.Value.ToString());
+        }
+
+        private void numericUpDownVizsgaVegKeres_ValueChanged(object sender, EventArgs e)
+        {
+            keres("szva_erettsegiEvVeg", numericUpDownVizsgaVegKeres.Value.ToString());
+        }
     }
 }
