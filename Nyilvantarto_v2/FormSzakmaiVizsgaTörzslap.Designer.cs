@@ -30,16 +30,10 @@
         {
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.numericUpDownVizsgaVegKeres = new System.Windows.Forms.NumericUpDown();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDownEvFeltoltVeg = new System.Windows.Forms.NumericUpDown();
             this.groupBoxJelszo = new System.Windows.Forms.GroupBox();
             this.textBoxJelszo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownEvVegModositas = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
             this.textBoxNevModositas = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -74,14 +68,26 @@
             this.buttonLetoltes = new System.Windows.Forms.Button();
             this.buttonFeltoltes = new System.Windows.Forms.Button();
             this.buttonVissza = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaVegKeres)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltVeg)).BeginInit();
+            this.radioButtonTavaszFeltolt = new System.Windows.Forms.RadioButton();
+            this.radioButtonOszFeltolt = new System.Windows.Forms.RadioButton();
+            this.groupBoxTavaszOsz = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonTavaszKeres = new System.Windows.Forms.RadioButton();
+            this.radioButtonOszKeres = new System.Windows.Forms.RadioButton();
+            this.label18 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.radioButtonTavaszModosit = new System.Windows.Forms.RadioButton();
+            this.radioButtonOszModosit = new System.Windows.Forms.RadioButton();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvVegModositas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKezdetModositas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaKezdetKeres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltKezdet)).BeginInit();
+            this.groupBoxTavaszOsz.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label22
@@ -103,73 +109,6 @@
             this.label21.Size = new System.Drawing.Size(58, 17);
             this.label21.TabIndex = 173;
             this.label21.Text = "V. Vége";
-            // 
-            // numericUpDownVizsgaVegKeres
-            // 
-            this.numericUpDownVizsgaVegKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownVizsgaVegKeres.Location = new System.Drawing.Point(619, 218);
-            this.numericUpDownVizsgaVegKeres.Maximum = new decimal(new int[] {
-            2100,
-            0,
-            0,
-            0});
-            this.numericUpDownVizsgaVegKeres.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericUpDownVizsgaVegKeres.Name = "numericUpDownVizsgaVegKeres";
-            this.numericUpDownVizsgaVegKeres.Size = new System.Drawing.Size(186, 23);
-            this.numericUpDownVizsgaVegKeres.TabIndex = 171;
-            this.numericUpDownVizsgaVegKeres.Value = new decimal(new int[] {
-            2004,
-            0,
-            0,
-            0});
-            this.numericUpDownVizsgaVegKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaVegKeres_ValueChanged);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label20.Location = new System.Drawing.Point(471, 218);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(89, 17);
-            this.label20.TabIndex = 172;
-            this.label20.Text = "Viszga vége:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label18.Location = new System.Drawing.Point(35, 240);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(89, 17);
-            this.label18.TabIndex = 170;
-            this.label18.Text = "Vizsga vége:";
-            // 
-            // numericUpDownEvFeltoltVeg
-            // 
-            this.numericUpDownEvFeltoltVeg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownEvFeltoltVeg.Location = new System.Drawing.Point(175, 234);
-            this.numericUpDownEvFeltoltVeg.Maximum = new decimal(new int[] {
-            2100,
-            0,
-            0,
-            0});
-            this.numericUpDownEvFeltoltVeg.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericUpDownEvFeltoltVeg.Name = "numericUpDownEvFeltoltVeg";
-            this.numericUpDownEvFeltoltVeg.Size = new System.Drawing.Size(178, 23);
-            this.numericUpDownEvFeltoltVeg.TabIndex = 169;
-            this.numericUpDownEvFeltoltVeg.Value = new decimal(new int[] {
-            2004,
-            0,
-            0,
-            0});
             // 
             // groupBoxJelszo
             // 
@@ -201,8 +140,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.numericUpDownEvVegModositas);
             this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.textBoxNevModositas);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label16);
@@ -216,39 +155,6 @@
             this.groupBox1.TabIndex = 167;
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;
-            // 
-            // numericUpDownEvVegModositas
-            // 
-            this.numericUpDownEvVegModositas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownEvVegModositas.Location = new System.Drawing.Point(123, 140);
-            this.numericUpDownEvVegModositas.Maximum = new decimal(new int[] {
-            2100,
-            0,
-            0,
-            0});
-            this.numericUpDownEvVegModositas.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericUpDownEvVegModositas.Name = "numericUpDownEvVegModositas";
-            this.numericUpDownEvVegModositas.Size = new System.Drawing.Size(186, 23);
-            this.numericUpDownEvVegModositas.TabIndex = 95;
-            this.numericUpDownEvVegModositas.Value = new decimal(new int[] {
-            2004,
-            0,
-            0,
-            0});
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label19.Location = new System.Drawing.Point(13, 140);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(89, 17);
-            this.label19.TabIndex = 96;
-            this.label19.Text = "Vizsga vége:";
             // 
             // textBoxNevModositas
             // 
@@ -318,6 +224,7 @@
             0,
             0,
             0});
+            this.numericUpDownEvKezdetModositas.ValueChanged += new System.EventHandler(this.numericUpDownEvKezdetModositas_ValueChanged);
             // 
             // label14
             // 
@@ -497,9 +404,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.Location = new System.Drawing.Point(35, 209);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 17);
+            this.label3.Size = new System.Drawing.Size(60, 17);
             this.label3.TabIndex = 156;
-            this.label3.Text = "Vizsga kezdete:";
+            this.label3.Text = "Végzett:";
             // 
             // numericUpDownEvFeltoltKezdet
             // 
@@ -523,7 +430,6 @@
             0,
             0,
             0});
-            this.numericUpDownEvFeltoltKezdet.ValueChanged += new System.EventHandler(this.numericUpDownEvFeltoltKezdet_ValueChanged);
             // 
             // label2
             // 
@@ -627,17 +533,145 @@
             this.buttonVissza.Text = "Vissza";
             this.buttonVissza.UseVisualStyleBackColor = true;
             // 
+            // radioButtonTavaszFeltolt
+            // 
+            this.radioButtonTavaszFeltolt.AutoSize = true;
+            this.radioButtonTavaszFeltolt.Checked = true;
+            this.radioButtonTavaszFeltolt.Location = new System.Drawing.Point(6, 8);
+            this.radioButtonTavaszFeltolt.Name = "radioButtonTavaszFeltolt";
+            this.radioButtonTavaszFeltolt.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonTavaszFeltolt.TabIndex = 176;
+            this.radioButtonTavaszFeltolt.TabStop = true;
+            this.radioButtonTavaszFeltolt.Text = "Tavasz";
+            this.radioButtonTavaszFeltolt.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonOszFeltolt
+            // 
+            this.radioButtonOszFeltolt.AutoSize = true;
+            this.radioButtonOszFeltolt.Location = new System.Drawing.Point(129, 8);
+            this.radioButtonOszFeltolt.Name = "radioButtonOszFeltolt";
+            this.radioButtonOszFeltolt.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonOszFeltolt.TabIndex = 177;
+            this.radioButtonOszFeltolt.Text = "Ősz";
+            this.radioButtonOszFeltolt.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxTavaszOsz
+            // 
+            this.groupBoxTavaszOsz.Controls.Add(this.radioButtonTavaszFeltolt);
+            this.groupBoxTavaszOsz.Controls.Add(this.radioButtonOszFeltolt);
+            this.groupBoxTavaszOsz.Location = new System.Drawing.Point(175, 232);
+            this.groupBoxTavaszOsz.Name = "groupBoxTavaszOsz";
+            this.groupBoxTavaszOsz.Size = new System.Drawing.Size(178, 25);
+            this.groupBoxTavaszOsz.TabIndex = 178;
+            this.groupBoxTavaszOsz.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label12.Location = new System.Drawing.Point(35, 240);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(60, 17);
+            this.label12.TabIndex = 179;
+            this.label12.Text = "Időszak:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioButtonTavaszKeres);
+            this.groupBox2.Controls.Add(this.radioButtonOszKeres);
+            this.groupBox2.Location = new System.Drawing.Point(617, 223);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(186, 25);
+            this.groupBox2.TabIndex = 179;
+            this.groupBox2.TabStop = false;
+            // 
+            // radioButtonTavaszKeres
+            // 
+            this.radioButtonTavaszKeres.AutoSize = true;
+            this.radioButtonTavaszKeres.Location = new System.Drawing.Point(6, 8);
+            this.radioButtonTavaszKeres.Name = "radioButtonTavaszKeres";
+            this.radioButtonTavaszKeres.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonTavaszKeres.TabIndex = 176;
+            this.radioButtonTavaszKeres.TabStop = true;
+            this.radioButtonTavaszKeres.Text = "Tavasz";
+            this.radioButtonTavaszKeres.UseVisualStyleBackColor = true;
+            this.radioButtonTavaszKeres.CheckedChanged += new System.EventHandler(this.radioButtonTavaszKeres_CheckedChanged);
+            // 
+            // radioButtonOszKeres
+            // 
+            this.radioButtonOszKeres.AutoSize = true;
+            this.radioButtonOszKeres.Location = new System.Drawing.Point(137, 8);
+            this.radioButtonOszKeres.Name = "radioButtonOszKeres";
+            this.radioButtonOszKeres.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonOszKeres.TabIndex = 177;
+            this.radioButtonOszKeres.TabStop = true;
+            this.radioButtonOszKeres.Text = "Ősz";
+            this.radioButtonOszKeres.UseVisualStyleBackColor = true;
+            this.radioButtonOszKeres.CheckedChanged += new System.EventHandler(this.radioButtonOszKeres_CheckedChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label18.Location = new System.Drawing.Point(469, 231);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(60, 17);
+            this.label18.TabIndex = 180;
+            this.label18.Text = "Időszak:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.radioButtonTavaszModosit);
+            this.groupBox3.Controls.Add(this.radioButtonOszModosit);
+            this.groupBox3.Location = new System.Drawing.Point(123, 137);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(186, 25);
+            this.groupBox3.TabIndex = 179;
+            this.groupBox3.TabStop = false;
+            // 
+            // radioButtonTavaszModosit
+            // 
+            this.radioButtonTavaszModosit.AutoSize = true;
+            this.radioButtonTavaszModosit.Checked = true;
+            this.radioButtonTavaszModosit.Location = new System.Drawing.Point(6, 8);
+            this.radioButtonTavaszModosit.Name = "radioButtonTavaszModosit";
+            this.radioButtonTavaszModosit.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonTavaszModosit.TabIndex = 176;
+            this.radioButtonTavaszModosit.TabStop = true;
+            this.radioButtonTavaszModosit.Text = "Tavasz";
+            this.radioButtonTavaszModosit.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonOszModosit
+            // 
+            this.radioButtonOszModosit.AutoSize = true;
+            this.radioButtonOszModosit.Location = new System.Drawing.Point(129, 8);
+            this.radioButtonOszModosit.Name = "radioButtonOszModosit";
+            this.radioButtonOszModosit.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonOszModosit.TabIndex = 177;
+            this.radioButtonOszModosit.Text = "Ősz";
+            this.radioButtonOszModosit.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label19.Location = new System.Drawing.Point(13, 145);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(60, 17);
+            this.label19.TabIndex = 181;
+            this.label19.Text = "Időszak:";
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 586);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.groupBoxTavaszOsz);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
-            this.Controls.Add(this.numericUpDownVizsgaVegKeres);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.numericUpDownEvFeltoltVeg);
             this.Controls.Add(this.groupBoxJelszo);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonModositas);
@@ -670,16 +704,20 @@
             this.Name = "FormSzakmaiVizsgaTörzslap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Szakmai vizsga - Törzslap";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaVegKeres)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltVeg)).EndInit();
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSzakmaiVizsgaTörzslap_FormClosed);
             this.groupBoxJelszo.ResumeLayout(false);
             this.groupBoxJelszo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvVegModositas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKezdetModositas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaKezdetKeres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltKezdet)).EndInit();
+            this.groupBoxTavaszOsz.ResumeLayout(false);
+            this.groupBoxTavaszOsz.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -689,16 +727,10 @@
 
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown numericUpDownVizsgaVegKeres;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.NumericUpDown numericUpDownEvFeltoltVeg;
         private System.Windows.Forms.GroupBox groupBoxJelszo;
         private System.Windows.Forms.TextBox textBoxJelszo;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDownEvVegModositas;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox textBoxNevModositas;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label16;
@@ -733,5 +765,17 @@
         private System.Windows.Forms.Button buttonLetoltes;
         private System.Windows.Forms.Button buttonFeltoltes;
         private System.Windows.Forms.Button buttonVissza;
+        private System.Windows.Forms.RadioButton radioButtonTavaszFeltolt;
+        private System.Windows.Forms.RadioButton radioButtonOszFeltolt;
+        private System.Windows.Forms.GroupBox groupBoxTavaszOsz;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButtonTavaszKeres;
+        private System.Windows.Forms.RadioButton radioButtonOszKeres;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton radioButtonTavaszModosit;
+        private System.Windows.Forms.RadioButton radioButtonOszModosit;
     }
 }
