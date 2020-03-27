@@ -18,7 +18,7 @@ namespace Nyilvantarto_v2
         string kiterjesztes;
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = @"c:\Users\pap.gergo\Desktop\Teszt\Középiskola\Anyakönyv\";
+        string destPath = @"c:\Users\Pap Gergő\Desktop\Teszt\Középiskola\Anyakönyv\";
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
 
 

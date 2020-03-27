@@ -22,3 +22,53 @@ C:\Users\pap.gergo\Desktop\Visual Studio Projects\Nyilvantarto_v2\Nyilvantarto_v
 C:\Users\pap.gergo\Desktop\Visual Studio Projects\Nyilvantarto_v2\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegiTorzslap.resources
 C:\Users\pap.gergo\Desktop\Visual Studio Projects\Nyilvantarto_v2\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormKozepiskolaAnyakonyv.resources
 C:\Users\pap.gergo\Desktop\Visual Studio Projects\Nyilvantarto_v2\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiViszgaAnyakonyv.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csprojAssemblyReference.cache
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegi.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegiTorzslap.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormKozepiskolaAnyakonyv.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormMain.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiViszgaAnyakonyv.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiVizsga.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiVizsgaTörzslap.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.Properties.Resources.resources
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.GenerateResource.cache
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.CoreCompileInputs.cache
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.exe
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.pdb
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.exe.config
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.exe
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.pdb
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Google.Protobuf.dll
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\MySql.Data.dll
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Renci.SshNet.dll
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Google.Protobuf.xml
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\MySql.Data.xml
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Renci.SshNet.xml
+C:\Users\Pap Gergő\Desktop\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.CopyComplete
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.exe.config
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.exe
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.pdb
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\BouncyCastle.Crypto.dll
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Google.Protobuf.dll
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\MySql.Data.dll
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Renci.SshNet.dll
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Ubiety.Dns.Core.dll
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Google.Protobuf.xml
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\MySql.Data.xml
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Renci.SshNet.xml
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csprojAssemblyReference.cache
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegi.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegiTorzslap.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormKozepiskolaAnyakonyv.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormMain.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiViszgaAnyakonyv.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiVizsga.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormSzakmaiVizsgaTörzslap.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.Properties.Resources.resources
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.GenerateResource.cache
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.CoreCompileInputs.cache
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.CopyComplete
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.exe
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.pdb
