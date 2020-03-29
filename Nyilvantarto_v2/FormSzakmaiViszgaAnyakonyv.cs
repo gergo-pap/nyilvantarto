@@ -18,7 +18,7 @@ namespace Nyilvantarto_v2
         string kiterjesztes;
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = @"c:\Users\pap.gergo\Desktop\Teszt\Szakmai vizsga\Anyakönyv\";
+        string destPath = @"c:\Users\Pap Gergő\Desktop\Teszt\Szakmai vizsga\Anyakönyv\";
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
 
         public FormSzakmaiViszgaAnyakonyv()
@@ -217,7 +217,7 @@ namespace Nyilvantarto_v2
                     string destination = destPath + fileName + "." + kiterjesztes;
                     string source = szva_eleresiUt;
 
-                    //MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
+                    MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
                     // To move a file or folder to a new  location:
 
                     System.IO.File.Copy(source, destination);
