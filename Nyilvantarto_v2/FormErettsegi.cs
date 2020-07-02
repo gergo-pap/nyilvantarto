@@ -27,12 +27,12 @@ namespace Nyilvantarto_v2
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonTorzslap_Click(object sender, EventArgs e)
         {
-            (new FormKozepiskolaAnyakonyv()).Show(); this.Hide();
+            (new FormErettsegiTorzslap()).Show(); this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonTanusitvany_Click(object sender, EventArgs e)
         {
 
         }

@@ -18,7 +18,7 @@ namespace Nyilvantarto_v2
         string kiterjesztes;
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = @"c:\Users\pap.gergo\Desktop\Teszt\Szakmai vizsga\Törzslap\";
+        string destPath = Globális.path + @"Adatok\Szakmai vizsga\Törzslap\";
         private static readonly char[] SpecialChars = "!@#$%^&*()-".ToCharArray();
 
         public FormSzakmaiVizsgaTörzslap()

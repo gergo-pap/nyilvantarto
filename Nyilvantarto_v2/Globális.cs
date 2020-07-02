@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Nyilvantarto_v2
 {
-    class Globális
+    static class Globális
     {
-        public string path {get;set;}
+        public static string path;
     }
 }

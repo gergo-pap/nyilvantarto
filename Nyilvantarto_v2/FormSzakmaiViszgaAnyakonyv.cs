@@ -17,7 +17,6 @@ namespace Nyilvantarto_v2
     {
         string kiterjesztes;
         MySqlConnection conn;
-        Globális g = new Globális();
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
         public FormSzakmaiViszgaAnyakonyv()
@@ -43,8 +42,8 @@ namespace Nyilvantarto_v2
             cmd.CommandText = "Select s_value From settings Where s_var = @Title";
             cmd.Parameters.AddWithValue("@Title", "eleresiUt");
             var result = cmd.ExecuteScalar();
-            g.path = result.ToString() + @"\Szakmai Vizsga\Anyakönyv\";
-            MessageBox.Show(g.path);
+            Globális.path = result.ToString() + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
+            MessageBox.Show(Globális.path);
         }
         private void CreateTableDokumentumok()
         {
@@ -99,7 +98,7 @@ namespace Nyilvantarto_v2
 
                 var formatum = result.ToString();
 
-                string filePath = g.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
+                string filePath = Globális.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
 
 
                 if (!File.Exists(filePath))
@@ -126,6 +125,7 @@ namespace Nyilvantarto_v2
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             DialogResult result = openFileDialog1.ShowDialog();
+
             if (result != DialogResult.OK) // Test result.
             {
                 MessageBox.Show("Hiba");
@@ -224,7 +224,7 @@ namespace Nyilvantarto_v2
 
                     cmd.ExecuteNonQuery();
 
-                    string destination = g.path + fileName + "." + kiterjesztes;
+                    string destination = Globális.path + fileName + "." + kiterjesztes;
                     string source = szva_eleresiUt;
 
                     MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
@@ -301,7 +301,7 @@ namespace Nyilvantarto_v2
 
                 
 
-                string destination = g.path + fileName + "." + szva_formatum2;
+                string destination = Globális.path + fileName + "." + szva_formatum2;
 
                 System.IO.File.Delete(destination);
 
@@ -368,7 +368,7 @@ namespace Nyilvantarto_v2
 
                     string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxAnyjaneveModositas.Text;
                     string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
-                    System.IO.File.Move(g.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, g.path + destFileName + '.' + szva_formatum2);
+                    System.IO.File.Move(Globális.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, Globális.path + destFileName + '.' + szva_formatum2);
 
                     MessageBox.Show("Sikeres módosítás");
                 }

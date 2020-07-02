@@ -22,7 +22,7 @@ namespace Nyilvantarto_v2
         public FormMain()
         {
             InitializeComponent();
-            conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=");
+            conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;charset = utf8");
             conn.Open();
             createTables();
             checkDirs();
@@ -71,11 +71,11 @@ namespace Nyilvantarto_v2
                             "@s_var, " +
                             "@s_value " +
                         ")";
-
+                    MessageBox.Show(labelMentesiHely.Text);
                     cmd.Connection = conn;
                     cmd.CommandText = SQL;
                     cmd.Parameters.AddWithValue("@s_var", "eleresiUt");
-                    cmd.Parameters.AddWithValue("@s_value", labelMentesiHely.Text);
+                    cmd.Parameters.AddWithValue("@s_value", labelMentesiHely.Text.ToString());
 
                     cmd.ExecuteNonQuery();
                 }
