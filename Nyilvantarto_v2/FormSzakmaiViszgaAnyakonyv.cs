@@ -17,18 +17,18 @@ namespace Nyilvantarto_v2
     {
         string kiterjesztes;
         MySqlConnection conn;
+        Globális g = new Globális();
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = @"c:\Users\Pap Gergő\Desktop\Teszt\Szakmai vizsga\Anyakönyv\";
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
-
         public FormSzakmaiViszgaAnyakonyv()
         {
-            conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8");
+            conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
             try
             {
                 InitializeComponent();
                 conn.Open();
                 CreateTableDokumentumok();
+                getDestPathFromDatabase();
             }
             catch (MySqlException)
             {
@@ -36,6 +36,16 @@ namespace Nyilvantarto_v2
             }
         }
 
+        private void getDestPathFromDatabase()
+        {
+            var command = conn.CreateCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "Select s_value From settings Where s_var = @Title";
+            cmd.Parameters.AddWithValue("@Title", "eleresiUt");
+            var result = cmd.ExecuteScalar();
+            g.path = result.ToString() + @"\Szakmai Vizsga\Anyakönyv\";
+            MessageBox.Show(g.path);
+        }
         private void CreateTableDokumentumok()
         {
             var command = conn.CreateCommand();
@@ -89,7 +99,7 @@ namespace Nyilvantarto_v2
 
                 var formatum = result.ToString();
 
-                string filePath = destPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
+                string filePath = g.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
 
 
                 if (!File.Exists(filePath))
@@ -214,7 +224,7 @@ namespace Nyilvantarto_v2
 
                     cmd.ExecuteNonQuery();
 
-                    string destination = destPath + fileName + "." + kiterjesztes;
+                    string destination = g.path + fileName + "." + kiterjesztes;
                     string source = szva_eleresiUt;
 
                     MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
@@ -237,9 +247,9 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (IOException)
+            catch (IOException e)
             {
-                MessageBox.Show("Fájl hiba!\n A fájl már létezik vagy nem található!");
+                MessageBox.Show("Fájl hiba!\n A fájl már létezik vagy nem található!" + e);
             }
         }
 
@@ -291,7 +301,7 @@ namespace Nyilvantarto_v2
 
                 
 
-                string destination = destPath + fileName + "." + szva_formatum2;
+                string destination = g.path + fileName + "." + szva_formatum2;
 
                 System.IO.File.Delete(destination);
 
@@ -358,7 +368,7 @@ namespace Nyilvantarto_v2
 
                     string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxAnyjaneveModositas.Text;
                     string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
-                    System.IO.File.Move(destPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, destPath + destFileName + '.' + szva_formatum2);
+                    System.IO.File.Move(g.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, g.path + destFileName + '.' + szva_formatum2);
 
                     MessageBox.Show("Sikeres módosítás");
                 }

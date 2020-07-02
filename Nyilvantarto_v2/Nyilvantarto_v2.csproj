@@ -110,6 +110,7 @@
     <Compile Include="FormSzakmaiVizsgaTörzslap.Designer.cs">
       <DependentUpon>FormSzakmaiVizsgaTörzslap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Globális.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormErettsegi.resx">

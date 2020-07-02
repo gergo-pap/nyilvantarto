@@ -37,6 +37,7 @@
             this.buttonTallozas = new System.Windows.Forms.Button();
             this.groupBoxEleresi = new System.Windows.Forms.GroupBox();
             this.groupBoxButtons = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxEleresi.SuspendLayout();
             this.groupBoxButtons.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +75,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 30);
+            this.label1.Location = new System.Drawing.Point(6, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 3;
@@ -83,7 +84,7 @@
             // labelMentesiHely
             // 
             this.labelMentesiHely.AutoSize = true;
-            this.labelMentesiHely.Location = new System.Drawing.Point(81, 30);
+            this.labelMentesiHely.Location = new System.Drawing.Point(81, 46);
             this.labelMentesiHely.Name = "labelMentesiHely";
             this.labelMentesiHely.Size = new System.Drawing.Size(0, 13);
             this.labelMentesiHely.TabIndex = 4;
@@ -91,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 58);
+            this.label2.Location = new System.Drawing.Point(9, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 5;
@@ -99,23 +100,24 @@
             // 
             // buttonTallozas
             // 
-            this.buttonTallozas.Location = new System.Drawing.Point(84, 53);
+            this.buttonTallozas.Location = new System.Drawing.Point(84, 69);
             this.buttonTallozas.Name = "buttonTallozas";
             this.buttonTallozas.Size = new System.Drawing.Size(75, 23);
             this.buttonTallozas.TabIndex = 6;
             this.buttonTallozas.Text = "Tallózás";
             this.buttonTallozas.UseVisualStyleBackColor = true;
-            this.buttonTallozas.Click += new System.EventHandler(this.button1_Click);
+            this.buttonTallozas.Click += new System.EventHandler(this.buttonTallozas_Click);
             // 
             // groupBoxEleresi
             // 
+            this.groupBoxEleresi.Controls.Add(this.label3);
             this.groupBoxEleresi.Controls.Add(this.label1);
             this.groupBoxEleresi.Controls.Add(this.buttonTallozas);
             this.groupBoxEleresi.Controls.Add(this.labelMentesiHely);
             this.groupBoxEleresi.Controls.Add(this.label2);
             this.groupBoxEleresi.Location = new System.Drawing.Point(12, 12);
             this.groupBoxEleresi.Name = "groupBoxEleresi";
-            this.groupBoxEleresi.Size = new System.Drawing.Size(297, 100);
+            this.groupBoxEleresi.Size = new System.Drawing.Size(297, 147);
             this.groupBoxEleresi.TabIndex = 7;
             this.groupBoxEleresi.TabStop = false;
             this.groupBoxEleresi.Visible = false;
@@ -131,6 +133,15 @@
             this.groupBoxButtons.TabIndex = 8;
             this.groupBoxButtons.TabStop = false;
             this.groupBoxButtons.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(237, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Első indítás, válaszd ki hova mentsem a program";
             // 
             // FormMain
             // 
@@ -160,6 +171,7 @@
         private System.Windows.Forms.Button buttonTallozas;
         private System.Windows.Forms.GroupBox groupBoxEleresi;
         private System.Windows.Forms.GroupBox groupBoxButtons;
+        private System.Windows.Forms.Label label3;
     }
 }
 

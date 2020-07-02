@@ -25,13 +25,11 @@ namespace Nyilvantarto_v2
             conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=");
             conn.Open();
             createTables();
-            createDirectiories();
-            getPath();
+            checkDirs();
         }
 
-        public void getPath()
+        public void checkDirs()
         {
-
             string query = "SELECT s_value FROM settings WHERE s_var = 'eleresiUt'; ";
             var command = conn.CreateCommand();
             command.CommandText = query;
@@ -47,17 +45,15 @@ namespace Nyilvantarto_v2
                 groupBoxEleresi.Visible = false;
                 groupBoxButtons.Visible = true;
             }
-
         }
 
         private void createDirectiories()
         {
-            Directory.CreateDirectory(@"c:\Users\Pap Gergő\Desktop\Teszt\Középiskola\Anyakönyv\");
-            Directory.CreateDirectory(@"c:\Users\Pap Gergő\Desktop\Teszt\Szakmai Vizsga\Anyakönyv\");
-            Directory.CreateDirectory(@"c:\Users\Pap Gergő\Desktop\Teszt\Szakmai Vizsga\Törzslap\");
-            Directory.CreateDirectory(@"c:\Users\Pap Gergő\Desktop\Teszt\Érettségi\Törzslap\");
-            Directory.CreateDirectory(@"c:\Users\Pap Gergő\Desktop\Teszt\Érettségi\Tanusítvány\");
-
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Középiskola\Anyakönyv\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Anyakönyv\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Törzslap\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Törzslap\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Tanusítvány\");
         }
 
         private void setPath()
@@ -93,7 +89,7 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("SQL hiba " + ex.Number + " has occurred: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            groupBoxEleresi.Visible = false;
+            groupBoxEleresi.Visible = true;
             groupBoxButtons.Visible = true;
         }
 
@@ -187,7 +183,7 @@ namespace Nyilvantarto_v2
             (new FormKozepiskolaAnyakonyv()).Show(); this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonTallozas_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
 
@@ -201,8 +197,8 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("Hiba");
             }
             setPath();
+            createDirectiories();
+            MessageBox.Show(labelMentesiHely.Text);
         }
-
-        
     }
 }
