@@ -45,7 +45,6 @@ namespace Nyilvantarto_v2
             cmd.Parameters.AddWithValue("@Title", "eleresiUt");
             var result = cmd.ExecuteScalar();
             Globális.path = result.ToString() + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
-            MessageBox.Show(Globális.path);
         }
         private void CreateTableDokumentumok()
         {
@@ -554,12 +553,28 @@ namespace Nyilvantarto_v2
 
         private void numericUpDownEvFeltoltKezdet_ValueChanged(object sender, EventArgs e)
         {
-            numericUpDownEvFeltoltVeg.Value = numericUpDownEvFeltoltKezdet.Value + 4;
+            try
+            {
+                numericUpDownEvFeltoltVeg.Value = numericUpDownEvFeltoltKezdet.Value + 4;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Az érték nem 1900 és 2096 között van");
+                numericUpDownEvFeltoltKezdet.Value = 2000;
+            }
         }
 
         private void numericUpDownEvKezdetModositas_ValueChanged(object sender, EventArgs e)
         {
-            numericUpDownEvVegModositas.Value = numericUpDownEvKezdetModositas.Value + 4;
+            try
+            {
+                numericUpDownEvVegModositas.Value = numericUpDownEvKezdetModositas.Value + 4;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Az érték nem 1900 és 2096 között van");
+                numericUpDownEvKezdetModositas.Value = 2000;
+            }
         }
     }
 }

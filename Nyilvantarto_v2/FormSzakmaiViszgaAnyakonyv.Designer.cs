@@ -506,6 +506,7 @@
             0,
             0});
             this.numericUpDownEvVegModositas.Name = "numericUpDownEvVegModositas";
+            this.numericUpDownEvVegModositas.ReadOnly = true;
             this.numericUpDownEvVegModositas.Size = new System.Drawing.Size(186, 23);
             this.numericUpDownEvVegModositas.TabIndex = 95;
             this.numericUpDownEvVegModositas.Value = new decimal(new int[] {
@@ -567,6 +568,7 @@
             0,
             0});
             this.numericUpDownEvFeltoltVeg.Name = "numericUpDownEvFeltoltVeg";
+            this.numericUpDownEvFeltoltVeg.ReadOnly = true;
             this.numericUpDownEvFeltoltVeg.Size = new System.Drawing.Size(178, 23);
             this.numericUpDownEvFeltoltVeg.TabIndex = 99;
             this.numericUpDownEvFeltoltVeg.Value = new decimal(new int[] {
