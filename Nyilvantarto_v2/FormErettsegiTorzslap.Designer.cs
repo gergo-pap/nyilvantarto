@@ -49,6 +49,7 @@
             this.Controls.Add(this.buttonVissza);
             this.Name = "FormErettsegiTorzslap";
             this.Text = "FormErettsegiTorzslap";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormErettsegiTorzslap_FormClosed);
             this.ResumeLayout(false);
 
         }

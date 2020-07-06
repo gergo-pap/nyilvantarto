@@ -20,7 +20,6 @@ namespace Nyilvantarto_v2
         private void buttonVissza_Click(object sender, EventArgs e)
         {
             (new FormMain()).Show(); this.Hide();
-
         }
 
         private void FormSzakmaiVizsga_FormClosed(object sender, FormClosedEventArgs e)

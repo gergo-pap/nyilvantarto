@@ -75,7 +75,6 @@ namespace Nyilvantarto_v2
                             "@s_var, " +
                             "@s_value " +
                         ")";
-                    MessageBox.Show(labelMentesiHely.Text);
                     cmd.Connection = conn;
                     cmd.CommandText = SQL;
                     cmd.Parameters.AddWithValue("@s_var", "eleresiUt");
@@ -203,7 +202,6 @@ namespace Nyilvantarto_v2
             }
             setPathInDB();
             createDirectiories();
-            MessageBox.Show(labelMentesiHely.Text);
         }
     }
 }

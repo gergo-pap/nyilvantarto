@@ -684,6 +684,7 @@
             this.Name = "FormKozepiskolaAnyakonyv";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Középiskola anyakönyv";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormKozepiskolaAnyakonyv_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaVegKeres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltVeg)).EndInit();
             this.groupBoxJelszo.ResumeLayout(false);

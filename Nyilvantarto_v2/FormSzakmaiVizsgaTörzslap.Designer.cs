@@ -34,6 +34,10 @@
             this.textBoxJelszo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.radioButtonTavaszModosit = new System.Windows.Forms.RadioButton();
+            this.radioButtonOszModosit = new System.Windows.Forms.RadioButton();
             this.textBoxNevModositas = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -76,18 +80,14 @@
             this.radioButtonTavaszKeres = new System.Windows.Forms.RadioButton();
             this.radioButtonOszKeres = new System.Windows.Forms.RadioButton();
             this.label18 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButtonTavaszModosit = new System.Windows.Forms.RadioButton();
-            this.radioButtonOszModosit = new System.Windows.Forms.RadioButton();
-            this.label19 = new System.Windows.Forms.Label();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKezdetModositas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaKezdetKeres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltKezdet)).BeginInit();
             this.groupBoxTavaszOsz.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label22
@@ -155,6 +155,48 @@
             this.groupBox1.TabIndex = 167;
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label19.Location = new System.Drawing.Point(13, 145);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(60, 17);
+            this.label19.TabIndex = 181;
+            this.label19.Text = "Időszak:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.radioButtonTavaszModosit);
+            this.groupBox3.Controls.Add(this.radioButtonOszModosit);
+            this.groupBox3.Location = new System.Drawing.Point(123, 137);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(186, 25);
+            this.groupBox3.TabIndex = 179;
+            this.groupBox3.TabStop = false;
+            // 
+            // radioButtonTavaszModosit
+            // 
+            this.radioButtonTavaszModosit.AutoSize = true;
+            this.radioButtonTavaszModosit.Checked = true;
+            this.radioButtonTavaszModosit.Location = new System.Drawing.Point(6, 8);
+            this.radioButtonTavaszModosit.Name = "radioButtonTavaszModosit";
+            this.radioButtonTavaszModosit.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonTavaszModosit.TabIndex = 176;
+            this.radioButtonTavaszModosit.TabStop = true;
+            this.radioButtonTavaszModosit.Text = "Tavasz";
+            this.radioButtonTavaszModosit.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonOszModosit
+            // 
+            this.radioButtonOszModosit.AutoSize = true;
+            this.radioButtonOszModosit.Location = new System.Drawing.Point(129, 8);
+            this.radioButtonOszModosit.Name = "radioButtonOszModosit";
+            this.radioButtonOszModosit.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonOszModosit.TabIndex = 177;
+            this.radioButtonOszModosit.Text = "Ősz";
+            this.radioButtonOszModosit.UseVisualStyleBackColor = true;
             // 
             // textBoxNevModositas
             // 
@@ -532,6 +574,7 @@
             this.buttonVissza.TabIndex = 152;
             this.buttonVissza.Text = "Vissza";
             this.buttonVissza.UseVisualStyleBackColor = true;
+            this.buttonVissza.Click += new System.EventHandler(this.buttonVissza_Click);
             // 
             // radioButtonTavaszFeltolt
             // 
@@ -619,48 +662,6 @@
             this.label18.TabIndex = 180;
             this.label18.Text = "Időszak:";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.radioButtonTavaszModosit);
-            this.groupBox3.Controls.Add(this.radioButtonOszModosit);
-            this.groupBox3.Location = new System.Drawing.Point(123, 137);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(186, 25);
-            this.groupBox3.TabIndex = 179;
-            this.groupBox3.TabStop = false;
-            // 
-            // radioButtonTavaszModosit
-            // 
-            this.radioButtonTavaszModosit.AutoSize = true;
-            this.radioButtonTavaszModosit.Checked = true;
-            this.radioButtonTavaszModosit.Location = new System.Drawing.Point(6, 8);
-            this.radioButtonTavaszModosit.Name = "radioButtonTavaszModosit";
-            this.radioButtonTavaszModosit.Size = new System.Drawing.Size(60, 17);
-            this.radioButtonTavaszModosit.TabIndex = 176;
-            this.radioButtonTavaszModosit.TabStop = true;
-            this.radioButtonTavaszModosit.Text = "Tavasz";
-            this.radioButtonTavaszModosit.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonOszModosit
-            // 
-            this.radioButtonOszModosit.AutoSize = true;
-            this.radioButtonOszModosit.Location = new System.Drawing.Point(129, 8);
-            this.radioButtonOszModosit.Name = "radioButtonOszModosit";
-            this.radioButtonOszModosit.Size = new System.Drawing.Size(43, 17);
-            this.radioButtonOszModosit.TabIndex = 177;
-            this.radioButtonOszModosit.Text = "Ősz";
-            this.radioButtonOszModosit.UseVisualStyleBackColor = true;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label19.Location = new System.Drawing.Point(13, 145);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(60, 17);
-            this.label19.TabIndex = 181;
-            this.label19.Text = "Időszak:";
-            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,6 +710,8 @@
             this.groupBoxJelszo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKezdetModositas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaKezdetKeres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltKezdet)).EndInit();
@@ -716,8 +719,6 @@
             this.groupBoxTavaszOsz.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
