@@ -560,5 +560,10 @@ namespace Nyilvantarto_v2
         {
             keres("szva_erettsegiEvVeg", numericUpDownVizsgaVegKeres.Value.ToString());
         }
+
+        private void FormKozepiskolaAnyakonyv_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

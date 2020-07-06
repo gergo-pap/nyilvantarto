@@ -21,5 +21,10 @@ namespace Nyilvantarto_v2
         {
             (new FormMain()).Show(); this.Hide();
         }
+
+        private void FormErettsegiTorzslap_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
