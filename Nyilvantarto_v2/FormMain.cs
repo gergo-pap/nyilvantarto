@@ -26,6 +26,7 @@ namespace Nyilvantarto_v2
             conn.Open();
             createTables();
             checkDirs();
+            labelPath.Text = Globális.path;
         }
 
         public void checkDirs()
@@ -37,6 +38,7 @@ namespace Nyilvantarto_v2
             if (result == null)
             {
                 groupBoxEleresi.Visible = true;
+                groupBoxButtons.Visible = false;
             }
             else
             {
@@ -44,6 +46,7 @@ namespace Nyilvantarto_v2
                 labelMentesiHely.Text = path;
                 groupBoxEleresi.Visible = false;
                 groupBoxButtons.Visible = true;
+                Globális.path = labelMentesiHely.Text;
             }
         }
 
@@ -54,9 +57,10 @@ namespace Nyilvantarto_v2
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Törzslap\");
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Törzslap\");
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Tanusítvány\");
+            Globális.path = labelMentesiHely.Text;
         }
 
-        private void setPath()
+        private void setPathInDB()
         {
             try
             {
@@ -89,8 +93,9 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("SQL hiba " + ex.Number + " has occurred: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            groupBoxEleresi.Visible = true;
+            groupBoxEleresi.Visible = false;
             groupBoxButtons.Visible = true;
+            
         }
 
         private void createTables()
@@ -196,7 +201,7 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("Hiba");
             }
-            setPath();
+            setPathInDB();
             createDirectiories();
             MessageBox.Show(labelMentesiHely.Text);
         }

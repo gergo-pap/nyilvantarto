@@ -36,8 +36,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonTallozas = new System.Windows.Forms.Button();
             this.groupBoxEleresi = new System.Windows.Forms.GroupBox();
-            this.groupBoxButtons = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBoxButtons = new System.Windows.Forms.GroupBox();
+            this.labelPath = new System.Windows.Forms.Label();
             this.groupBoxEleresi.SuspendLayout();
             this.groupBoxButtons.SuspendLayout();
             this.SuspendLayout();
@@ -122,6 +123,15 @@
             this.groupBoxEleresi.TabStop = false;
             this.groupBoxEleresi.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(237, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Első indítás, válaszd ki hova mentsem a program";
+            // 
             // groupBoxButtons
             // 
             this.groupBoxButtons.Controls.Add(this.buttonSzkmaiVizsga);
@@ -134,20 +144,21 @@
             this.groupBoxButtons.TabStop = false;
             this.groupBoxButtons.Visible = false;
             // 
-            // label3
+            // labelPath
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(237, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Első indítás, válaszd ki hova mentsem a program";
+            this.labelPath.AutoSize = true;
+            this.labelPath.Location = new System.Drawing.Point(367, 28);
+            this.labelPath.Name = "labelPath";
+            this.labelPath.Size = new System.Drawing.Size(35, 13);
+            this.labelPath.TabIndex = 9;
+            this.labelPath.Text = "label4";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelPath);
             this.Controls.Add(this.groupBoxButtons);
             this.Controls.Add(this.groupBoxEleresi);
             this.Name = "FormMain";
@@ -157,6 +168,7 @@
             this.groupBoxEleresi.PerformLayout();
             this.groupBoxButtons.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,6 +184,7 @@
         private System.Windows.Forms.GroupBox groupBoxEleresi;
         private System.Windows.Forms.GroupBox groupBoxButtons;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelPath;
     }
 }
 

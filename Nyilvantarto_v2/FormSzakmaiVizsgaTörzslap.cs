@@ -18,15 +18,26 @@ namespace Nyilvantarto_v2
         string kiterjesztes;
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = Globális.path + @"Adatok\Szakmai vizsga\Törzslap\";
         private static readonly char[] SpecialChars = "!@#$%^&*()-".ToCharArray();
+        string destPath = Globális.path + @"\Adatok\Szakmai vizsga\Törzslap\";
 
         public FormSzakmaiVizsgaTörzslap()
         {
             InitializeComponent();
-            conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=");
+            conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;") ;
             conn.Open();
             CreateTableDokumentumok();
+            getDestPathFromDatabase();
+        }
+
+        private void getDestPathFromDatabase()
+        {
+            var command = conn.CreateCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "Select s_value From settings Where s_var = @Title";
+            cmd.Parameters.AddWithValue("@Title", "eleresiUt");
+            var result = cmd.ExecuteScalar();
+            Globális.path = result.ToString() + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
         }
 
         private void CreateTableDokumentumok()
@@ -91,7 +102,6 @@ namespace Nyilvantarto_v2
                 var formatum = result.ToString();
 
                 string filePath = destPath + nev + '_' + evKezdet + '_' + tavaszOsz + '_' + anyja + "." + formatum;
-
 
                 if (!File.Exists(filePath))
                 {
@@ -229,8 +239,7 @@ namespace Nyilvantarto_v2
 
                     string destination = destPath + fileName + "." + kiterjesztes;
                     string source = szvt_eleresiUt;
-
-                    //MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
+                    MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
                     // To move a file or folder to a new  location:
 
                     System.IO.File.Copy(source, destination);
