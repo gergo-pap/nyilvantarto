@@ -576,5 +576,21 @@ namespace Nyilvantarto_v2
                 numericUpDownEvKezdetModositas.Value = 2000;
             }
         }
+
+
+        private void textBoxJelszo_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (textBoxJelszo.Text == "12345")
+                {
+                    torles();
+                    groupBoxJelszo.Visible = false;
+                    textBoxJelszo.Clear();
+                    listBoxKeresesEredmenye.Items.Clear();
+                }
+                e.Handled = true;
+            }
+        }
     }
 }

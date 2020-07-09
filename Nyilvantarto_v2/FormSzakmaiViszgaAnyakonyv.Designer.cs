@@ -532,6 +532,7 @@
             this.textBoxJelszo.PasswordChar = '*';
             this.textBoxJelszo.Size = new System.Drawing.Size(134, 20);
             this.textBoxJelszo.TabIndex = 96;
+            this.textBoxJelszo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxJelszo_KeyUp);
             // 
             // label17
             // 
