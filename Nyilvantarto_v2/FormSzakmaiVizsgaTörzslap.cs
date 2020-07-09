@@ -299,20 +299,6 @@ namespace Nyilvantarto_v2
             {
                 try
                 {
-                    string[] keresesKijelolt = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
-                    string nev = keresesKijelolt[0];
-                    string evKezdet = keresesKijelolt[1];
-                    string tavaszVOsz = keresesKijelolt[2];
-                    string anyja = keresesKijelolt[3];
-                    int tavaszVOszInt;
-                    if (tavaszVOsz == "Tavasz")
-                    {
-                        tavaszVOszInt = 1;
-                    }
-                    else
-                    {
-                        tavaszVOszInt = 0;
-                    }
                     string SQL =
                                 "UPDATE " +
                                 "szakmaivizsgaTorzslap " +
@@ -322,10 +308,10 @@ namespace Nyilvantarto_v2
                                 "szvt_viszgaEvKezdet = " + numericUpDownEvKezdetModositas.Value + ", " +
                                 "szvt_viszgaTavasz1Osz0 = " + tavaszVosz + " " +
                                 "WHERE " +
-                                "szvt_tanuloNeve = '" + nev + "' AND " +
-                                "szvt_AnyjaNeve =  '" + anyja + "' AND " +
-                                "szvt_viszgaEvKezdet = " + evKezdet + " AND " +
-                                "szvt_viszgaTavasz1Osz0 = " + tavaszVOszInt + ";"
+                                "szvt_tanuloNeve = '" + globNev + "' AND " +
+                                "szvt_AnyjaNeve =  '" + globAnyja + "' AND " +
+                                "szvt_viszgaEvKezdet = " + globEvKezdet + " AND " +
+                                "szvt_viszgaTavasz1Osz0 = " + globTavaszVoszInt + ";"
                                 ;
 
                     cmd.Connection = conn;
@@ -333,28 +319,9 @@ namespace Nyilvantarto_v2
 
                     cmd.ExecuteNonQuery();
 
-                    var command = conn.CreateCommand();
-
-                    command.CommandText = "SELECT szvt_formatum " +
-                        "FROM " +
-                        "szakmaivizsgaTorzslap " +
-                        "WHERE " +
-                        "szvt_tanuloNeve = '" + textBoxNevModositas.Text +
-                        "' AND " +
-                        "szvt_AnyjaNeve = '" + textBoxAnyjaneveModositas.Text +
-                        "' AND " +
-                        "szvt_viszgaEvKezdet = " + numericUpDownEvKezdetModositas.Value +
-                        " AND " +
-                        "szvt_viszgaTavasz1Osz0 = " + tavaszVosz
-                        ;
-
-                    var result = command.ExecuteScalar();
-
-                    var szvt_formatum2 = result.ToString();
 
                     string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + tavaszVOszModosit + '_'+ textBoxAnyjaneveModositas.Text;
-                    string[] s = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
-                    System.IO.File.Move(destPath + nev + '_' + evKezdet + '_' + tavaszVOsz + '_' + anyja + '.' + szvt_formatum2, destPath + destFileName + '.' + szvt_formatum2);
+                    System.IO.File.Move(destPath + globNev + '_' + globEvKezdet + '_' + globTavaszVOszString + '_' + globAnyja + '.' + globFormatum, destPath + destFileName + '.' + globFormatum);
 
                     MessageBox.Show("Sikeres módosítás");
                 }
