@@ -266,12 +266,12 @@ namespace Nyilvantarto_v2
 
                 cmd.ExecuteNonQuery();
 
-                /*string destination = destPath + fileName + "." + szvt_formatum2;
+                string destination = destPath + globNev + '_' + globEvKezdet + '_' + globTavaszVOszString + '_' + globAnyja + '.' + globFormatum;
 
                 System.IO.File.Delete(destination);
 
                 MessageBox.Show("Sikeres törlés");
-                */
+                
             }
             catch (NullReferenceException)
             {
