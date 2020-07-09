@@ -20,7 +20,14 @@ namespace Nyilvantarto_v2
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()-".ToCharArray();
         string destPath = Globális.path + @"\Adatok\Szakmai vizsga\Törzslap\";
-
+        //string filePath = destPath + nev + '_' + evKezdet + '_' + tavaszVosz + '_' + anyja + "." + formatum;
+        string globNev;
+        string globEvKezdet;
+        int globTavaszVoszInt;
+        string globTavaszVoszTrueOrFalse;
+        string globTavaszVOszString;
+        string globAnyja;
+        string globFormatum;
         public FormSzakmaiVizsgaTörzslap()
         {
             InitializeComponent();
@@ -67,77 +74,7 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                string nev = "";
-                string evKezdet = "";
-                string anyja = "";
-                string tavaszVoszTrueFalse = "";
-                string tavaszVosz = "";
-                int tavaszVoszInt;
-
-                var getData = conn.CreateCommand();
-                string idIn = listBoxId.SelectedItem.ToString();
-
-                getData.CommandText = "SELECT " +
-                    "szvt_tanuloNeve," +
-                    "szvt_viszgaEvKezdet," +
-                    "szvt_viszgaTavasz1Osz0," +
-                    "szvt_AnyjaNeve  " +
-                    "FROM " +
-                    "szakmaivizsgaTorzslap " +
-                    "WHERE id = " + idIn 
-                    ;
-
-                //var result = getData.ExecuteScalar();
-                using (var reader = getData.ExecuteReader())
-                {
-                    var szvt_tanuloNeve = reader.GetOrdinal("szvt_tanuloNeve");
-                    var szvt_viszgaEvKezdet = reader.GetOrdinal("szvt_viszgaEvKezdet");
-                    var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal("szvt_viszgaTavasz1Osz0");
-                    var szvt_AnyjaNeve = reader.GetOrdinal("szvt_AnyjaNeve");
-
-                    while (reader.Read())
-                    {
-                        nev = reader.GetValue(szvt_tanuloNeve).ToString();
-                        evKezdet = reader.GetValue(szvt_viszgaEvKezdet).ToString();
-                        tavaszVoszTrueFalse = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
-                        anyja = reader.GetValue(szvt_AnyjaNeve).ToString();
-                    }
-
-                }
-
-                MessageBox.Show($"{nev} {evKezdet} {tavaszVoszTrueFalse} {anyja}");
-
-                if (tavaszVoszTrueFalse == "True")
-                {
-                    tavaszVoszInt = 1;
-                    tavaszVosz = "Tavasz";
-                }
-                else
-                {
-                    tavaszVoszInt = 0;
-                    tavaszVosz = "Ősz";
-                }
-
-                var command = conn.CreateCommand();
-                command.CommandText = "SELECT szvt_formatum " +
-                    "FROM " +
-                    "szakmaivizsgaTorzslap " +
-                    "WHERE " +
-                    "szvt_tanuloNeve = '" + nev +
-                    "' AND " +
-                    "szvt_AnyjaNeve = '" + anyja +
-                    "' AND " +
-                    "szvt_viszgaEvKezdet = " + evKezdet +
-                    " AND " +
-                    "szvt_viszgaTavasz1Osz0 = '" + tavaszVoszInt + "'" 
-                    ;
-                MessageBox.Show(command.CommandText);
-                var result = command.ExecuteScalar();
-
-                var formatum = result.ToString();
-
-                string filePath = destPath + nev + '_' + evKezdet + '_' + tavaszVosz + '_' + anyja + "." + formatum;
-                MessageBox.Show(filePath);
+                string filePath = destPath + globNev + '_' + globEvKezdet + '_' + globTavaszVOszString + '_' + globAnyja + "." + globFormatum;
                 if (!File.Exists(filePath))
                 {
                     MessageBox.Show("Nincs meg a File!");
@@ -147,11 +84,7 @@ namespace Nyilvantarto_v2
                 System.Diagnostics.Process.Start("explorer.exe", argument);
                 
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-                MessageBox.Show("Hiba " + ex.Number + " lépett fel: " + ex.Message,
-                    "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
             catch (NullReferenceException)
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
@@ -333,8 +266,6 @@ namespace Nyilvantarto_v2
 
                 cmd.ExecuteNonQuery();
 
-
-
                 /*string destination = destPath + fileName + "." + szvt_formatum2;
 
                 System.IO.File.Delete(destination);
@@ -373,14 +304,14 @@ namespace Nyilvantarto_v2
                     string evKezdet = keresesKijelolt[1];
                     string tavaszVOsz = keresesKijelolt[2];
                     string anyja = keresesKijelolt[3];
-                    int tavaszVoszSplit;
+                    int tavaszVOszInt;
                     if (tavaszVOsz == "Tavasz")
                     {
-                        tavaszVoszSplit = 1;
+                        tavaszVOszInt = 1;
                     }
                     else
                     {
-                        tavaszVoszSplit = 0;
+                        tavaszVOszInt = 0;
                     }
                     string SQL =
                                 "UPDATE " +
@@ -394,7 +325,7 @@ namespace Nyilvantarto_v2
                                 "szvt_tanuloNeve = '" + nev + "' AND " +
                                 "szvt_AnyjaNeve =  '" + anyja + "' AND " +
                                 "szvt_viszgaEvKezdet = " + evKezdet + " AND " +
-                                "szvt_viszgaTavasz1Osz0 = " + tavaszVoszSplit + ";"
+                                "szvt_viszgaTavasz1Osz0 = " + tavaszVOszInt + ";"
                                 ;
 
                     cmd.Connection = conn;
@@ -647,6 +578,68 @@ namespace Nyilvantarto_v2
                 e.Handled = true;
             }
             */
+        }
+
+        private void listBoxId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            var getData = conn.CreateCommand();
+            string idIn = listBoxId.SelectedItem.ToString();
+
+            getData.CommandText = "SELECT " +
+                "szvt_tanuloNeve," +
+                "szvt_viszgaEvKezdet," +
+                "szvt_viszgaTavasz1Osz0," +
+                "szvt_AnyjaNeve  " +
+                "FROM " +
+                "szakmaivizsgaTorzslap " +
+                "WHERE id = " + idIn
+                ;
+
+            //var result = getData.ExecuteScalar();
+            using (var reader = getData.ExecuteReader())
+            {
+                var szvt_tanuloNeve = reader.GetOrdinal("szvt_tanuloNeve");
+                var szvt_viszgaEvKezdet = reader.GetOrdinal("szvt_viszgaEvKezdet");
+                var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal("szvt_viszgaTavasz1Osz0");
+                var szvt_AnyjaNeve = reader.GetOrdinal("szvt_AnyjaNeve");
+
+                while (reader.Read())
+                {
+                    globNev = reader.GetValue(szvt_tanuloNeve).ToString();
+                    globEvKezdet = reader.GetValue(szvt_viszgaEvKezdet).ToString();
+                    globTavaszVoszTrueOrFalse = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
+                    globAnyja = reader.GetValue(szvt_AnyjaNeve).ToString();
+                }
+                if (globTavaszVoszTrueOrFalse == "True")
+                {
+                    globTavaszVoszInt = 1;
+                    globTavaszVOszString = "Tavasz";
+                }
+                else
+                {
+                    globTavaszVoszInt = 0;
+                    globTavaszVOszString = "Ősz";
+                }
+                conn.Close();
+                conn.Open();
+                var command = conn.CreateCommand();
+                command.CommandText = "SELECT szvt_formatum " +
+                    "FROM " +
+                    "szakmaivizsgaTorzslap " +
+                    "WHERE " +
+                    "szvt_tanuloNeve = '" + globNev +
+                    "' AND " +
+                    "szvt_AnyjaNeve = '" + globAnyja +
+                    "' AND " +
+                    "szvt_viszgaEvKezdet = " + globEvKezdet +
+                    " AND " +
+                    "szvt_viszgaTavasz1Osz0 = '" + globTavaszVoszInt + "'"
+                    ;
+                var result = command.ExecuteScalar();
+
+                globFormatum = result.ToString();
+            }
         }
     }
 }

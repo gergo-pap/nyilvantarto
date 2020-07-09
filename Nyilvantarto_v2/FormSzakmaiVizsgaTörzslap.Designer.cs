@@ -716,6 +716,7 @@
             this.listBoxId.Name = "listBoxId";
             this.listBoxId.Size = new System.Drawing.Size(36, 132);
             this.listBoxId.TabIndex = 185;
+            this.listBoxId.SelectedIndexChanged += new System.EventHandler(this.listBoxId_SelectedIndexChanged);
             // 
             // FormSzakmaiVizsgaTörzslap
             // 
