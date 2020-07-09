@@ -67,23 +67,58 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                string[] keresesKijelolt = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
-                string nev = keresesKijelolt[0];
-                string evKezdet = keresesKijelolt[1];
-                string tavaszOsz = keresesKijelolt[2];
-                string anyja = keresesKijelolt[3];
+                string nev = "";
+                string evKezdet = "";
+                string anyja = "";
+                string tavaszVoszTrueFalse = "";
+                string tavaszVosz = "";
                 int tavaszVoszInt;
-                var command = conn.CreateCommand();
 
-                if (tavaszOsz == "Tavasz")
+                var getData = conn.CreateCommand();
+                string idIn = listBoxId.SelectedItem.ToString();
+
+                getData.CommandText = "SELECT " +
+                    "szvt_tanuloNeve," +
+                    "szvt_viszgaEvKezdet," +
+                    "szvt_viszgaTavasz1Osz0," +
+                    "szvt_AnyjaNeve  " +
+                    "FROM " +
+                    "szakmaivizsgaTorzslap " +
+                    "WHERE id = " + idIn 
+                    ;
+
+                //var result = getData.ExecuteScalar();
+                using (var reader = getData.ExecuteReader())
+                {
+                    var szvt_tanuloNeve = reader.GetOrdinal("szvt_tanuloNeve");
+                    var szvt_viszgaEvKezdet = reader.GetOrdinal("szvt_viszgaEvKezdet");
+                    var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal("szvt_viszgaTavasz1Osz0");
+                    var szvt_AnyjaNeve = reader.GetOrdinal("szvt_AnyjaNeve");
+
+                    while (reader.Read())
+                    {
+                        nev = reader.GetValue(szvt_tanuloNeve).ToString();
+                        evKezdet = reader.GetValue(szvt_viszgaEvKezdet).ToString();
+                        tavaszVoszTrueFalse = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
+                        anyja = reader.GetValue(szvt_AnyjaNeve).ToString();
+                    }
+
+                }
+
+                MessageBox.Show($"{nev} {evKezdet} {tavaszVoszTrueFalse} {anyja}");
+
+                if (tavaszVoszTrueFalse == "True")
                 {
                     tavaszVoszInt = 1;
+                    tavaszVosz = "Tavasz";
                 }
                 else
                 {
                     tavaszVoszInt = 0;
+                    tavaszVosz = "Ősz";
                 }
 
+                var command = conn.CreateCommand();
                 command.CommandText = "SELECT szvt_formatum " +
                     "FROM " +
                     "szakmaivizsgaTorzslap " +
@@ -96,13 +131,13 @@ namespace Nyilvantarto_v2
                     " AND " +
                     "szvt_viszgaTavasz1Osz0 = '" + tavaszVoszInt + "'" 
                     ;
-
+                MessageBox.Show(command.CommandText);
                 var result = command.ExecuteScalar();
 
                 var formatum = result.ToString();
 
-                string filePath = destPath + nev + '_' + evKezdet + '_' + tavaszOsz + '_' + anyja + "." + formatum;
-
+                string filePath = destPath + nev + '_' + evKezdet + '_' + tavaszVosz + '_' + anyja + "." + formatum;
+                MessageBox.Show(filePath);
                 if (!File.Exists(filePath))
                 {
                     MessageBox.Show("Nincs meg a File!");
@@ -110,6 +145,7 @@ namespace Nyilvantarto_v2
                 }
                 string argument = "/select, \"" + filePath + "\"";
                 System.Diagnostics.Process.Start("explorer.exe", argument);
+                
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
@@ -159,11 +195,12 @@ namespace Nyilvantarto_v2
 
         private void keres(string column, string textboxText)
         {
-            listBoxKeresesEredmenye.Items.Clear();
+            listboxKeresesEredmenyeiClear();
             var command = conn.CreateCommand();
-            command.CommandText = "SELECT szvt_tanuloNeve,szvt_viszgaEvKezdet,szvt_viszgaTavasz1Osz0,szvt_AnyjaNeve  FROM szakmaivizsgaTorzslap WHERE " + column + " like '%" + textboxText + "%'";
+            command.CommandText = "SELECT id,szvt_tanuloNeve,szvt_viszgaEvKezdet,szvt_viszgaTavasz1Osz0,szvt_AnyjaNeve  FROM szakmaivizsgaTorzslap WHERE " + column + " like '%" + textboxText + "%'";
             using (var reader = command.ExecuteReader())
             {
+                var id = reader.GetOrdinal("id");
                 var szvt_tanuloNeve = reader.GetOrdinal("szvt_tanuloNeve");
                 var szvt_viszgaEvKezdet = reader.GetOrdinal("szvt_viszgaEvKezdet");
                 var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal("szvt_viszgaTavasz1Osz0");
@@ -171,13 +208,28 @@ namespace Nyilvantarto_v2
 
                 while (reader.Read())
                 {
+                    var id2 = reader.GetValue(id).ToString();
                     var szvt_tanuloNeve2 = reader.GetValue(szvt_tanuloNeve).ToString();
                     var szvt_viszgaEvKezdet2 = reader.GetValue(szvt_viszgaEvKezdet).ToString();
                     var szvt_viszgaTavasz1Osz02 = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
                     var szvt_AnyjaNeve2 = reader.GetValue(szvt_AnyjaNeve).ToString();
-                    listBoxKeresesEredmenye.Items.Add(szvt_tanuloNeve2 + "-" + szvt_viszgaEvKezdet2 + "-" + boolConvert(bool.Parse(szvt_viszgaTavasz1Osz02)) + "-" + szvt_AnyjaNeve2);
+                    listBoxId.Items.Add(id2);
+                    listBoxKeresesEredmenyeTanuloNeve.Items.Add(szvt_tanuloNeve2);
+                    listBoxVKezdete.Items.Add(szvt_viszgaEvKezdet2);
+                    listBoxVVege.Items.Add(boolConvert(bool.Parse(szvt_viszgaTavasz1Osz02)));
+                    listBoxAnyjaNeve.Items.Add(szvt_AnyjaNeve2);
+                    // + "-" + szvt_viszgaEvKezdet2 + "-" + boolConvert(bool.Parse(szvt_viszgaTavasz1Osz02)) + "-" + szvt_AnyjaNeve2
                 }
             }
+        }
+
+        private void listboxKeresesEredmenyeiClear()
+        {
+            listBoxId.Items.Clear();
+            listBoxKeresesEredmenyeTanuloNeve.Items.Clear();
+            listBoxVKezdete.Items.Clear();
+            listBoxVVege.Items.Clear();
+            listBoxAnyjaNeve.Items.Clear();
         }
         private void hozzaad()
         {
@@ -269,9 +321,9 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
+                string[] s = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
                 string fileName = s[0] + "_" + s[1] + "_" + s[2] + "_" + s[3];
-                string[] keresesKijelolt = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
+                string[] keresesKijelolt = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
                 string nev = keresesKijelolt[0];
                 string evKezdet = keresesKijelolt[1];
                 string tavaszOsz = keresesKijelolt[2];
@@ -355,7 +407,7 @@ namespace Nyilvantarto_v2
             {
                 try
                 {
-                    string[] keresesKijelolt = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
+                    string[] keresesKijelolt = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
                     string nev = keresesKijelolt[0];
                     string evKezdet = keresesKijelolt[1];
                     string tavaszVOsz = keresesKijelolt[2];
@@ -409,7 +461,7 @@ namespace Nyilvantarto_v2
                     var szvt_formatum2 = result.ToString();
 
                     string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + tavaszVOszModosit + '_'+ textBoxAnyjaneveModositas.Text;
-                    string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
+                    string[] s = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
                     System.IO.File.Move(destPath + nev + '_' + evKezdet + '_' + tavaszVOsz + '_' + anyja + '.' + szvt_formatum2, destPath + destFileName + '.' + szvt_formatum2);
 
                     MessageBox.Show("Sikeres módosítás");
@@ -571,7 +623,7 @@ namespace Nyilvantarto_v2
                 torles();
                 groupBoxJelszo.Visible = false;
                 textBoxJelszo.Clear();
-                listBoxKeresesEredmenye.Items.Clear();
+                listBoxKeresesEredmenyeTanuloNeve.Items.Clear();
             }
         }
 
@@ -581,7 +633,7 @@ namespace Nyilvantarto_v2
             {
                 modositas();
                 groupBox1.Visible = false;
-                listBoxKeresesEredmenye.Items.Clear();
+                listBoxKeresesEredmenyeTanuloNeve.Items.Clear();
             }
             else
             {
@@ -612,6 +664,28 @@ namespace Nyilvantarto_v2
         private void buttonVissza_Click(object sender, EventArgs e)
         {
             (new FormMain()).Show(); this.Hide();
+        }
+
+        private void FormSzakmaiVizsgaTörzslap_Enter(object sender, EventArgs e)
+        {
+            torles();
+        }
+
+        private void textBoxJelszo_KeyUp(object sender, KeyEventArgs e)
+        {
+            /*
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (textBoxJelszo.Text == "12345")
+                {
+                    torles();
+                    groupBoxJelszo.Visible = false;
+                    textBoxJelszo.Clear();
+                    listBoxKeresesEredmenye.Items.Clear();
+                }
+                e.Handled = true;
+            }
+            */
         }
     }
 }

@@ -54,7 +54,7 @@
             this.textBoxAnyjaNeveKeres = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxAnyjaNeveFeltolt = new System.Windows.Forms.TextBox();
-            this.listBoxKeresesEredmenye = new System.Windows.Forms.ListBox();
+            this.listBoxKeresesEredmenyeTanuloNeve = new System.Windows.Forms.ListBox();
             this.numericUpDownVizsgaKezdetKeres = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -80,6 +80,11 @@
             this.radioButtonTavaszKeres = new System.Windows.Forms.RadioButton();
             this.radioButtonOszKeres = new System.Windows.Forms.RadioButton();
             this.label18 = new System.Windows.Forms.Label();
+            this.listBoxVKezdete = new System.Windows.Forms.ListBox();
+            this.listBoxVVege = new System.Windows.Forms.ListBox();
+            this.listBoxAnyjaNeve = new System.Windows.Forms.ListBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.listBoxId = new System.Windows.Forms.ListBox();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -106,9 +111,9 @@
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label21.Location = new System.Drawing.Point(656, 263);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(58, 17);
+            this.label21.Size = new System.Drawing.Size(56, 17);
             this.label21.TabIndex = 173;
-            this.label21.Text = "V. Vége";
+            this.label21.Text = "Időszak";
             // 
             // groupBoxJelszo
             // 
@@ -128,6 +133,7 @@
             this.textBoxJelszo.PasswordChar = '*';
             this.textBoxJelszo.Size = new System.Drawing.Size(134, 20);
             this.textBoxJelszo.TabIndex = 96;
+            this.textBoxJelszo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxJelszo_KeyUp);
             // 
             // label17
             // 
@@ -313,7 +319,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(727, 263);
+            this.label10.Location = new System.Drawing.Point(739, 263);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 17);
             this.label10.TabIndex = 163;
@@ -367,15 +373,15 @@
             this.textBoxAnyjaNeveFeltolt.TabIndex = 141;
             this.textBoxAnyjaNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveFeltolt_TextChanged);
             // 
-            // listBoxKeresesEredmenye
+            // listBoxKeresesEredmenyeTanuloNeve
             // 
-            this.listBoxKeresesEredmenye.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.listBoxKeresesEredmenye.FormattingEnabled = true;
-            this.listBoxKeresesEredmenye.ItemHeight = 16;
-            this.listBoxKeresesEredmenye.Location = new System.Drawing.Point(474, 285);
-            this.listBoxKeresesEredmenye.Name = "listBoxKeresesEredmenye";
-            this.listBoxKeresesEredmenye.Size = new System.Drawing.Size(331, 132);
-            this.listBoxKeresesEredmenye.TabIndex = 150;
+            this.listBoxKeresesEredmenyeTanuloNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listBoxKeresesEredmenyeTanuloNeve.FormattingEnabled = true;
+            this.listBoxKeresesEredmenyeTanuloNeve.ItemHeight = 16;
+            this.listBoxKeresesEredmenyeTanuloNeve.Location = new System.Drawing.Point(474, 285);
+            this.listBoxKeresesEredmenyeTanuloNeve.Name = "listBoxKeresesEredmenyeTanuloNeve";
+            this.listBoxKeresesEredmenyeTanuloNeve.Size = new System.Drawing.Size(101, 132);
+            this.listBoxKeresesEredmenyeTanuloNeve.TabIndex = 150;
             // 
             // numericUpDownVizsgaKezdetKeres
             // 
@@ -662,11 +668,65 @@
             this.label18.TabIndex = 180;
             this.label18.Text = "Időszak:";
             // 
+            // listBoxVKezdete
+            // 
+            this.listBoxVKezdete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listBoxVKezdete.FormattingEnabled = true;
+            this.listBoxVKezdete.ItemHeight = 16;
+            this.listBoxVKezdete.Location = new System.Drawing.Point(591, 285);
+            this.listBoxVKezdete.Name = "listBoxVKezdete";
+            this.listBoxVKezdete.Size = new System.Drawing.Size(40, 132);
+            this.listBoxVKezdete.TabIndex = 181;
+            // 
+            // listBoxVVege
+            // 
+            this.listBoxVVege.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listBoxVVege.FormattingEnabled = true;
+            this.listBoxVVege.ItemHeight = 16;
+            this.listBoxVVege.Location = new System.Drawing.Point(659, 285);
+            this.listBoxVVege.Name = "listBoxVVege";
+            this.listBoxVVege.Size = new System.Drawing.Size(53, 132);
+            this.listBoxVVege.TabIndex = 182;
+            // 
+            // listBoxAnyjaNeve
+            // 
+            this.listBoxAnyjaNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listBoxAnyjaNeve.FormattingEnabled = true;
+            this.listBoxAnyjaNeve.ItemHeight = 16;
+            this.listBoxAnyjaNeve.Location = new System.Drawing.Point(733, 285);
+            this.listBoxAnyjaNeve.Name = "listBoxAnyjaNeve";
+            this.listBoxAnyjaNeve.Size = new System.Drawing.Size(102, 132);
+            this.listBoxAnyjaNeve.TabIndex = 183;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(436, 266);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(16, 13);
+            this.label20.TabIndex = 184;
+            this.label20.Text = "Id";
+            // 
+            // listBoxId
+            // 
+            this.listBoxId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listBoxId.FormattingEnabled = true;
+            this.listBoxId.ItemHeight = 16;
+            this.listBoxId.Location = new System.Drawing.Point(416, 285);
+            this.listBoxId.Name = "listBoxId";
+            this.listBoxId.Size = new System.Drawing.Size(36, 132);
+            this.listBoxId.TabIndex = 185;
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 586);
+            this.Controls.Add(this.listBoxId);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.listBoxAnyjaNeve);
+            this.Controls.Add(this.listBoxVVege);
+            this.Controls.Add(this.listBoxVKezdete);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label12);
@@ -684,7 +744,7 @@
             this.Controls.Add(this.textBoxAnyjaNeveKeres);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxAnyjaNeveFeltolt);
-            this.Controls.Add(this.listBoxKeresesEredmenye);
+            this.Controls.Add(this.listBoxKeresesEredmenyeTanuloNeve);
             this.Controls.Add(this.numericUpDownVizsgaKezdetKeres);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -706,6 +766,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Szakmai vizsga - Törzslap";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSzakmaiVizsgaTörzslap_FormClosed);
+            this.Enter += new System.EventHandler(this.FormSzakmaiVizsgaTörzslap_Enter);
             this.groupBoxJelszo.ResumeLayout(false);
             this.groupBoxJelszo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -748,7 +809,7 @@
         private System.Windows.Forms.TextBox textBoxAnyjaNeveKeres;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltolt;
-        private System.Windows.Forms.ListBox listBoxKeresesEredmenye;
+        private System.Windows.Forms.ListBox listBoxKeresesEredmenyeTanuloNeve;
         private System.Windows.Forms.NumericUpDown numericUpDownVizsgaKezdetKeres;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -778,5 +839,10 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RadioButton radioButtonTavaszModosit;
         private System.Windows.Forms.RadioButton radioButtonOszModosit;
+        private System.Windows.Forms.ListBox listBoxVKezdete;
+        private System.Windows.Forms.ListBox listBoxVVege;
+        private System.Windows.Forms.ListBox listBoxAnyjaNeve;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ListBox listBoxId;
     }
 }
