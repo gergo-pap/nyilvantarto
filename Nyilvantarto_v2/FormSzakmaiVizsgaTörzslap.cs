@@ -532,7 +532,7 @@ namespace Nyilvantarto_v2
 
         private void textBoxJelszo_KeyUp(object sender, KeyEventArgs e)
         {
-            /*
+            
             if (e.KeyCode == Keys.Enter)
             {
                 if (textBoxJelszo.Text == "12345")
@@ -540,11 +540,11 @@ namespace Nyilvantarto_v2
                     torles();
                     groupBoxJelszo.Visible = false;
                     textBoxJelszo.Clear();
-                    listBoxKeresesEredmenye.Items.Clear();
+                    listboxKeresesEredmenyeiClear();
                 }
                 e.Handled = true;
             }
-            */
+            
         }
 
         private void listBoxId_SelectedIndexChanged(object sender, EventArgs e)
