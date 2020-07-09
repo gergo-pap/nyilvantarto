@@ -321,53 +321,13 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                string[] s = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
-                string fileName = s[0] + "_" + s[1] + "_" + s[2] + "_" + s[3];
-                string[] keresesKijelolt = listBoxKeresesEredmenyeTanuloNeve.SelectedItem.ToString().Split('-');
-                string nev = keresesKijelolt[0];
-                string evKezdet = keresesKijelolt[1];
-                string tavaszOsz = keresesKijelolt[2];
-                string anyja = keresesKijelolt[3];
-
-                int tavaszVosz;
-                if (tavaszOsz == "Tavasz")
-                {
-                    tavaszVosz = 1;
-                }
-                else
-                {
-                    tavaszVosz = 0;
-                }
-
-                var command = conn.CreateCommand();
-
-                command.CommandText = "SELECT szvt_formatum " +
-                    "FROM " +
-                    "szakmaivizsgaTorzslap " +
-                    "WHERE " +
-                    "szvt_tanuloNeve = '" + nev +
-                    "' AND " +
-                    "szvt_AnyjaNeve = '" + anyja +
-                    "' AND " +
-                    "szvt_viszgaEvKezdet = " + evKezdet +
-                    " AND " +
-                    "szvt_viszgaTavasz1Osz0 = " + tavaszVosz
-                    ;
-
-                var result = command.ExecuteScalar();
-
-                var szvt_formatum2 = result.ToString();
+                string id = listBoxId.SelectedItem.ToString();
 
                 string SQL = "DELETE FROM " +
                         "szakmaivizsgaTorzslap " +
                         "WHERE " +
-                        "szvt_tanuloNeve = '" + nev + "' AND " +
-                        "szvt_AnyjaNeve =  '" + anyja + "' AND " +
-                        "szvt_viszgaEvKezdet = " + evKezdet + " AND " +
-                        "szvt_viszgaTavasz1Osz0 = " + tavaszVosz +
-                        ";"
+                        "id =" + id
                         ;
-
                 cmd.Connection = conn;
                 cmd.CommandText = SQL;
 
@@ -375,11 +335,12 @@ namespace Nyilvantarto_v2
 
 
 
-                string destination = destPath + fileName + "." + szvt_formatum2;
+                /*string destination = destPath + fileName + "." + szvt_formatum2;
 
                 System.IO.File.Delete(destination);
 
                 MessageBox.Show("Sikeres törlés");
+                */
             }
             catch (NullReferenceException)
             {
