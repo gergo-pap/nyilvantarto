@@ -85,6 +85,10 @@
             this.listBoxAnyjaNeve = new System.Windows.Forms.ListBox();
             this.label20 = new System.Windows.Forms.Label();
             this.listBoxId = new System.Windows.Forms.ListBox();
+            this.labelFileokSzama = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.labelDBCount = new System.Windows.Forms.Label();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -375,6 +379,7 @@
             // 
             // listBoxKeresesEredmenyeTanuloNeve
             // 
+            this.listBoxKeresesEredmenyeTanuloNeve.Enabled = false;
             this.listBoxKeresesEredmenyeTanuloNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxKeresesEredmenyeTanuloNeve.FormattingEnabled = true;
             this.listBoxKeresesEredmenyeTanuloNeve.ItemHeight = 16;
@@ -670,6 +675,7 @@
             // 
             // listBoxVKezdete
             // 
+            this.listBoxVKezdete.Enabled = false;
             this.listBoxVKezdete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxVKezdete.FormattingEnabled = true;
             this.listBoxVKezdete.ItemHeight = 16;
@@ -680,6 +686,7 @@
             // 
             // listBoxVVege
             // 
+            this.listBoxVVege.Enabled = false;
             this.listBoxVVege.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxVVege.FormattingEnabled = true;
             this.listBoxVVege.ItemHeight = 16;
@@ -690,6 +697,7 @@
             // 
             // listBoxAnyjaNeve
             // 
+            this.listBoxAnyjaNeve.Enabled = false;
             this.listBoxAnyjaNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxAnyjaNeve.FormattingEnabled = true;
             this.listBoxAnyjaNeve.ItemHeight = 16;
@@ -718,11 +726,49 @@
             this.listBoxId.TabIndex = 185;
             this.listBoxId.SelectedIndexChanged += new System.EventHandler(this.listBoxId_SelectedIndexChanged);
             // 
+            // labelFileokSzama
+            // 
+            this.labelFileokSzama.AutoSize = true;
+            this.labelFileokSzama.Location = new System.Drawing.Point(136, 32);
+            this.labelFileokSzama.Name = "labelFileokSzama";
+            this.labelFileokSzama.Size = new System.Drawing.Size(0, 13);
+            this.labelFileokSzama.TabIndex = 186;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(7, 32);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(110, 13);
+            this.label23.TabIndex = 187;
+            this.label23.Text = "Ennyi file van feltölve:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(7, 57);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(110, 13);
+            this.label24.TabIndex = 189;
+            this.label24.Text = "Ennyi file van feltölve:";
+            // 
+            // labelDBCount
+            // 
+            this.labelDBCount.AutoSize = true;
+            this.labelDBCount.Location = new System.Drawing.Point(136, 57);
+            this.labelDBCount.Name = "labelDBCount";
+            this.labelDBCount.Size = new System.Drawing.Size(0, 13);
+            this.labelDBCount.TabIndex = 188;
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 586);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.labelDBCount);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.labelFileokSzama);
             this.Controls.Add(this.listBoxId);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.listBoxAnyjaNeve);
@@ -767,6 +813,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Szakmai vizsga - Törzslap";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSzakmaiVizsgaTörzslap_FormClosed);
+            this.Load += new System.EventHandler(this.FormSzakmaiVizsgaTörzslap_Load);
             this.Enter += new System.EventHandler(this.FormSzakmaiVizsgaTörzslap_Enter);
             this.groupBoxJelszo.ResumeLayout(false);
             this.groupBoxJelszo.PerformLayout();
@@ -845,5 +892,9 @@
         private System.Windows.Forms.ListBox listBoxAnyjaNeve;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ListBox listBoxId;
+        private System.Windows.Forms.Label labelFileokSzama;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label labelDBCount;
     }
 }

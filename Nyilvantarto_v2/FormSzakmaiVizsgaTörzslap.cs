@@ -70,6 +70,74 @@ namespace Nyilvantarto_v2
             command.ExecuteNonQuery();
         }
 
+        private void getFilesCount()
+        {
+            //DirectoryInfo d = new DirectoryInfo(destPath);//Assuming Test is your Folder
+            //FileInfo[] Files = d.GetFiles("*.*"); //Getting files
+            string[] fileArray = Directory.GetFiles(destPath);
+            labelFileokSzama.Text = fileArray.Length.ToString();
+        }
+
+        private void getDBCount()
+        {
+            int count = 0;
+            using (var cmd = new MySqlCommand("SELECT COUNT(*) FROM szakmaivizsgaTorzslap", conn))
+            {
+                count = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            labelDBCount.Text = count.ToString();
+        }
+
+        private void checkMissingFile()
+        {
+            List<string> dataOnPC = new List<string>();
+            List<string> dataDB = new List<string>();
+            string[] fileArray = Directory.GetFiles(destPath);
+            foreach (var item in fileArray)
+            {
+                //MessageBox.Show(item.Split('\\').Last().Split('.').First());
+                dataOnPC.Add(item.Split('\\').Last().Split('.').First());
+            }
+            MessageBox.Show("PC: " + dataOnPC.Count);
+            var command = conn.CreateCommand();
+            command.CommandText = "SELECT szvt_tanuloNeve,szvt_viszgaEvKezdet,szvt_viszgaTavasz1Osz0,szvt_AnyjaNeve  FROM szakmaivizsgaTorzslap";
+            using (var reader = command.ExecuteReader())
+            {
+                var szvt_tanuloNeve = reader.GetOrdinal("szvt_tanuloNeve");
+                var szvt_viszgaEvKezdet = reader.GetOrdinal("szvt_viszgaEvKezdet");
+                var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal("szvt_viszgaTavasz1Osz0");
+                var szvt_AnyjaNeve = reader.GetOrdinal("szvt_AnyjaNeve");
+
+                while (reader.Read())
+                {
+                    var szvt_tanuloNeve2 = reader.GetValue(szvt_tanuloNeve).ToString();
+                    var szvt_viszgaEvKezdet2 = reader.GetValue(szvt_viszgaEvKezdet).ToString();
+                    var szvt_viszgaTavasz1Osz02 = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
+                    var szvt_AnyjaNeve2 = reader.GetValue(szvt_AnyjaNeve).ToString();
+                    string oneDataDB = szvt_tanuloNeve2 + "_" + szvt_viszgaEvKezdet2 + "_" + boolConvert(bool.Parse(szvt_viszgaTavasz1Osz02)) + "_" + szvt_AnyjaNeve2;
+                    //MessageBox.Show(oneDataDB);
+                    dataDB.Add(oneDataDB);
+                }
+            }
+            MessageBox.Show("DB: " + dataDB.Count);
+            var list3 = dataOnPC.Where(x => !dataDB.Contains(x)).ToList();
+            var list4 = dataDB.Where(x => !dataOnPC.Contains(x)).ToList();
+            var listUniun = dataOnPC.Union(dataDB);
+            //var list3 = dataOnPC.Except(dataDB).ToList();
+            try
+            {
+                MessageBox.Show("Adatbázisban hiányzó file: " + list3[0]);
+            }
+            catch (ArgumentOutOfRangeException)
+            {}
+            try
+            {
+                MessageBox.Show("PC-n hiányzó file: " + list4[0]);
+            }
+            catch (ArgumentOutOfRangeException)
+            { }
+        }
+
         private void betolt()
         {
             try
@@ -82,7 +150,6 @@ namespace Nyilvantarto_v2
                 }
                 string argument = "/select, \"" + filePath + "\"";
                 System.Diagnostics.Process.Start("explorer.exe", argument);
-                
             }
             
             catch (NullReferenceException)
@@ -277,6 +344,7 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
+            getFilesCount();
         }
 
         private void modositas()
@@ -452,6 +520,7 @@ namespace Nyilvantarto_v2
                 textBoxFeltoltUrites();
                 borderColorReset();
             }
+            getFilesCount();
         }
 
         private void textBoxTanuloNeveKeres_TextChanged(object sender, EventArgs e)
@@ -607,6 +676,13 @@ namespace Nyilvantarto_v2
 
                 globFormatum = result.ToString();
             }
+        }
+
+        private void FormSzakmaiVizsgaTörzslap_Load(object sender, EventArgs e)
+        {
+            getFilesCount();
+            getDBCount();
+            checkMissingFile();
         }
     }
 }
