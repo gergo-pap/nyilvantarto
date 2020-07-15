@@ -98,7 +98,7 @@ namespace Nyilvantarto_v2
                 //MessageBox.Show(item.Split('\\').Last().Split('.').First());
                 dataOnPC.Add(item.Split('\\').Last().Split('.').First());
             }
-            MessageBox.Show("PC: " + dataOnPC.Count);
+            //MessageBox.Show("PC: " + dataOnPC.Count);
             var command = conn.CreateCommand();
             command.CommandText = "SELECT szvt_tanuloNeve,szvt_viszgaEvKezdet,szvt_viszgaTavasz1Osz0,szvt_AnyjaNeve  FROM szakmaivizsgaTorzslap";
             using (var reader = command.ExecuteReader())
@@ -119,23 +119,74 @@ namespace Nyilvantarto_v2
                     dataDB.Add(oneDataDB);
                 }
             }
-            MessageBox.Show("DB: " + dataDB.Count);
-            var list3 = dataOnPC.Where(x => !dataDB.Contains(x)).ToList();
-            var list4 = dataDB.Where(x => !dataOnPC.Contains(x)).ToList();
+            //MessageBox.Show("DB: " + dataDB.Count);
+            var listAdatbazisbolHianyzo = dataOnPC.Where(x => !dataDB.Contains(x)).ToList();
+            var listPCnHianyzo = dataDB.Where(x => !dataOnPC.Contains(x)).ToList();
             var listUniun = dataOnPC.Union(dataDB);
-            //var list3 = dataOnPC.Except(dataDB).ToList();
-            try
+            string lines = string.Join(Environment.NewLine, listAdatbazisbolHianyzo);
+            if (lines.Length > 0)
             {
-                MessageBox.Show("Adatbázisban hiányzó file: " + list3[0]);
+                if (MessageBox.Show($"Adatbázisból hiányzó fileok: \n{lines}\nSzeretnéd törölni? a PC-ről?", "Hiányzó elemek törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // user clicked yes
+                    hianyzoElemeTorlesePCrol(lines);
+                }
+                else
+                {
+                    // user clicked no
+
+                }
             }
-            catch (ArgumentOutOfRangeException)
-            {}
-            try
+            lines = string.Join(Environment.NewLine, listPCnHianyzo);
+            if (lines.Length > 0)
             {
-                MessageBox.Show("PC-n hiányzó file: " + list4[0]);
+                if (MessageBox.Show($"PC-ről hiányzó fileok: \n{lines}\nSzeretnéd törölni az adatbázisból a bejegyzést róla?", "Hiányzó elemek törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // user clicked yes
+                    hianyzoElemekTorleseDBrol(lines);
+                }
+                else
+                {
+                    // user clicked no
+                }
             }
-            catch (ArgumentOutOfRangeException)
-            { }
+        }
+
+        private void hianyzoElemeTorlesePCrol(string lines)
+        {
+            string[] rows = lines.Split('\n');
+            foreach (var item in rows)
+            {
+                string[] row = item.Split('_');
+                string destination = destPath + row[0] + '_' + row[1] + '_' + row[2] + '_' + row[3] + ".*";
+                MessageBox.Show(destination);
+
+                string[] files = System.IO.Directory.GetFiles(destPath, item+".*");
+                foreach (string f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+            }
+
+        }
+
+        private void hianyzoElemekTorleseDBrol(string lines)
+        {
+            string[] rows = lines.Split('\n');
+            foreach (var item in rows)
+            {
+                string[] row = item.Split('_');
+                string SQL = "DELETE FROM `szakmaivizsgatorzslap` " +
+                    "WHERE " +
+                    "`szvt_tanuloNeve` = '"+row[0]+"'and " +
+                    "`szvt_AnyjaNeve` = '"+row[3]+"' and " +
+                    "`szvt_viszgaEvKezdet` = " + row[1]
+                    ;
+                cmd.Connection = conn;
+                cmd.CommandText = SQL;
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private void betolt()
