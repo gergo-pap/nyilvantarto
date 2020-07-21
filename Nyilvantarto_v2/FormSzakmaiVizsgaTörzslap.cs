@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Nyilvantarto_v2
 {
@@ -70,6 +71,11 @@ namespace Nyilvantarto_v2
             command.ExecuteNonQuery();
         }
 
+        private void getCount()
+        {
+            getFilesCount();
+            getDBCount();
+        }
         private void getFilesCount()
         {
             //DirectoryInfo d = new DirectoryInfo(destPath);//Assuming Test is your Folder
@@ -167,7 +173,6 @@ namespace Nyilvantarto_v2
                     System.IO.File.Delete(f);
                 }
             }
-
         }
 
         private void hianyzoElemekTorleseDBrol(string lines)
@@ -395,11 +400,12 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
-            getFilesCount();
+            getCount();
         }
 
         private void modositas()
         {
+
             int indexOf = textBoxAnyjaneveModositas.Text.IndexOfAny(SpecialChars);
             int indexOf2 = textBoxNevModositas.Text.IndexOfAny(SpecialChars);
             byte tavaszVosz;
@@ -571,7 +577,7 @@ namespace Nyilvantarto_v2
                 textBoxFeltoltUrites();
                 borderColorReset();
             }
-            getFilesCount();
+            getCount();
         }
 
         private void textBoxTanuloNeveKeres_TextChanged(object sender, EventArgs e)
@@ -617,6 +623,17 @@ namespace Nyilvantarto_v2
             else
             {
                 groupBox1.Visible = true;
+                textBoxNevModositas.Text = globNev;
+                textBoxAnyjaneveModositas.Text = globAnyja;
+                numericUpDownEvKezdetModositas.Value = int.Parse(globEvKezdet);
+                if (globTavaszVOszString == "Tavasz")
+                {
+                    radioButtonTavaszModosit.Checked = true;
+                }
+                else
+                {
+                    radioButtonOszModosit.Checked = true;
+                }
             }
         }
 
@@ -731,9 +748,102 @@ namespace Nyilvantarto_v2
 
         private void FormSzakmaiVizsgaTörzslap_Load(object sender, EventArgs e)
         {
-            getFilesCount();
-            getDBCount();
+            getCount();
             checkMissingFile();
+        }
+
+        private void buttonRandomGeneralas_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < int.Parse(textBoxRandom.Text); i++)
+            {
+                cmd.Parameters.Clear();
+                Random r = new Random();
+                string[] keresztNevek = { "Pap", "Timár", "Gulyás", "Szabó", "Horváth", "Kis", "Kiss", "Nagy"
+                ,"Tóth","Kristóf","Tim","Krajcsi","Beke","Gachovetz","Móricz","Dantesz","Bánki ","Baracsine"
+                ,"Darányi","Hatvani","Földes","Sebők","Skordai","Szűcs","Zalai","Zsuppán","Borzok","Bráda"
+                };
+                string[] vezetekNeve = { "Gyula", "Julianna", "Márta", "Ilona", "Mária", "Csaba", "Attila", "Tamás"
+                ,"Gabriella","Katalin","Károly","Vanda","István","Ernő","Norbert","Krisztina","Kriszta","Mariann"
+                ,"Tibor","Kitti","Lajos","Nóra","Ágnes","Gergő","Klára","Zoltán","Sándor"
+                };
+                string tanuloNeve = keresztNevek[r.Next(0, keresztNevek.Length)] + " " + vezetekNeve[r.Next(0, vezetekNeve.Length)];
+                string anyjaNeve = keresztNevek[r.Next(0, keresztNevek.Length)] + " " + vezetekNeve[r.Next(0, vezetekNeve.Length)];
+                int ev = r.Next(1901, 2099);
+                try
+                {
+                    byte tavaszOsz;
+                    string tavaszVOsz;
+                    if (r.Next(0,2) == 0)
+                    {
+                        tavaszOsz = 0;
+                        tavaszVOsz = "Ősz";
+                    }
+                    else
+                    {
+                        tavaszOsz = 1;
+                        tavaszVOsz = "Tavasz";
+                    }
+                    string szvt_eleresiUt = @"C:\Users\Pap Gergő\Documents\Database1.accdb";
+                    FileStream fs = new FileStream(szvt_eleresiUt, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fs);
+                    string fileName = tanuloNeve + "_" + ev + "_" + tavaszVOsz + "_" + anyjaNeve;
+                    fs.Close();
+
+                    string SQL = "INSERT INTO " +
+                        "szakmaivizsgaTorzslap " +
+                        "VALUES" +
+                        "(" +
+                            "NULL, " +
+                            "@szvt_tanuloNeve, " +
+                            "@szvt_AnyjaNeve, " +
+                            "@szvt_szerzo, " +
+                            "@szvt_viszgaEvKezdet, " +
+                            "@szvt_viszgaTavasz1Osz0, " +
+                            "@szvt_dokumentumNev, " +
+                            "@szvt_dokLegutobbModositva," +
+                            "@szvt_feltoltesIdopontja," +
+                            "@szvt_formatum, " +
+                            "@szvt_path " +
+                        ")";
+
+                    cmd.Connection = conn;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@szvt_tanuloNeve", tanuloNeve);
+                    cmd.Parameters.AddWithValue("@szvt_AnyjaNeve", anyjaNeve);
+                    cmd.Parameters.AddWithValue("@szvt_szerzo", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                    cmd.Parameters.AddWithValue("@szvt_viszgaEvKezdet", ev);
+                    cmd.Parameters.AddWithValue("@szvt_viszgaTavasz1Osz0", tavaszOsz);
+                    cmd.Parameters.AddWithValue("@szvt_dokumentumNev", fileName);
+                    cmd.Parameters.AddWithValue("@szvt_dokLegutobbModositva", File.GetLastWriteTime(szvt_eleresiUt));
+                    cmd.Parameters.AddWithValue("@szvt_feltoltesIdopontja", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@szvt_formatum", "srt");
+                    cmd.Parameters.AddWithValue("@szvt_path", szvt_eleresiUt);
+
+                    cmd.ExecuteNonQuery();
+
+                    string destination = destPath + fileName + ".srt";
+                    string source = szvt_eleresiUt;
+                    //MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
+                    // To move a file or folder to a new  location:
+
+                    System.IO.File.Copy(source, destination);
+
+                    //MessageBox.Show("File Inserted into database successfully!",
+                    //"Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Fájl hiba!\n A fájl már létezik vagy nem található!");
+                }
+                Thread.Sleep(25);
+                getCount();
+            }
+            MessageBox.Show("Kész");
         }
     }
 }
