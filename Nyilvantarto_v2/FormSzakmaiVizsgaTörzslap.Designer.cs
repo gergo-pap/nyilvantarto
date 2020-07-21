@@ -87,8 +87,9 @@
             this.listBoxId = new System.Windows.Forms.ListBox();
             this.labelFileokSzama = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.labelDBCount = new System.Windows.Forms.Label();
+            this.buttonRandomGeneralas = new System.Windows.Forms.Button();
+            this.textBoxRandom = new System.Windows.Forms.TextBox();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -103,17 +104,18 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label22.Location = new System.Drawing.Point(333, 20);
+            this.label22.Location = new System.Drawing.Point(532, 32);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(242, 25);
             this.label22.TabIndex = 174;
             this.label22.Text = "Szakmai vizsga - Törzslap";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label21.Location = new System.Drawing.Point(656, 263);
+            this.label21.Location = new System.Drawing.Point(975, 259);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(56, 17);
             this.label21.TabIndex = 173;
@@ -123,9 +125,9 @@
             // 
             this.groupBoxJelszo.Controls.Add(this.textBoxJelszo);
             this.groupBoxJelszo.Controls.Add(this.label17);
-            this.groupBoxJelszo.Location = new System.Drawing.Point(474, 452);
+            this.groupBoxJelszo.Location = new System.Drawing.Point(698, 622);
             this.groupBoxJelszo.Name = "groupBoxJelszo";
-            this.groupBoxJelszo.Size = new System.Drawing.Size(220, 39);
+            this.groupBoxJelszo.Size = new System.Drawing.Size(244, 39);
             this.groupBoxJelszo.TabIndex = 168;
             this.groupBoxJelszo.TabStop = false;
             this.groupBoxJelszo.Visible = false;
@@ -159,9 +161,9 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.numericUpDownEvKezdetModositas);
             this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(38, 319);
+            this.groupBox1.Location = new System.Drawing.Point(38, 426);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(315, 177);
+            this.groupBox1.Size = new System.Drawing.Size(398, 190);
             this.groupBox1.TabIndex = 167;
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;
@@ -182,7 +184,7 @@
             this.groupBox3.Controls.Add(this.radioButtonOszModosit);
             this.groupBox3.Location = new System.Drawing.Point(123, 137);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(186, 25);
+            this.groupBox3.Size = new System.Drawing.Size(268, 25);
             this.groupBox3.TabIndex = 179;
             this.groupBox3.TabStop = false;
             // 
@@ -201,7 +203,7 @@
             // radioButtonOszModosit
             // 
             this.radioButtonOszModosit.AutoSize = true;
-            this.radioButtonOszModosit.Location = new System.Drawing.Point(129, 8);
+            this.radioButtonOszModosit.Location = new System.Drawing.Point(219, 8);
             this.radioButtonOszModosit.Name = "radioButtonOszModosit";
             this.radioButtonOszModosit.Size = new System.Drawing.Size(43, 17);
             this.radioButtonOszModosit.TabIndex = 177;
@@ -213,7 +215,7 @@
             this.textBoxNevModositas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxNevModositas.Location = new System.Drawing.Point(123, 43);
             this.textBoxNevModositas.Name = "textBoxNevModositas";
-            this.textBoxNevModositas.Size = new System.Drawing.Size(186, 23);
+            this.textBoxNevModositas.Size = new System.Drawing.Size(268, 23);
             this.textBoxNevModositas.TabIndex = 88;
             // 
             // label13
@@ -241,7 +243,7 @@
             this.textBoxAnyjaneveModositas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxAnyjaneveModositas.Location = new System.Drawing.Point(123, 69);
             this.textBoxAnyjaneveModositas.Name = "textBoxAnyjaneveModositas";
-            this.textBoxAnyjaneveModositas.Size = new System.Drawing.Size(186, 23);
+            this.textBoxAnyjaneveModositas.Size = new System.Drawing.Size(268, 23);
             this.textBoxAnyjaneveModositas.TabIndex = 89;
             // 
             // label15
@@ -269,7 +271,7 @@
             0,
             0});
             this.numericUpDownEvKezdetModositas.Name = "numericUpDownEvKezdetModositas";
-            this.numericUpDownEvKezdetModositas.Size = new System.Drawing.Size(186, 23);
+            this.numericUpDownEvKezdetModositas.Size = new System.Drawing.Size(268, 23);
             this.numericUpDownEvKezdetModositas.TabIndex = 90;
             this.numericUpDownEvKezdetModositas.Value = new decimal(new int[] {
             2000,
@@ -290,9 +292,9 @@
             // 
             // buttonModositas
             // 
-            this.buttonModositas.Location = new System.Drawing.Point(552, 504);
+            this.buttonModositas.Location = new System.Drawing.Point(698, 667);
             this.buttonModositas.Name = "buttonModositas";
-            this.buttonModositas.Size = new System.Drawing.Size(265, 23);
+            this.buttonModositas.Size = new System.Drawing.Size(505, 23);
             this.buttonModositas.TabIndex = 166;
             this.buttonModositas.Text = "Módosítás";
             this.buttonModositas.UseVisualStyleBackColor = true;
@@ -301,9 +303,9 @@
             // buttonTorles
             // 
             this.buttonTorles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonTorles.Location = new System.Drawing.Point(692, 463);
+            this.buttonTorles.Location = new System.Drawing.Point(948, 632);
             this.buttonTorles.Name = "buttonTorles";
-            this.buttonTorles.Size = new System.Drawing.Size(125, 23);
+            this.buttonTorles.Size = new System.Drawing.Size(255, 23);
             this.buttonTorles.TabIndex = 165;
             this.buttonTorles.Text = "Törlés";
             this.buttonTorles.UseVisualStyleBackColor = true;
@@ -313,7 +315,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(471, 265);
+            this.label11.Location = new System.Drawing.Point(746, 259);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(87, 17);
             this.label11.TabIndex = 164;
@@ -323,7 +325,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(739, 263);
+            this.label10.Location = new System.Drawing.Point(1113, 257);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 17);
             this.label10.TabIndex = 163;
@@ -333,7 +335,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(573, 263);
+            this.label9.Location = new System.Drawing.Point(892, 259);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 17);
             this.label9.TabIndex = 162;
@@ -343,7 +345,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(471, 151);
+            this.label8.Location = new System.Drawing.Point(699, 145);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 17);
             this.label8.TabIndex = 161;
@@ -352,11 +354,12 @@
             // textBoxAnyjaNeveKeres
             // 
             this.textBoxAnyjaNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveKeres.Location = new System.Drawing.Point(617, 148);
+            this.textBoxAnyjaNeveKeres.Location = new System.Drawing.Point(845, 148);
             this.textBoxAnyjaNeveKeres.Name = "textBoxAnyjaNeveKeres";
-            this.textBoxAnyjaNeveKeres.Size = new System.Drawing.Size(186, 23);
+            this.textBoxAnyjaNeveKeres.Size = new System.Drawing.Size(368, 23);
             this.textBoxAnyjaNeveKeres.TabIndex = 148;
             this.textBoxAnyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveKeres_TextChanged);
+            this.textBoxAnyjaNeveKeres.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxAnyjaNeveKeres_KeyUp);
             // 
             // label7
             // 
@@ -373,7 +376,7 @@
             this.textBoxAnyjaNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxAnyjaNeveFeltolt.Location = new System.Drawing.Point(175, 150);
             this.textBoxAnyjaNeveFeltolt.Name = "textBoxAnyjaNeveFeltolt";
-            this.textBoxAnyjaNeveFeltolt.Size = new System.Drawing.Size(178, 23);
+            this.textBoxAnyjaNeveFeltolt.Size = new System.Drawing.Size(254, 23);
             this.textBoxAnyjaNeveFeltolt.TabIndex = 141;
             this.textBoxAnyjaNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveFeltolt_TextChanged);
             // 
@@ -383,15 +386,15 @@
             this.listBoxKeresesEredmenyeTanuloNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxKeresesEredmenyeTanuloNeve.FormattingEnabled = true;
             this.listBoxKeresesEredmenyeTanuloNeve.ItemHeight = 16;
-            this.listBoxKeresesEredmenyeTanuloNeve.Location = new System.Drawing.Point(474, 285);
+            this.listBoxKeresesEredmenyeTanuloNeve.Location = new System.Drawing.Point(698, 280);
             this.listBoxKeresesEredmenyeTanuloNeve.Name = "listBoxKeresesEredmenyeTanuloNeve";
-            this.listBoxKeresesEredmenyeTanuloNeve.Size = new System.Drawing.Size(101, 132);
+            this.listBoxKeresesEredmenyeTanuloNeve.Size = new System.Drawing.Size(200, 308);
             this.listBoxKeresesEredmenyeTanuloNeve.TabIndex = 150;
             // 
             // numericUpDownVizsgaKezdetKeres
             // 
             this.numericUpDownVizsgaKezdetKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownVizsgaKezdetKeres.Location = new System.Drawing.Point(617, 183);
+            this.numericUpDownVizsgaKezdetKeres.Location = new System.Drawing.Point(845, 177);
             this.numericUpDownVizsgaKezdetKeres.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -403,7 +406,7 @@
             0,
             0});
             this.numericUpDownVizsgaKezdetKeres.Name = "numericUpDownVizsgaKezdetKeres";
-            this.numericUpDownVizsgaKezdetKeres.Size = new System.Drawing.Size(186, 23);
+            this.numericUpDownVizsgaKezdetKeres.Size = new System.Drawing.Size(368, 23);
             this.numericUpDownVizsgaKezdetKeres.TabIndex = 149;
             this.numericUpDownVizsgaKezdetKeres.Value = new decimal(new int[] {
             2000,
@@ -416,7 +419,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(469, 183);
+            this.label6.Location = new System.Drawing.Point(697, 177);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(108, 17);
             this.label6.TabIndex = 159;
@@ -426,7 +429,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(471, 125);
+            this.label5.Location = new System.Drawing.Point(699, 119);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 17);
             this.label5.TabIndex = 158;
@@ -435,17 +438,18 @@
             // textBoxTanuloNeveKeres
             // 
             this.textBoxTanuloNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxTanuloNeveKeres.Location = new System.Drawing.Point(617, 122);
+            this.textBoxTanuloNeveKeres.Location = new System.Drawing.Point(845, 116);
             this.textBoxTanuloNeveKeres.Name = "textBoxTanuloNeveKeres";
-            this.textBoxTanuloNeveKeres.Size = new System.Drawing.Size(186, 23);
+            this.textBoxTanuloNeveKeres.Size = new System.Drawing.Size(368, 23);
             this.textBoxTanuloNeveKeres.TabIndex = 147;
             this.textBoxTanuloNeveKeres.TextChanged += new System.EventHandler(this.textBoxTanuloNeveKeres_TextChanged);
+            this.textBoxTanuloNeveKeres.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxTanuloNeveKeres_KeyUp);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(678, 92);
+            this.label4.Location = new System.Drawing.Point(906, 86);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 17);
             this.label4.TabIndex = 157;
@@ -476,7 +480,7 @@
             0,
             0});
             this.numericUpDownEvFeltoltKezdet.Name = "numericUpDownEvFeltoltKezdet";
-            this.numericUpDownEvFeltoltKezdet.Size = new System.Drawing.Size(178, 23);
+            this.numericUpDownEvFeltoltKezdet.Size = new System.Drawing.Size(254, 23);
             this.numericUpDownEvFeltoltKezdet.TabIndex = 143;
             this.numericUpDownEvFeltoltKezdet.Value = new decimal(new int[] {
             2000,
@@ -499,7 +503,7 @@
             this.textBoxTanuloNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxTanuloNeveFeltolt.Location = new System.Drawing.Point(175, 123);
             this.textBoxTanuloNeveFeltolt.Name = "textBoxTanuloNeveFeltolt";
-            this.textBoxTanuloNeveFeltolt.Size = new System.Drawing.Size(178, 23);
+            this.textBoxTanuloNeveFeltolt.Size = new System.Drawing.Size(254, 23);
             this.textBoxTanuloNeveFeltolt.TabIndex = 140;
             this.textBoxTanuloNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxTanuloNeveFeltolt_TextChanged);
             // 
@@ -510,7 +514,7 @@
             this.textBoxEleresi.Location = new System.Drawing.Point(175, 263);
             this.textBoxEleresi.Name = "textBoxEleresi";
             this.textBoxEleresi.ReadOnly = true;
-            this.textBoxEleresi.Size = new System.Drawing.Size(178, 23);
+            this.textBoxEleresi.Size = new System.Drawing.Size(254, 23);
             this.textBoxEleresi.TabIndex = 144;
             this.textBoxEleresi.TextChanged += new System.EventHandler(this.textBoxEleresi_TextChanged);
             // 
@@ -551,16 +555,16 @@
             this.textBoxDokumentumNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxDokumentumNeve.Location = new System.Drawing.Point(175, 177);
             this.textBoxDokumentumNeve.Name = "textBoxDokumentumNeve";
-            this.textBoxDokumentumNeve.Size = new System.Drawing.Size(178, 23);
+            this.textBoxDokumentumNeve.Size = new System.Drawing.Size(254, 23);
             this.textBoxDokumentumNeve.TabIndex = 142;
             this.textBoxDokumentumNeve.TextChanged += new System.EventHandler(this.textBoxDokumentumNeve_TextChanged);
             // 
             // buttonLetoltes
             // 
             this.buttonLetoltes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonLetoltes.Location = new System.Drawing.Point(552, 423);
+            this.buttonLetoltes.Location = new System.Drawing.Point(698, 593);
             this.buttonLetoltes.Name = "buttonLetoltes";
-            this.buttonLetoltes.Size = new System.Drawing.Size(265, 23);
+            this.buttonLetoltes.Size = new System.Drawing.Size(505, 23);
             this.buttonLetoltes.TabIndex = 151;
             this.buttonLetoltes.Text = "Keresés";
             this.buttonLetoltes.UseVisualStyleBackColor = true;
@@ -569,9 +573,9 @@
             // buttonFeltoltes
             // 
             this.buttonFeltoltes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonFeltoltes.Location = new System.Drawing.Point(210, 292);
+            this.buttonFeltoltes.Location = new System.Drawing.Point(225, 292);
             this.buttonFeltoltes.Name = "buttonFeltoltes";
-            this.buttonFeltoltes.Size = new System.Drawing.Size(104, 23);
+            this.buttonFeltoltes.Size = new System.Drawing.Size(154, 23);
             this.buttonFeltoltes.TabIndex = 146;
             this.buttonFeltoltes.Text = "Feltöltés";
             this.buttonFeltoltes.UseVisualStyleBackColor = true;
@@ -579,7 +583,7 @@
             // 
             // buttonVissza
             // 
-            this.buttonVissza.Location = new System.Drawing.Point(15, 540);
+            this.buttonVissza.Location = new System.Drawing.Point(12, 688);
             this.buttonVissza.Name = "buttonVissza";
             this.buttonVissza.Size = new System.Drawing.Size(92, 29);
             this.buttonVissza.TabIndex = 152;
@@ -602,7 +606,7 @@
             // radioButtonOszFeltolt
             // 
             this.radioButtonOszFeltolt.AutoSize = true;
-            this.radioButtonOszFeltolt.Location = new System.Drawing.Point(129, 8);
+            this.radioButtonOszFeltolt.Location = new System.Drawing.Point(205, 8);
             this.radioButtonOszFeltolt.Name = "radioButtonOszFeltolt";
             this.radioButtonOszFeltolt.Size = new System.Drawing.Size(43, 17);
             this.radioButtonOszFeltolt.TabIndex = 177;
@@ -615,7 +619,7 @@
             this.groupBoxTavaszOsz.Controls.Add(this.radioButtonOszFeltolt);
             this.groupBoxTavaszOsz.Location = new System.Drawing.Point(175, 232);
             this.groupBoxTavaszOsz.Name = "groupBoxTavaszOsz";
-            this.groupBoxTavaszOsz.Size = new System.Drawing.Size(178, 25);
+            this.groupBoxTavaszOsz.Size = new System.Drawing.Size(254, 25);
             this.groupBoxTavaszOsz.TabIndex = 178;
             this.groupBoxTavaszOsz.TabStop = false;
             // 
@@ -633,9 +637,9 @@
             // 
             this.groupBox2.Controls.Add(this.radioButtonTavaszKeres);
             this.groupBox2.Controls.Add(this.radioButtonOszKeres);
-            this.groupBox2.Location = new System.Drawing.Point(617, 223);
+            this.groupBox2.Location = new System.Drawing.Point(845, 217);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 25);
+            this.groupBox2.Size = new System.Drawing.Size(368, 25);
             this.groupBox2.TabIndex = 179;
             this.groupBox2.TabStop = false;
             // 
@@ -654,7 +658,7 @@
             // radioButtonOszKeres
             // 
             this.radioButtonOszKeres.AutoSize = true;
-            this.radioButtonOszKeres.Location = new System.Drawing.Point(137, 8);
+            this.radioButtonOszKeres.Location = new System.Drawing.Point(315, 8);
             this.radioButtonOszKeres.Name = "radioButtonOszKeres";
             this.radioButtonOszKeres.Size = new System.Drawing.Size(43, 17);
             this.radioButtonOszKeres.TabIndex = 177;
@@ -667,7 +671,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label18.Location = new System.Drawing.Point(469, 231);
+            this.label18.Location = new System.Drawing.Point(697, 225);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(60, 17);
             this.label18.TabIndex = 180;
@@ -679,9 +683,9 @@
             this.listBoxVKezdete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxVKezdete.FormattingEnabled = true;
             this.listBoxVKezdete.ItemHeight = 16;
-            this.listBoxVKezdete.Location = new System.Drawing.Point(591, 285);
+            this.listBoxVKezdete.Location = new System.Drawing.Point(906, 279);
             this.listBoxVKezdete.Name = "listBoxVKezdete";
-            this.listBoxVKezdete.Size = new System.Drawing.Size(40, 132);
+            this.listBoxVKezdete.Size = new System.Drawing.Size(56, 308);
             this.listBoxVKezdete.TabIndex = 181;
             // 
             // listBoxVVege
@@ -690,9 +694,9 @@
             this.listBoxVVege.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxVVege.FormattingEnabled = true;
             this.listBoxVVege.ItemHeight = 16;
-            this.listBoxVVege.Location = new System.Drawing.Point(659, 285);
+            this.listBoxVVege.Location = new System.Drawing.Point(968, 279);
             this.listBoxVVege.Name = "listBoxVVege";
-            this.listBoxVVege.Size = new System.Drawing.Size(53, 132);
+            this.listBoxVVege.Size = new System.Drawing.Size(77, 308);
             this.listBoxVVege.TabIndex = 182;
             // 
             // listBoxAnyjaNeve
@@ -701,15 +705,15 @@
             this.listBoxAnyjaNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxAnyjaNeve.FormattingEnabled = true;
             this.listBoxAnyjaNeve.ItemHeight = 16;
-            this.listBoxAnyjaNeve.Location = new System.Drawing.Point(733, 285);
+            this.listBoxAnyjaNeve.Location = new System.Drawing.Point(1051, 279);
             this.listBoxAnyjaNeve.Name = "listBoxAnyjaNeve";
-            this.listBoxAnyjaNeve.Size = new System.Drawing.Size(102, 132);
+            this.listBoxAnyjaNeve.Size = new System.Drawing.Size(200, 308);
             this.listBoxAnyjaNeve.TabIndex = 183;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(436, 266);
+            this.label20.Location = new System.Drawing.Point(659, 263);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(16, 13);
             this.label20.TabIndex = 184;
@@ -720,9 +724,9 @@
             this.listBoxId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxId.FormattingEnabled = true;
             this.listBoxId.ItemHeight = 16;
-            this.listBoxId.Location = new System.Drawing.Point(416, 285);
+            this.listBoxId.Location = new System.Drawing.Point(641, 279);
             this.listBoxId.Name = "listBoxId";
-            this.listBoxId.Size = new System.Drawing.Size(36, 132);
+            this.listBoxId.Size = new System.Drawing.Size(51, 308);
             this.listBoxId.TabIndex = 185;
             this.listBoxId.SelectedIndexChanged += new System.EventHandler(this.listBoxId_SelectedIndexChanged);
             // 
@@ -743,15 +747,6 @@
             this.label23.TabIndex = 187;
             this.label23.Text = "Ennyi file van feltölve:";
             // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(7, 57);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(110, 13);
-            this.label24.TabIndex = 189;
-            this.label24.Text = "Ennyi file van feltölve:";
-            // 
             // labelDBCount
             // 
             this.labelDBCount.AutoSize = true;
@@ -760,12 +755,30 @@
             this.labelDBCount.Size = new System.Drawing.Size(0, 13);
             this.labelDBCount.TabIndex = 188;
             // 
+            // buttonRandomGeneralas
+            // 
+            this.buttonRandomGeneralas.Location = new System.Drawing.Point(439, 690);
+            this.buttonRandomGeneralas.Name = "buttonRandomGeneralas";
+            this.buttonRandomGeneralas.Size = new System.Drawing.Size(75, 23);
+            this.buttonRandomGeneralas.TabIndex = 190;
+            this.buttonRandomGeneralas.Text = "Random";
+            this.buttonRandomGeneralas.UseVisualStyleBackColor = true;
+            this.buttonRandomGeneralas.Click += new System.EventHandler(this.buttonRandomGeneralas_Click);
+            // 
+            // textBoxRandom
+            // 
+            this.textBoxRandom.Location = new System.Drawing.Point(521, 692);
+            this.textBoxRandom.Name = "textBoxRandom";
+            this.textBoxRandom.Size = new System.Drawing.Size(100, 20);
+            this.textBoxRandom.TabIndex = 191;
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 586);
-            this.Controls.Add(this.label24);
+            this.ClientSize = new System.Drawing.Size(1264, 729);
+            this.Controls.Add(this.textBoxRandom);
+            this.Controls.Add(this.buttonRandomGeneralas);
             this.Controls.Add(this.labelDBCount);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.labelFileokSzama);
@@ -894,7 +907,8 @@
         private System.Windows.Forms.ListBox listBoxId;
         private System.Windows.Forms.Label labelFileokSzama;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label labelDBCount;
+        private System.Windows.Forms.Button buttonRandomGeneralas;
+        private System.Windows.Forms.TextBox textBoxRandom;
     }
 }
