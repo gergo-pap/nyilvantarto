@@ -69,7 +69,7 @@
             this.labelDokumentumFelvétel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxDokumentumNeve = new System.Windows.Forms.TextBox();
-            this.buttonLetoltes = new System.Windows.Forms.Button();
+            this.buttonFileKeresese = new System.Windows.Forms.Button();
             this.buttonFeltoltes = new System.Windows.Forms.Button();
             this.buttonVissza = new System.Windows.Forms.Button();
             this.radioButtonTavaszFeltolt = new System.Windows.Forms.RadioButton();
@@ -90,8 +90,9 @@
             this.labelDBCount = new System.Windows.Forms.Label();
             this.buttonRandomGeneralas = new System.Windows.Forms.Button();
             this.textBoxRandom = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBoxOsszetett = new System.Windows.Forms.GroupBox();
+            this.groupBoxRandom = new System.Windows.Forms.GroupBox();
+            this.progressBarRandom = new System.Windows.Forms.ProgressBar();
             this.checkBoxOsszetett = new System.Windows.Forms.CheckBox();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,8 +102,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltKezdet)).BeginInit();
             this.groupBoxTavaszOsz.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.groupBoxOsszetett.SuspendLayout();
+            this.groupBoxRandom.SuspendLayout();
             this.SuspendLayout();
             // 
             // label22
@@ -564,16 +565,16 @@
             this.textBoxDokumentumNeve.TabIndex = 142;
             this.textBoxDokumentumNeve.TextChanged += new System.EventHandler(this.textBoxDokumentumNeve_TextChanged);
             // 
-            // buttonLetoltes
+            // buttonFileKeresese
             // 
-            this.buttonLetoltes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonLetoltes.Location = new System.Drawing.Point(641, 593);
-            this.buttonLetoltes.Name = "buttonLetoltes";
-            this.buttonLetoltes.Size = new System.Drawing.Size(611, 23);
-            this.buttonLetoltes.TabIndex = 151;
-            this.buttonLetoltes.Text = "Keresés";
-            this.buttonLetoltes.UseVisualStyleBackColor = true;
-            this.buttonLetoltes.Click += new System.EventHandler(this.buttonLetoltes_Click);
+            this.buttonFileKeresese.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonFileKeresese.Location = new System.Drawing.Point(641, 593);
+            this.buttonFileKeresese.Name = "buttonFileKeresese";
+            this.buttonFileKeresese.Size = new System.Drawing.Size(611, 23);
+            this.buttonFileKeresese.TabIndex = 151;
+            this.buttonFileKeresese.Text = "Keresés";
+            this.buttonFileKeresese.UseVisualStyleBackColor = true;
+            this.buttonFileKeresese.Click += new System.EventHandler(this.buttonFileKeresese_Click);
             // 
             // buttonFeltoltes
             // 
@@ -778,29 +779,38 @@
             this.textBoxRandom.Size = new System.Drawing.Size(100, 20);
             this.textBoxRandom.TabIndex = 191;
             // 
-            // groupBox4
+            // groupBoxOsszetett
             // 
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label18);
-            this.groupBox4.Controls.Add(this.numericUpDownVizsgaKezdetKeres);
-            this.groupBox4.Controls.Add(this.groupBox2);
-            this.groupBox4.Location = new System.Drawing.Point(726, 180);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(525, 77);
-            this.groupBox4.TabIndex = 192;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
+            this.groupBoxOsszetett.Controls.Add(this.label6);
+            this.groupBoxOsszetett.Controls.Add(this.label18);
+            this.groupBoxOsszetett.Controls.Add(this.numericUpDownVizsgaKezdetKeres);
+            this.groupBoxOsszetett.Controls.Add(this.groupBox2);
+            this.groupBoxOsszetett.Location = new System.Drawing.Point(726, 180);
+            this.groupBoxOsszetett.Name = "groupBoxOsszetett";
+            this.groupBoxOsszetett.Size = new System.Drawing.Size(525, 77);
+            this.groupBoxOsszetett.TabIndex = 192;
+            this.groupBoxOsszetett.TabStop = false;
+            this.groupBoxOsszetett.Text = "groupBox4";
             // 
-            // groupBox5
+            // groupBoxRandom
             // 
-            this.groupBox5.Controls.Add(this.textBoxRandom);
-            this.groupBox5.Controls.Add(this.buttonRandomGeneralas);
-            this.groupBox5.Location = new System.Drawing.Point(411, 649);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 58);
-            this.groupBox5.TabIndex = 193;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "groupBox5";
+            this.groupBoxRandom.Controls.Add(this.progressBarRandom);
+            this.groupBoxRandom.Controls.Add(this.textBoxRandom);
+            this.groupBoxRandom.Controls.Add(this.buttonRandomGeneralas);
+            this.groupBoxRandom.Location = new System.Drawing.Point(411, 622);
+            this.groupBoxRandom.Name = "groupBoxRandom";
+            this.groupBoxRandom.Size = new System.Drawing.Size(200, 85);
+            this.groupBoxRandom.TabIndex = 193;
+            this.groupBoxRandom.TabStop = false;
+            this.groupBoxRandom.Text = "groupBox5";
+            // 
+            // progressBarRandom
+            // 
+            this.progressBarRandom.Location = new System.Drawing.Point(12, 46);
+            this.progressBarRandom.Name = "progressBarRandom";
+            this.progressBarRandom.Size = new System.Drawing.Size(182, 23);
+            this.progressBarRandom.Step = 1;
+            this.progressBarRandom.TabIndex = 192;
             // 
             // checkBoxOsszetett
             // 
@@ -819,8 +829,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 729);
             this.Controls.Add(this.checkBoxOsszetett);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBoxRandom);
+            this.Controls.Add(this.groupBoxOsszetett);
             this.Controls.Add(this.labelDBCount);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.labelFileokSzama);
@@ -857,7 +867,7 @@
             this.Controls.Add(this.labelDokumentumFelvétel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxDokumentumNeve);
-            this.Controls.Add(this.buttonLetoltes);
+            this.Controls.Add(this.buttonFileKeresese);
             this.Controls.Add(this.buttonFeltoltes);
             this.Controls.Add(this.buttonVissza);
             this.Name = "FormSzakmaiVizsgaTörzslap";
@@ -865,7 +875,6 @@
             this.Text = "Szakmai vizsga - Törzslap";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSzakmaiVizsgaTörzslap_FormClosed);
             this.Load += new System.EventHandler(this.FormSzakmaiVizsgaTörzslap_Load);
-            this.Enter += new System.EventHandler(this.FormSzakmaiVizsgaTörzslap_Enter);
             this.groupBoxJelszo.ResumeLayout(false);
             this.groupBoxJelszo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -879,10 +888,10 @@
             this.groupBoxTavaszOsz.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.groupBoxOsszetett.ResumeLayout(false);
+            this.groupBoxOsszetett.PerformLayout();
+            this.groupBoxRandom.ResumeLayout(false);
+            this.groupBoxRandom.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -927,7 +936,7 @@
         private System.Windows.Forms.Label labelDokumentumFelvétel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxDokumentumNeve;
-        private System.Windows.Forms.Button buttonLetoltes;
+        private System.Windows.Forms.Button buttonFileKeresese;
         private System.Windows.Forms.Button buttonFeltoltes;
         private System.Windows.Forms.Button buttonVissza;
         private System.Windows.Forms.RadioButton radioButtonTavaszFeltolt;
@@ -952,8 +961,9 @@
         private System.Windows.Forms.Label labelDBCount;
         private System.Windows.Forms.Button buttonRandomGeneralas;
         private System.Windows.Forms.TextBox textBoxRandom;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBoxOsszetett;
+        private System.Windows.Forms.GroupBox groupBoxRandom;
         private System.Windows.Forms.CheckBox checkBoxOsszetett;
+        private System.Windows.Forms.ProgressBar progressBarRandom;
     }
 }
