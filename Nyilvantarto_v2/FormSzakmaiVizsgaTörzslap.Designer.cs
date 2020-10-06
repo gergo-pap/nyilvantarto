@@ -33,7 +33,7 @@
             this.groupBoxJelszo = new System.Windows.Forms.GroupBox();
             this.textBoxJelszo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxModositas = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioButtonTavaszModosit = new System.Windows.Forms.RadioButton();
@@ -81,7 +81,7 @@
             this.radioButtonOszKeres = new System.Windows.Forms.RadioButton();
             this.label18 = new System.Windows.Forms.Label();
             this.listBoxVKezdete = new System.Windows.Forms.ListBox();
-            this.listBoxVVege = new System.Windows.Forms.ListBox();
+            this.listboxIdoszak = new System.Windows.Forms.ListBox();
             this.listBoxAnyjaNeve = new System.Windows.Forms.ListBox();
             this.label20 = new System.Windows.Forms.Label();
             this.listBoxId = new System.Windows.Forms.ListBox();
@@ -90,19 +90,19 @@
             this.labelDBCount = new System.Windows.Forms.Label();
             this.buttonRandomGeneralas = new System.Windows.Forms.Button();
             this.textBoxRandom = new System.Windows.Forms.TextBox();
-            this.groupBoxOsszetett = new System.Windows.Forms.GroupBox();
+            this.groupBoxOsszetettKereses = new System.Windows.Forms.GroupBox();
             this.groupBoxRandom = new System.Windows.Forms.GroupBox();
             this.progressBarRandom = new System.Windows.Forms.ProgressBar();
             this.checkBoxOsszetett = new System.Windows.Forms.CheckBox();
             this.groupBoxJelszo.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxModositas.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKezdetModositas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaKezdetKeres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltoltKezdet)).BeginInit();
             this.groupBoxTavaszOsz.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBoxOsszetett.SuspendLayout();
+            this.groupBoxOsszetettKereses.SuspendLayout();
             this.groupBoxRandom.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,23 +156,23 @@
             this.label17.TabIndex = 97;
             this.label17.Text = "Jelszó:";
             // 
-            // groupBox1
+            // groupBoxModositas
             // 
-            this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.textBoxNevModositas);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.textBoxAnyjaneveModositas);
-            this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.numericUpDownEvKezdetModositas);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(38, 391);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(398, 225);
-            this.groupBox1.TabIndex = 167;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Visible = false;
+            this.groupBoxModositas.Controls.Add(this.label19);
+            this.groupBoxModositas.Controls.Add(this.groupBox3);
+            this.groupBoxModositas.Controls.Add(this.textBoxNevModositas);
+            this.groupBoxModositas.Controls.Add(this.label13);
+            this.groupBoxModositas.Controls.Add(this.label16);
+            this.groupBoxModositas.Controls.Add(this.textBoxAnyjaneveModositas);
+            this.groupBoxModositas.Controls.Add(this.label15);
+            this.groupBoxModositas.Controls.Add(this.numericUpDownEvKezdetModositas);
+            this.groupBoxModositas.Controls.Add(this.label14);
+            this.groupBoxModositas.Location = new System.Drawing.Point(38, 391);
+            this.groupBoxModositas.Name = "groupBoxModositas";
+            this.groupBoxModositas.Size = new System.Drawing.Size(398, 225);
+            this.groupBoxModositas.TabIndex = 167;
+            this.groupBoxModositas.TabStop = false;
+            this.groupBoxModositas.Visible = false;
             // 
             // label19
             // 
@@ -391,7 +391,7 @@
             this.listBoxKeresesEredmenyeTanuloNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBoxKeresesEredmenyeTanuloNeve.FormattingEnabled = true;
             this.listBoxKeresesEredmenyeTanuloNeve.ItemHeight = 16;
-            this.listBoxKeresesEredmenyeTanuloNeve.Location = new System.Drawing.Point(698, 280);
+            this.listBoxKeresesEredmenyeTanuloNeve.Location = new System.Drawing.Point(698, 279);
             this.listBoxKeresesEredmenyeTanuloNeve.Name = "listBoxKeresesEredmenyeTanuloNeve";
             this.listBoxKeresesEredmenyeTanuloNeve.Size = new System.Drawing.Size(200, 308);
             this.listBoxKeresesEredmenyeTanuloNeve.TabIndex = 150;
@@ -518,9 +518,11 @@
             this.textBoxEleresi.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxEleresi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxEleresi.Location = new System.Drawing.Point(175, 263);
+            this.textBoxEleresi.MaxLength = 20;
+            this.textBoxEleresi.Multiline = true;
             this.textBoxEleresi.Name = "textBoxEleresi";
             this.textBoxEleresi.ReadOnly = true;
-            this.textBoxEleresi.Size = new System.Drawing.Size(254, 23);
+            this.textBoxEleresi.Size = new System.Drawing.Size(254, 80);
             this.textBoxEleresi.TabIndex = 144;
             this.textBoxEleresi.TextChanged += new System.EventHandler(this.textBoxEleresi_TextChanged);
             // 
@@ -579,7 +581,7 @@
             // buttonFeltoltes
             // 
             this.buttonFeltoltes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonFeltoltes.Location = new System.Drawing.Point(225, 292);
+            this.buttonFeltoltes.Location = new System.Drawing.Point(215, 349);
             this.buttonFeltoltes.Name = "buttonFeltoltes";
             this.buttonFeltoltes.Size = new System.Drawing.Size(154, 23);
             this.buttonFeltoltes.TabIndex = 146;
@@ -589,7 +591,7 @@
             // 
             // buttonVissza
             // 
-            this.buttonVissza.Location = new System.Drawing.Point(12, 688);
+            this.buttonVissza.Location = new System.Drawing.Point(12, 681);
             this.buttonVissza.Name = "buttonVissza";
             this.buttonVissza.Size = new System.Drawing.Size(92, 29);
             this.buttonVissza.TabIndex = 152;
@@ -694,16 +696,16 @@
             this.listBoxVKezdete.Size = new System.Drawing.Size(56, 308);
             this.listBoxVKezdete.TabIndex = 181;
             // 
-            // listBoxVVege
+            // listboxIdoszak
             // 
-            this.listBoxVVege.Enabled = false;
-            this.listBoxVVege.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.listBoxVVege.FormattingEnabled = true;
-            this.listBoxVVege.ItemHeight = 16;
-            this.listBoxVVege.Location = new System.Drawing.Point(968, 279);
-            this.listBoxVVege.Name = "listBoxVVege";
-            this.listBoxVVege.Size = new System.Drawing.Size(77, 308);
-            this.listBoxVVege.TabIndex = 182;
+            this.listboxIdoszak.Enabled = false;
+            this.listboxIdoszak.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listboxIdoszak.FormattingEnabled = true;
+            this.listboxIdoszak.ItemHeight = 16;
+            this.listboxIdoszak.Location = new System.Drawing.Point(968, 279);
+            this.listboxIdoszak.Name = "listboxIdoszak";
+            this.listboxIdoszak.Size = new System.Drawing.Size(77, 308);
+            this.listboxIdoszak.TabIndex = 182;
             // 
             // listBoxAnyjaNeve
             // 
@@ -779,18 +781,17 @@
             this.textBoxRandom.Size = new System.Drawing.Size(100, 20);
             this.textBoxRandom.TabIndex = 191;
             // 
-            // groupBoxOsszetett
+            // groupBoxOsszetettKereses
             // 
-            this.groupBoxOsszetett.Controls.Add(this.label6);
-            this.groupBoxOsszetett.Controls.Add(this.label18);
-            this.groupBoxOsszetett.Controls.Add(this.numericUpDownVizsgaKezdetKeres);
-            this.groupBoxOsszetett.Controls.Add(this.groupBox2);
-            this.groupBoxOsszetett.Location = new System.Drawing.Point(726, 180);
-            this.groupBoxOsszetett.Name = "groupBoxOsszetett";
-            this.groupBoxOsszetett.Size = new System.Drawing.Size(525, 77);
-            this.groupBoxOsszetett.TabIndex = 192;
-            this.groupBoxOsszetett.TabStop = false;
-            this.groupBoxOsszetett.Text = "groupBox4";
+            this.groupBoxOsszetettKereses.Controls.Add(this.label6);
+            this.groupBoxOsszetettKereses.Controls.Add(this.label18);
+            this.groupBoxOsszetettKereses.Controls.Add(this.numericUpDownVizsgaKezdetKeres);
+            this.groupBoxOsszetettKereses.Controls.Add(this.groupBox2);
+            this.groupBoxOsszetettKereses.Location = new System.Drawing.Point(726, 180);
+            this.groupBoxOsszetettKereses.Name = "groupBoxOsszetettKereses";
+            this.groupBoxOsszetettKereses.Size = new System.Drawing.Size(525, 77);
+            this.groupBoxOsszetettKereses.TabIndex = 192;
+            this.groupBoxOsszetettKereses.TabStop = false;
             // 
             // groupBoxRandom
             // 
@@ -827,24 +828,24 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 729);
+            this.ClientSize = new System.Drawing.Size(1264, 722);
             this.Controls.Add(this.checkBoxOsszetett);
             this.Controls.Add(this.groupBoxRandom);
-            this.Controls.Add(this.groupBoxOsszetett);
+            this.Controls.Add(this.groupBoxOsszetettKereses);
             this.Controls.Add(this.labelDBCount);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.labelFileokSzama);
             this.Controls.Add(this.listBoxId);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.listBoxAnyjaNeve);
-            this.Controls.Add(this.listBoxVVege);
+            this.Controls.Add(this.listboxIdoszak);
             this.Controls.Add(this.listBoxVKezdete);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.groupBoxTavaszOsz);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.groupBoxJelszo);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxModositas);
             this.Controls.Add(this.buttonModositas);
             this.Controls.Add(this.buttonTorles);
             this.Controls.Add(this.label11);
@@ -877,8 +878,8 @@
             this.Load += new System.EventHandler(this.FormSzakmaiVizsgaTörzslap_Load);
             this.groupBoxJelszo.ResumeLayout(false);
             this.groupBoxJelszo.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxModositas.ResumeLayout(false);
+            this.groupBoxModositas.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKezdetModositas)).EndInit();
@@ -888,8 +889,8 @@
             this.groupBoxTavaszOsz.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBoxOsszetett.ResumeLayout(false);
-            this.groupBoxOsszetett.PerformLayout();
+            this.groupBoxOsszetettKereses.ResumeLayout(false);
+            this.groupBoxOsszetettKereses.PerformLayout();
             this.groupBoxRandom.ResumeLayout(false);
             this.groupBoxRandom.PerformLayout();
             this.ResumeLayout(false);
@@ -904,7 +905,7 @@
         private System.Windows.Forms.GroupBox groupBoxJelszo;
         private System.Windows.Forms.TextBox textBoxJelszo;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxModositas;
         private System.Windows.Forms.TextBox textBoxNevModositas;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label16;
@@ -952,7 +953,7 @@
         private System.Windows.Forms.RadioButton radioButtonTavaszModosit;
         private System.Windows.Forms.RadioButton radioButtonOszModosit;
         private System.Windows.Forms.ListBox listBoxVKezdete;
-        private System.Windows.Forms.ListBox listBoxVVege;
+        private System.Windows.Forms.ListBox listboxIdoszak;
         private System.Windows.Forms.ListBox listBoxAnyjaNeve;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ListBox listBoxId;
@@ -961,7 +962,7 @@
         private System.Windows.Forms.Label labelDBCount;
         private System.Windows.Forms.Button buttonRandomGeneralas;
         private System.Windows.Forms.TextBox textBoxRandom;
-        private System.Windows.Forms.GroupBox groupBoxOsszetett;
+        private System.Windows.Forms.GroupBox groupBoxOsszetettKereses;
         private System.Windows.Forms.GroupBox groupBoxRandom;
         private System.Windows.Forms.CheckBox checkBoxOsszetett;
         private System.Windows.Forms.ProgressBar progressBarRandom;

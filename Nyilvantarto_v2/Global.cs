@@ -236,7 +236,6 @@ namespace Nyilvantarto_v2
                     return;
                 }
                 string argument = "/select, \"" + filePath + "\"";
-                MessageBox.Show("" + argument);
 
                 System.Diagnostics.Process.Start("explorer.exe", argument);
             }
@@ -288,7 +287,6 @@ namespace Nyilvantarto_v2
                         globTavaszVOszString = "Ősz";
                     }
                 }
-                MessageBox.Show(globKiterjesztes);
             }
             conn.Close();
         }
@@ -595,6 +593,94 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
+        }
+
+        public static void modositas(TextBox textBoxAnyjaneveModositas, TextBox textBoxNevModositas, RadioButton radioButtonTavaszModosit, NumericUpDown numericUpDownEvKezdetModositas,
+            string update, string rowTneve, string rowAnyjaNeve, string rowVkezdet, string rowTavaszVosz)
+        {
+            conn.Open();
+            int indexOf = textBoxAnyjaneveModositas.Text.IndexOfAny(SpecialChars);
+            int indexOf2 = textBoxNevModositas.Text.IndexOfAny(SpecialChars);
+            byte tavaszVosz;
+            string tavaszVOszModosit;
+            if (radioButtonTavaszModosit.Checked)
+            {
+                tavaszVosz = 1;
+                tavaszVOszModosit = "Tavasz";
+            }
+            else
+            {
+                tavaszVosz = 0;
+                tavaszVOszModosit = "Ősz";
+            }
+            if (indexOf == -1 && indexOf2 == -1)
+            {
+                try
+                {
+                    string SQL =
+                                "UPDATE " +
+                                $"{update} " +
+                                "SET " +
+                                $"{rowTneve} = '" + textBoxNevModositas.Text + "', " +
+                                $"{rowAnyjaNeve} = '" + textBoxAnyjaneveModositas.Text + "', " +
+                                $"{rowVkezdet} = " + numericUpDownEvKezdetModositas.Value + ", " +
+                                $"{rowTavaszVosz} = " + tavaszVosz + " " +
+                                "WHERE " +
+                                $"{rowTneve} = '" + globNev + "' AND " +
+                                $"{rowAnyjaNeve} =  '" + globAnyja + "' AND " +
+                                $"{rowVkezdet} = " + globEvKezdet + " AND " +
+                                $"{rowTavaszVosz} = " + globTavaszVoszInt + ";"
+                                ;
+
+                    cmd.Connection = conn;
+                    cmd.CommandText = SQL;
+
+                    cmd.ExecuteNonQuery();
+
+
+                    string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + tavaszVOszModosit + '_' + textBoxAnyjaneveModositas.Text + '.';
+                    string sourceFileName = globNev + '_' + globEvKezdet + '_' + globTavaszVOszString + '_' + globAnyja + '.';
+                    System.IO.File.Move(fullPath + sourceFileName + globKiterjesztes, fullPath + destFileName  + globKiterjesztes);
+
+                    MessageBox.Show("Sikeres módosítás");
+                    conn.Close();
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("Nincs kijelölve semmi!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
+            }
+
+        }
+
+        public static bool checkIfEmptyInput(TextBox textBoxAnyjaNeveFeltolt, TextBox textBoxDokumentumNeve, TextBox textBoxTanuloNeveFeltolt, TextBox textBoxEleresi)
+        {
+            bool joE = true;
+            if (textBoxAnyjaNeveFeltolt.Text.Length == 0)
+            {
+                textBoxAnyjaNeveFeltolt.BackColor = Color.Red;
+                joE = false;
+            }
+            if (textBoxDokumentumNeve.Text.Length == 0)
+            {
+                textBoxDokumentumNeve.BackColor = Color.Red;
+                joE = false;
+            }
+            if (textBoxTanuloNeveFeltolt.Text.Length == 0)
+            {
+                textBoxTanuloNeveFeltolt.BackColor = Color.Red;
+                joE = false;
+            }
+            if (textBoxEleresi.Text.Length == 0)
+            {
+                textBoxEleresi.BackColor = Color.Red;
+                joE = false;
+            }
+            return joE;
         }
 
     }

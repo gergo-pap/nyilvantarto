@@ -26,7 +26,7 @@ namespace Nyilvantarto_v2
             conn.Open();
             createTables();
             checkDirs();
-            labelPath.Text = Globális.path;
+            labelPath.Text = Global.fullPath;
         }
 
         public void checkDirs()
@@ -46,7 +46,7 @@ namespace Nyilvantarto_v2
                 labelMentesiHely.Text = path;
                 groupBoxEleresi.Visible = false;
                 groupBoxButtons.Visible = true;
-                Globális.path = labelMentesiHely.Text;
+                Global.fullPath = labelMentesiHely.Text;
             }
         }
 
@@ -57,7 +57,7 @@ namespace Nyilvantarto_v2
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Törzslap\");
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Törzslap\");
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Tanusítvány\");
-            Globális.path = labelMentesiHely.Text;
+            Global.fullPath = labelMentesiHely.Text;
         }
 
         private void setPathInDB()
