@@ -25,38 +25,39 @@ namespace Nyilvantarto_v2
         private static MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()-".ToCharArray();
 
-        public static void loadFuggvenyek(GroupBox gb1, GroupBox gb2)
+        public static void loadFuggvenyek(GroupBox gbOsszetett, GroupBox gbRandom)
         {
-            gb1.Visible = false;
-            gb2.Visible = true;
+            gbOsszetett.Visible = false;
+            gbRandom.Visible = true;
         }
 
-        public static void CreateTableDokumentumok()
+        public static void createTable(string tableName, string rowTanuloneve, string rowAnyjaneve, string rowSzerzo, string rowVevKezdet, string rowVizsgaTavaszvOsz,
+                                        string rowdokNeve, string rowdokLegutobbModositva, string rowFeltoltIdopontja, string rowFormatum, string rowPath)
         {
             conn.Open();
             var command = conn.CreateCommand();
-            command.CommandText = @"
+            command.CommandText = $@"
                                 CREATE TABLE IF NOT EXISTS 
-                                    szakmaivizsgaTorzslap 
+                                    {tableName} 
                                     (
                                     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                    szvt_tanuloNeve TEXT NOT NULL,
-                                    szvt_AnyjaNeve TEXT NOT NULL,
-                                    szvt_szerzo TEXT NOT NULL,
-                                    szvt_viszgaEvKezdet INT NOT NULL,
-                                    szvt_viszgaTavasz1Osz0 BOOLEAN NOT NULL,
-                                    szvt_dokumentumNev TEXT NOT NULL,
-                                    szvt_dokLegutobbModositva DATETIME NOT NULL,
-                                    szvt_feltoltesIdopontja DATETIME NOT NULL,
-                                    szvt_formatum TEXT NOT NULL,
-                                    szvt_path TEXT NULL
+                                    {rowTanuloneve} TEXT NOT NULL,
+                                    {rowAnyjaneve} TEXT NOT NULL,
+                                    {rowSzerzo} TEXT NOT NULL,
+                                    {rowVevKezdet} INT NOT NULL,
+                                    {rowVizsgaTavaszvOsz} BOOLEAN NOT NULL,
+                                    {rowdokNeve} TEXT NOT NULL,
+                                    {rowdokLegutobbModositva} DATETIME NOT NULL,
+                                    {rowFeltoltIdopontja} DATETIME NOT NULL,
+                                    {rowFormatum} TEXT NOT NULL,
+                                    {rowPath} TEXT NULL
                                     );
                                     ";
             command.ExecuteNonQuery();
             conn.Close();
         }
 
-        public static void getDestPathFromDatabase()
+        public static void getDestPathFromDatabase(string folders)
         {
             conn.Open();
             var command = conn.CreateCommand();
@@ -64,8 +65,9 @@ namespace Nyilvantarto_v2
             cmd.CommandText = "Select s_value From settings Where s_var = @var";
             cmd.Parameters.AddWithValue("@var", "eleresiUt");
             var result = cmd.ExecuteScalar();
-            fullPath = result.ToString() + @"\Adatok\Szakmai Vizsga\Törzslap\";
+            fullPath = result.ToString() + folders;
             fixPath = result.ToString();
+            cmd.Parameters.Clear();
             conn.Close();
             // TODO: path vége nem lesz jó az összes formnál
         }
@@ -133,7 +135,7 @@ namespace Nyilvantarto_v2
 
             new Thread(() =>
             {
-                //Thread.CurrentThread.IsBackground = true;
+                Thread.CurrentThread.IsBackground = true;
                 var listAdatbazisbolHianyzo = dataOnPC.Where(x => !dataDB.Contains(x)).ToList();
                 var listPCnHianyzo = dataDB.Where(x => !dataOnPC.Contains(x)).ToList();
                 var listUnion = dataOnPC.Union(dataDB);
@@ -143,12 +145,7 @@ namespace Nyilvantarto_v2
                     string lines = string.Join(Environment.NewLine, listAdatbazisbolHianyzo);
                     if (MessageBox.Show($"Adatbázisból hiányzó fileok: \n{lines}\nSzeretnéd törölni? a PC-ről?", "Hiányzó elemek törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        // user clicked yes
                         hianyzoElemeTorlesePCrol(listAdatbazisbolHianyzo, fullPath);
-                    }
-                    else
-                    {
-                        // user clicked no
                     }
                 }
                 if (listPCnHianyzo.Count > 0)
@@ -156,12 +153,7 @@ namespace Nyilvantarto_v2
                     string lines = string.Join(Environment.NewLine, listPCnHianyzo);
                     if (MessageBox.Show($"PC-ről hiányzó fileok: \n{lines}\nSzeretnéd törölni az adatbázisból a bejegyzést róla?", "Hiányzó elemek törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        // user clicked yes
                         hianyzoElemekTorleseDBrol(listPCnHianyzo, from);
-                    }
-                    else
-                    {
-                        // user clicked no
                     }
                 }
 
@@ -398,12 +390,15 @@ namespace Nyilvantarto_v2
         }
 
         public static void osszetettKeres(string rowTneve, string rowKezdet, string rowTvOsz, string rowAnyja, 
-            string from, string where1, string likeText1, string where2, string likeText2,
+            string from, string likeText1, string likeText2,
             ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxAnyjaNeve)
         {
             conn.Open();
             var command = conn.CreateCommand();
-            command.CommandText = $"SELECT id, {rowTneve}, {rowKezdet}, {rowTvOsz}, {rowAnyja}  FROM {from} WHERE {where1} like '%{likeText1}%' AND {where2} like '%{likeText2}%'";
+            command.CommandText = $"SELECT id, {rowTneve}, {rowKezdet}, {rowTvOsz}, {rowAnyja}  " +
+                $"FROM {from} " +
+                $"WHERE {rowTneve} like '%{likeText1}%' " +
+                $"AND {rowAnyja} like '%{likeText2}%'";
             //MessageBox.Show(command.CommandText.ToString());
             using (var reader = command.ExecuteReader())
             {
@@ -432,17 +427,17 @@ namespace Nyilvantarto_v2
         }
 
         public static void osszetettKeresv2(string rowTneve, string rowVkezdet, string rowTavaszOsz, string rowAnyja, 
-                                            string from, string where1, string like1, string where2, string like2, string where3, string like3, string where4, string like4,
+                                            string from, string like1, string like2, string like3, string like4,
                                             ListBox listBoxId, ListBox listBoxTanuloNeve, ListBox listBoxVkezdete, ListBox listBoxIdoszak, ListBox listBoxAnyja)
         {
             conn.Open();
             var command = conn.CreateCommand();
             command.CommandText = $"SELECT id, {rowTneve}, {rowVkezdet}, {rowTavaszOsz}, {rowAnyja} " +
                                 $"FROM {from} " +
-                                $"WHERE {where1} like '%{like1}%' " +
-                                $"AND {where2} like '%{like2}%' " +
-                                $"AND {where3} like '%{like3}%' " +
-                                $"AND {where4} like '%{like4}%'";
+                                $"WHERE {rowTneve} like '%{like1}%' " +
+                                $"AND {rowAnyja} like '%{like2}%' " +
+                                $"AND {rowVkezdet} like '%{like3}%' " +
+                                $"AND {rowTavaszOsz} like '%{like4}%'";
             using (var reader = command.ExecuteReader())
             {
                 var id = reader.GetOrdinal("id");
@@ -532,7 +527,7 @@ namespace Nyilvantarto_v2
                     cmd.ExecuteNonQuery();
 
                     string source = eleresiUt;
-                    MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
+                    //MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
 
                     System.IO.File.Copy(source, destination);
 
