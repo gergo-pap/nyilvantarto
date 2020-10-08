@@ -31,32 +31,6 @@ namespace Nyilvantarto_v2
             gbRandom.Visible = true;
         }
 
-        public static void createTable(string tableName, string rowTanuloneve, string rowAnyjaneve, string rowSzerzo, string rowVevKezdet, string rowVizsgaTavaszvOsz,
-                                        string rowdokNeve, string rowdokLegutobbModositva, string rowFeltoltIdopontja, string rowFormatum, string rowPath)
-        {
-            conn.Open();
-            var command = conn.CreateCommand();
-            command.CommandText = $@"
-                                CREATE TABLE IF NOT EXISTS 
-                                    {tableName} 
-                                    (
-                                    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                    {rowTanuloneve} TEXT NOT NULL,
-                                    {rowAnyjaneve} TEXT NOT NULL,
-                                    {rowSzerzo} TEXT NOT NULL,
-                                    {rowVevKezdet} INT NOT NULL,
-                                    {rowVizsgaTavaszvOsz} BOOLEAN NOT NULL,
-                                    {rowdokNeve} TEXT NOT NULL,
-                                    {rowdokLegutobbModositva} DATETIME NOT NULL,
-                                    {rowFeltoltIdopontja} DATETIME NOT NULL,
-                                    {rowFormatum} TEXT NOT NULL,
-                                    {rowPath} TEXT NULL
-                                    );
-                                    ";
-            command.ExecuteNonQuery();
-            conn.Close();
-        }
-
         public static void getDestPathFromDatabase(string folders)
         {
             conn.Open();
@@ -69,7 +43,6 @@ namespace Nyilvantarto_v2
             fixPath = result.ToString();
             cmd.Parameters.Clear();
             conn.Close();
-            // TODO: path vége nem lesz jó az összes formnál
         }
 
         public static void getCount(Label l, Label l2, string pathEnd, string tableName)
@@ -96,7 +69,8 @@ namespace Nyilvantarto_v2
             conn.Close();
         }
 
-        public static void checkMissingFile(string destPath, string selectRow1, string selectRow2, string selectRow3, string selectRow4, string from, Label l1, Label l2)
+        public static void checkMissingFile(string destPath, string selectRow1, string selectRow2, 
+                                            string selectRow3, string selectRow4, string from, Label l1, Label l2)
         {
             List<string> dataOnPC = new List<string>();
             List<string> dataDB = new List<string>();
@@ -108,8 +82,9 @@ namespace Nyilvantarto_v2
                 //MessageBox.Show(item.Split('\\').Last().Split('.').First());
                 dataOnPC.Add(item.Split('\\').Last().Split('.').First());
             }
-            conn.Open();
+            
             var command = conn.CreateCommand();
+            conn.Open();
             command.CommandText = $"SELECT {selectRow1}, {selectRow2}, {selectRow3}, {selectRow4} FROM {from}";
             using (var reader = command.ExecuteReader())
             {
@@ -130,11 +105,14 @@ namespace Nyilvantarto_v2
                 }
             }
             conn.Close();
+
+
             //MessageBox.Show("PC: " + dataOnPC.Count);
             //MessageBox.Show("DB: " + dataDB.Count);
 
             new Thread(() =>
             {
+
                 Thread.CurrentThread.IsBackground = true;
                 var listAdatbazisbolHianyzo = dataOnPC.Where(x => !dataDB.Contains(x)).ToList();
                 var listPCnHianyzo = dataDB.Where(x => !dataOnPC.Contains(x)).ToList();
@@ -239,7 +217,8 @@ namespace Nyilvantarto_v2
             cmd.Parameters.Clear();
         }
 
-        public static void setVariablesFromSelecteditem(ListBox lb, string rowNev, string rowEvKezdet, string rowTavaszVOsz, string rowAnyja, string rowFormatum, string tableName)
+        public static void setVariablesFromSelecteditem(ListBox lb, string rowNev, string rowEvKezdet, string rowTavaszVOsz, 
+                                                        string rowAnyja, string rowFormatum, string tableName)
         {
             conn.Open();
             var getData = conn.CreateCommand();
@@ -268,7 +247,7 @@ namespace Nyilvantarto_v2
                         globAnyja = reader.GetValue(rowAnyja2).ToString();
                         globKiterjesztes = reader.GetValue(rowFormatum2).ToString();
                     }
-                    if (globTavaszVoszTrueOrFalse  == true)
+                    if (globTavaszVoszTrueOrFalse == true)
                     {
                         globTavaszVoszInt = 1;
                         globTavaszVOszString = "Tavasz";
@@ -336,35 +315,35 @@ namespace Nyilvantarto_v2
             eleresi.BackColor = Color.White;
         }
 
-        public static void keres(string rowTneveEsWhere, string rowVkezdet, string rowViszgaTaVOsz, string rowAnyja, string from, string textboxText, 
+        public static void keres(string rowTneveEsWhere, string rowVkezdet, string rowViszgaTaVOsz, string rowAnyja, string from, string textboxText,
                                  ListBox ListBid, ListBox listBoxTanuloNeve, ListBox listBoxVKezdete, ListBox listBoxVVege, ListBox listBoxAnyjaNeve)
         {
             conn.Open();
             var command = conn.CreateCommand();
             command.CommandText = $"SELECT id,{rowTneveEsWhere},{rowVkezdet},{rowViszgaTaVOsz},{rowAnyja}  FROM {from} WHERE {rowTneveEsWhere} like '%" + textboxText + "%'";
-              using (var reader = command.ExecuteReader())
-              {
-                  var id = reader.GetOrdinal("id");
-                  var szvt_tanuloNeve = reader.GetOrdinal(rowTneveEsWhere);
-                  var szvt_viszgaEvKezdet = reader.GetOrdinal(rowVkezdet);
-                  var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal(rowViszgaTaVOsz);
-                  var szvt_AnyjaNeve = reader.GetOrdinal(rowAnyja);
-                  int i = 0;
-                  while (reader.Read() && i < 19)
-                  {
-                      var id2 = reader.GetValue(id).ToString();
-                      var szvt_tanuloNeve2 = reader.GetValue(szvt_tanuloNeve).ToString();
-                      var szvt_viszgaEvKezdet2 = reader.GetValue(szvt_viszgaEvKezdet).ToString();
-                      var szvt_viszgaTavasz1Osz02 = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
-                      var szvt_AnyjaNeve2 = reader.GetValue(szvt_AnyjaNeve).ToString();
-                      ListBid.Items.Add(id2);
-                      listBoxTanuloNeve.Items.Add(szvt_tanuloNeve2);
-                      listBoxVKezdete.Items.Add(szvt_viszgaEvKezdet2);
-                      listBoxVVege.Items.Add(boolConvert(bool.Parse(szvt_viszgaTavasz1Osz02)));
-                      listBoxAnyjaNeve.Items.Add(szvt_AnyjaNeve2);
-                      i++;
-                  }
-              }
+            using (var reader = command.ExecuteReader())
+            {
+                var id = reader.GetOrdinal("id");
+                var szvt_tanuloNeve = reader.GetOrdinal(rowTneveEsWhere);
+                var szvt_viszgaEvKezdet = reader.GetOrdinal(rowVkezdet);
+                var szvt_viszgaTavasz1Osz0 = reader.GetOrdinal(rowViszgaTaVOsz);
+                var szvt_AnyjaNeve = reader.GetOrdinal(rowAnyja);
+                int i = 0;
+                while (reader.Read() && i < 19)
+                {
+                    var id2 = reader.GetValue(id).ToString();
+                    var szvt_tanuloNeve2 = reader.GetValue(szvt_tanuloNeve).ToString();
+                    var szvt_viszgaEvKezdet2 = reader.GetValue(szvt_viszgaEvKezdet).ToString();
+                    var szvt_viszgaTavasz1Osz02 = reader.GetValue(szvt_viszgaTavasz1Osz0).ToString();
+                    var szvt_AnyjaNeve2 = reader.GetValue(szvt_AnyjaNeve).ToString();
+                    ListBid.Items.Add(id2);
+                    listBoxTanuloNeve.Items.Add(szvt_tanuloNeve2);
+                    listBoxVKezdete.Items.Add(szvt_viszgaEvKezdet2);
+                    listBoxVVege.Items.Add(boolConvert(bool.Parse(szvt_viszgaTavasz1Osz02)));
+                    listBoxAnyjaNeve.Items.Add(szvt_AnyjaNeve2);
+                    i++;
+                }
+            }
             conn.Close();
         }
 
@@ -382,14 +361,14 @@ namespace Nyilvantarto_v2
 
         public static void listboxKeresesEredmenyeiClear(ListBox l1, ListBox l2, ListBox l3, ListBox l4, ListBox l5)
         {
-                l1.Items.Clear();
-                l2.Items.Clear();
-                l3.Items.Clear();
-                l4.Items.Clear();
-                l5.Items.Clear();
+            l1.Items.Clear();
+            l2.Items.Clear();
+            l3.Items.Clear();
+            l4.Items.Clear();
+            l5.Items.Clear();
         }
 
-        public static void osszetettKeres(string rowTneve, string rowKezdet, string rowTvOsz, string rowAnyja, 
+        public static void osszetettKeres(string rowTneve, string rowKezdet, string rowTvOsz, string rowAnyja,
             string from, string likeText1, string likeText2,
             ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxAnyjaNeve)
         {
@@ -426,7 +405,7 @@ namespace Nyilvantarto_v2
             conn.Close();
         }
 
-        public static void osszetettKeresv2(string rowTneve, string rowVkezdet, string rowTavaszOsz, string rowAnyja, 
+        public static void osszetettKeresv2(string rowTneve, string rowVkezdet, string rowTavaszOsz, string rowAnyja,
                                             string from, string like1, string like2, string like3, string like4,
                                             ListBox listBoxId, ListBox listBoxTanuloNeve, ListBox listBoxVkezdete, ListBox listBoxIdoszak, ListBox listBoxAnyja)
         {
@@ -635,7 +614,7 @@ namespace Nyilvantarto_v2
 
                     string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + tavaszVOszModosit + '_' + textBoxAnyjaneveModositas.Text + '.';
                     string sourceFileName = globNev + '_' + globEvKezdet + '_' + globTavaszVOszString + '_' + globAnyja + '.';
-                    System.IO.File.Move(fullPath + sourceFileName + globKiterjesztes, fullPath + destFileName  + globKiterjesztes);
+                    System.IO.File.Move(fullPath + sourceFileName + globKiterjesztes, fullPath + destFileName + globKiterjesztes);
 
                     MessageBox.Show("Sikeres módosítás");
                     conn.Close();
@@ -678,5 +657,232 @@ namespace Nyilvantarto_v2
             return joE;
         }
 
+        public static bool checkDB_Conn()
+        {
+            var conn_info = "Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;";
+            bool isConn = false;
+            MySqlConnection conn = null;
+            try
+            {
+                conn = new MySqlConnection(conn_info);
+                conn.Open();
+                isConn = true;
+            }
+            catch (ArgumentException a_ex)
+            {
+                MessageBox.Show($"Hibás connection string!\n{a_ex.Message}\n{a_ex}");
+            }
+            catch (MySqlException ex)
+            {
+                string sqlErrorMessage = "Üzenet: " + ex.Message + "\n" +
+                "Forrás: " + ex.Source + "\n" +
+                "Szám: " + ex.Number;
+                MessageBox.Show(sqlErrorMessage);
+
+                isConn = false;
+                switch (ex.Number)
+                {
+                    case 1042:
+                        MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
+                        break;
+                    case 0:
+                        MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return isConn;
+        }
+
+        //main függvényei
+
+        public static void createTableKozepiskolaAnyakonyv()
+        {
+            conn.Open();
+            var command = conn.CreateCommand();
+
+            command = conn.CreateCommand();
+            command.CommandText = @"
+                            CREATE TABLE IF NOT EXISTS 
+                                kozepiskolaanyakonyv 
+                                (
+                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
+                                ka_tanuloNeve TEXT NOT NULL,
+                                ka_AnyjaNeve TEXT NOT NULL,
+                                ka_szerzo TEXT NOT NULL,
+                                ka_erettsegiEvKezdet INT NOT NULL,
+                                ka_erettsegiEvVeg INT NOT NULL,
+                                ka_DokumentumNev TEXT NOT NULL,
+                                ka_DokLegutobbModositva DATETIME NOT NULL,
+                                ka_FeltoltesIdopontja DATETIME NOT NULL,
+                                ka_formatum TEXT NOT NULL,
+                                ka_path TEXT NULL
+                                );
+                                ";
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void createTablesettings()
+        {
+            conn.Open();
+            var command = conn.CreateCommand();
+            command.CommandText = @"
+                            CREATE TABLE IF NOT EXISTS 
+                                settings 
+                                (
+                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
+                                s_var TEXT NOT NULL,
+                                s_value TEXT NOT NULL
+                                );
+                                ";
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void createTableszakmaivizsgaTorzslap()
+        {
+            conn.Open();
+            var command = conn.CreateCommand();
+            command = conn.CreateCommand();
+            command.CommandText = @"
+                            CREATE TABLE IF NOT EXISTS 
+                                szakmaivizsgaTorzslap 
+                                (
+                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
+                                szvt_tanuloNeve TEXT NOT NULL,
+                                szvt_AnyjaNeve TEXT NOT NULL,
+                                szvt_szerzo TEXT NOT NULL,
+                                szvt_viszgaEvKezdet INT NOT NULL,
+                                szvt_viszgaTavasz1Osz0 BOOLEAN NOT NULL,
+                                szvt_dokumentumNev TEXT NOT NULL,
+                                szvt_dokLegutobbModositva DATETIME NOT NULL,
+                                szvt_feltoltesIdopontja DATETIME NOT NULL,
+                                szvt_formatum TEXT NOT NULL,
+                                szvt_path TEXT NULL
+                                );
+                                ";
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void createTableszakmaiviszgaanyakonyv()
+        {
+            conn.Open();
+            var command = conn.CreateCommand();
+            command.CommandText = @"
+                            CREATE TABLE IF NOT EXISTS 
+                                szakmaiviszgaanyakonyv 
+                                (
+                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
+                                szva_tanuloNeve TEXT NOT NULL,
+                                szva_AnyjaNeve TEXT NOT NULL,
+                                szva_szerzo TEXT NOT NULL,
+                                szva_erettsegiEvKezdet INT NOT NULL,
+                                szva_erettsegiEvVeg INT NOT NULL,
+                                szva_DokumentumNev TEXT NOT NULL,
+                                szva_DokLegutobbModositva DATETIME NOT NULL,
+                                szva_FeltoltesIdopontja DATETIME NOT NULL,
+                                szva_formatum TEXT NOT NULL,
+                                szva_path TEXT NULL
+                                );
+                                ";
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void createDirectiories(Label labelMentesiHely)
+        {
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Középiskola\Anyakönyv\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Anyakönyv\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Törzslap\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Törzslap\");
+            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Tanusítvány\");
+            fullPath = labelMentesiHely.Text;
+        }
+
+        public static void checkDirs(GroupBox groupBoxEleresi, GroupBox groupBoxButtons, Label labelMentesiHely)
+        {
+            conn.Open();
+            string query = "SELECT s_value FROM settings WHERE s_var = 'eleresiUt'; ";
+            var command = conn.CreateCommand();
+            command.CommandText = query;
+            var result = command.ExecuteScalar();
+            if (result == null)
+            {
+                groupBoxEleresi.Visible = true;
+                groupBoxButtons.Visible = false;
+            }
+            else
+            {
+                var path = result.ToString();
+                labelMentesiHely.Text = path;
+                groupBoxEleresi.Visible = false;
+                groupBoxButtons.Visible = true;
+                fullPath = labelMentesiHely.Text;
+            }
+            conn.Close();
+        }
+
+        public static void setPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, GroupBox groupBoxButtons)
+        {
+            try
+            {
+                conn.Open();
+                int indexOf = labelMentesiHely.Text.IndexOfAny(SpecialChars);
+                if (indexOf == -1)
+                {
+                    string SQL = "INSERT INTO " +
+                        "settings " +
+                        "VALUES" +
+                        "(" +
+                            "NULL, " +
+                            "@s_var, " +
+                            "@s_value " +
+                        ")";
+                    cmd.Connection = conn;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@s_var", "eleresiUt");
+                    cmd.Parameters.AddWithValue("@s_value", labelMentesiHely.Text.ToString());
+
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
+                }
+                conn.Close();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show("SQL hiba " + ex.Number + " has occurred: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            groupBoxEleresi.Visible = false;
+            groupBoxButtons.Visible = true;
+        }
+
+        public static void tallozas(Label labelMentesiHely)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                string sSelectedPath = fbd.SelectedPath;
+                labelMentesiHely.Text = sSelectedPath;
+            }
+            else
+            {
+                MessageBox.Show("Hiba");
+            }
+        }
     }
 }

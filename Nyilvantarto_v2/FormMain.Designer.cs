@@ -149,9 +149,9 @@
             this.labelPath.AutoSize = true;
             this.labelPath.Location = new System.Drawing.Point(367, 28);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(35, 13);
+            this.labelPath.Size = new System.Drawing.Size(34, 13);
             this.labelPath.TabIndex = 9;
-            this.labelPath.Text = "label4";
+            this.labelPath.Text = "path?";
             // 
             // FormMain
             // 
@@ -164,6 +164,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nyílvántartó";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.groupBoxEleresi.ResumeLayout(false);
             this.groupBoxEleresi.PerformLayout();
             this.groupBoxButtons.ResumeLayout(false);
