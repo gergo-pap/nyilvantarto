@@ -72,9 +72,6 @@
             this.buttonKereses = new System.Windows.Forms.Button();
             this.buttonFeltoltes = new System.Windows.Forms.Button();
             this.buttonVissza = new System.Windows.Forms.Button();
-            this.radioButtonTavaszFeltolt = new System.Windows.Forms.RadioButton();
-            this.radioButtonOszFeltolt = new System.Windows.Forms.RadioButton();
-            this.groupBoxTavaszOsz = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButtonTavaszKeres = new System.Windows.Forms.RadioButton();
@@ -94,16 +91,23 @@
             this.groupBoxRandom = new System.Windows.Forms.GroupBox();
             this.progressBarRandom = new System.Windows.Forms.ProgressBar();
             this.checkBoxOsszetettKeres = new System.Windows.Forms.CheckBox();
+            this.groupBoxFileokSzama = new System.Windows.Forms.GroupBox();
+            this.panelKeresTorlesModGombok = new System.Windows.Forms.Panel();
+            this.panelKeresTorlesGombok = new System.Windows.Forms.Panel();
+            this.radioButtonOszFeltolt = new System.Windows.Forms.RadioButton();
+            this.radioButtonTavaszFeltolt = new System.Windows.Forms.RadioButton();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBoxModositas.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvModosit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKeres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltolt)).BeginInit();
-            this.groupBoxTavaszOsz.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxOsszetettKereses.SuspendLayout();
             this.groupBoxRandom.SuspendLayout();
+            this.groupBoxFileokSzama.SuspendLayout();
+            this.panelKeresTorlesModGombok.SuspendLayout();
+            this.panelKeresTorlesGombok.SuspendLayout();
             this.SuspendLayout();
             // 
             // label22
@@ -131,7 +135,7 @@
             // 
             this.groupBoxJelszo.Controls.Add(this.textBoxJelszo);
             this.groupBoxJelszo.Controls.Add(this.label17);
-            this.groupBoxJelszo.Location = new System.Drawing.Point(641, 622);
+            this.groupBoxJelszo.Location = new System.Drawing.Point(3, 32);
             this.groupBoxJelszo.Name = "groupBoxJelszo";
             this.groupBoxJelszo.Size = new System.Drawing.Size(244, 39);
             this.groupBoxJelszo.TabIndex = 168;
@@ -284,6 +288,7 @@
             0,
             0,
             0});
+            this.numericUpDownEvModosit.ValueChanged += new System.EventHandler(this.numericUpDownEvModosit_ValueChanged);
             // 
             // label14
             // 
@@ -297,7 +302,7 @@
             // 
             // buttonModositas
             // 
-            this.buttonModositas.Location = new System.Drawing.Point(641, 667);
+            this.buttonModositas.Location = new System.Drawing.Point(3, 78);
             this.buttonModositas.Name = "buttonModositas";
             this.buttonModositas.Size = new System.Drawing.Size(610, 23);
             this.buttonModositas.TabIndex = 166;
@@ -308,7 +313,7 @@
             // buttonTorles
             // 
             this.buttonTorles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonTorles.Location = new System.Drawing.Point(948, 632);
+            this.buttonTorles.Location = new System.Drawing.Point(310, 42);
             this.buttonTorles.Name = "buttonTorles";
             this.buttonTorles.Size = new System.Drawing.Size(303, 23);
             this.buttonTorles.TabIndex = 165;
@@ -570,7 +575,7 @@
             // buttonKereses
             // 
             this.buttonKereses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonKereses.Location = new System.Drawing.Point(641, 593);
+            this.buttonKereses.Location = new System.Drawing.Point(3, 3);
             this.buttonKereses.Name = "buttonKereses";
             this.buttonKereses.Size = new System.Drawing.Size(611, 23);
             this.buttonKereses.TabIndex = 151;
@@ -598,38 +603,6 @@
             this.buttonVissza.Text = "Vissza";
             this.buttonVissza.UseVisualStyleBackColor = true;
             this.buttonVissza.Click += new System.EventHandler(this.buttonVissza_Click);
-            // 
-            // radioButtonTavaszFeltolt
-            // 
-            this.radioButtonTavaszFeltolt.AutoSize = true;
-            this.radioButtonTavaszFeltolt.Checked = true;
-            this.radioButtonTavaszFeltolt.Location = new System.Drawing.Point(6, 8);
-            this.radioButtonTavaszFeltolt.Name = "radioButtonTavaszFeltolt";
-            this.radioButtonTavaszFeltolt.Size = new System.Drawing.Size(60, 17);
-            this.radioButtonTavaszFeltolt.TabIndex = 176;
-            this.radioButtonTavaszFeltolt.TabStop = true;
-            this.radioButtonTavaszFeltolt.Text = "Tavasz";
-            this.radioButtonTavaszFeltolt.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonOszFeltolt
-            // 
-            this.radioButtonOszFeltolt.AutoSize = true;
-            this.radioButtonOszFeltolt.Location = new System.Drawing.Point(205, 8);
-            this.radioButtonOszFeltolt.Name = "radioButtonOszFeltolt";
-            this.radioButtonOszFeltolt.Size = new System.Drawing.Size(43, 17);
-            this.radioButtonOszFeltolt.TabIndex = 177;
-            this.radioButtonOszFeltolt.Text = "Ősz";
-            this.radioButtonOszFeltolt.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxTavaszOsz
-            // 
-            this.groupBoxTavaszOsz.Controls.Add(this.radioButtonTavaszFeltolt);
-            this.groupBoxTavaszOsz.Controls.Add(this.radioButtonOszFeltolt);
-            this.groupBoxTavaszOsz.Location = new System.Drawing.Point(175, 232);
-            this.groupBoxTavaszOsz.Name = "groupBoxTavaszOsz";
-            this.groupBoxTavaszOsz.Size = new System.Drawing.Size(254, 25);
-            this.groupBoxTavaszOsz.TabIndex = 178;
-            this.groupBoxTavaszOsz.TabStop = false;
             // 
             // label12
             // 
@@ -742,7 +715,7 @@
             // labelFileokSzama
             // 
             this.labelFileokSzama.AutoSize = true;
-            this.labelFileokSzama.Location = new System.Drawing.Point(136, 32);
+            this.labelFileokSzama.Location = new System.Drawing.Point(135, 18);
             this.labelFileokSzama.Name = "labelFileokSzama";
             this.labelFileokSzama.Size = new System.Drawing.Size(0, 13);
             this.labelFileokSzama.TabIndex = 186;
@@ -750,7 +723,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(7, 32);
+            this.label23.Location = new System.Drawing.Point(6, 18);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(110, 13);
             this.label23.TabIndex = 187;
@@ -759,7 +732,7 @@
             // labelDBCount
             // 
             this.labelDBCount.AutoSize = true;
-            this.labelDBCount.Location = new System.Drawing.Point(136, 57);
+            this.labelDBCount.Location = new System.Drawing.Point(135, 43);
             this.labelDBCount.Name = "labelDBCount";
             this.labelDBCount.Size = new System.Drawing.Size(0, 13);
             this.labelDBCount.TabIndex = 188;
@@ -824,30 +797,80 @@
             this.checkBoxOsszetettKeres.UseVisualStyleBackColor = true;
             this.checkBoxOsszetettKeres.CheckedChanged += new System.EventHandler(this.checkBoxOsszetett_CheckedChanged);
             // 
+            // groupBoxFileokSzama
+            // 
+            this.groupBoxFileokSzama.Controls.Add(this.label23);
+            this.groupBoxFileokSzama.Controls.Add(this.labelFileokSzama);
+            this.groupBoxFileokSzama.Controls.Add(this.labelDBCount);
+            this.groupBoxFileokSzama.Location = new System.Drawing.Point(12, 3);
+            this.groupBoxFileokSzama.Name = "groupBoxFileokSzama";
+            this.groupBoxFileokSzama.Size = new System.Drawing.Size(266, 65);
+            this.groupBoxFileokSzama.TabIndex = 195;
+            this.groupBoxFileokSzama.TabStop = false;
+            // 
+            // panelKeresTorlesModGombok
+            // 
+            this.panelKeresTorlesModGombok.Controls.Add(this.panelKeresTorlesGombok);
+            this.panelKeresTorlesModGombok.Controls.Add(this.buttonModositas);
+            this.panelKeresTorlesModGombok.Location = new System.Drawing.Point(641, 593);
+            this.panelKeresTorlesModGombok.Name = "panelKeresTorlesModGombok";
+            this.panelKeresTorlesModGombok.Size = new System.Drawing.Size(618, 104);
+            this.panelKeresTorlesModGombok.TabIndex = 196;
+            this.panelKeresTorlesModGombok.Visible = false;
+            // 
+            // panelKeresTorlesGombok
+            // 
+            this.panelKeresTorlesGombok.Controls.Add(this.buttonKereses);
+            this.panelKeresTorlesGombok.Controls.Add(this.buttonTorles);
+            this.panelKeresTorlesGombok.Controls.Add(this.groupBoxJelszo);
+            this.panelKeresTorlesGombok.Location = new System.Drawing.Point(5, 3);
+            this.panelKeresTorlesGombok.Name = "panelKeresTorlesGombok";
+            this.panelKeresTorlesGombok.Size = new System.Drawing.Size(613, 75);
+            this.panelKeresTorlesGombok.TabIndex = 197;
+            // 
+            // radioButtonOszFeltolt
+            // 
+            this.radioButtonOszFeltolt.AutoSize = true;
+            this.radioButtonOszFeltolt.Location = new System.Drawing.Point(380, 240);
+            this.radioButtonOszFeltolt.Name = "radioButtonOszFeltolt";
+            this.radioButtonOszFeltolt.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonOszFeltolt.TabIndex = 177;
+            this.radioButtonOszFeltolt.Text = "Ősz";
+            this.radioButtonOszFeltolt.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonTavaszFeltolt
+            // 
+            this.radioButtonTavaszFeltolt.AutoSize = true;
+            this.radioButtonTavaszFeltolt.Checked = true;
+            this.radioButtonTavaszFeltolt.Location = new System.Drawing.Point(175, 240);
+            this.radioButtonTavaszFeltolt.Name = "radioButtonTavaszFeltolt";
+            this.radioButtonTavaszFeltolt.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonTavaszFeltolt.TabIndex = 176;
+            this.radioButtonTavaszFeltolt.TabStop = true;
+            this.radioButtonTavaszFeltolt.Text = "Tavasz";
+            this.radioButtonTavaszFeltolt.UseVisualStyleBackColor = true;
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 722);
+            this.Controls.Add(this.radioButtonOszFeltolt);
+            this.Controls.Add(this.radioButtonTavaszFeltolt);
+            this.Controls.Add(this.panelKeresTorlesModGombok);
+            this.Controls.Add(this.groupBoxFileokSzama);
             this.Controls.Add(this.checkBoxOsszetettKeres);
             this.Controls.Add(this.groupBoxRandom);
             this.Controls.Add(this.groupBoxOsszetettKereses);
-            this.Controls.Add(this.labelDBCount);
-            this.Controls.Add(this.label23);
-            this.Controls.Add(this.labelFileokSzama);
             this.Controls.Add(this.listBoxKeresesId);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.listBoxKeresesAnyjaNeve);
             this.Controls.Add(this.listboxKeresesIdoszak);
             this.Controls.Add(this.listBoxKeresesVKezdete);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.groupBoxTavaszOsz);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
-            this.Controls.Add(this.groupBoxJelszo);
             this.Controls.Add(this.groupBoxModositas);
-            this.Controls.Add(this.buttonModositas);
-            this.Controls.Add(this.buttonTorles);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -868,7 +891,6 @@
             this.Controls.Add(this.labelDokumentumFelvétel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxDokumentumNeveFeltolt);
-            this.Controls.Add(this.buttonKereses);
             this.Controls.Add(this.buttonFeltoltes);
             this.Controls.Add(this.buttonVissza);
             this.Name = "FormSzakmaiVizsgaTörzslap";
@@ -885,14 +907,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvModosit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvKeres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEvFeltolt)).EndInit();
-            this.groupBoxTavaszOsz.ResumeLayout(false);
-            this.groupBoxTavaszOsz.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBoxOsszetettKereses.ResumeLayout(false);
             this.groupBoxOsszetettKereses.PerformLayout();
             this.groupBoxRandom.ResumeLayout(false);
             this.groupBoxRandom.PerformLayout();
+            this.groupBoxFileokSzama.ResumeLayout(false);
+            this.groupBoxFileokSzama.PerformLayout();
+            this.panelKeresTorlesModGombok.ResumeLayout(false);
+            this.panelKeresTorlesGombok.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -940,9 +964,6 @@
         private System.Windows.Forms.Button buttonKereses;
         private System.Windows.Forms.Button buttonFeltoltes;
         private System.Windows.Forms.Button buttonVissza;
-        private System.Windows.Forms.RadioButton radioButtonTavaszFeltolt;
-        private System.Windows.Forms.RadioButton radioButtonOszFeltolt;
-        private System.Windows.Forms.GroupBox groupBoxTavaszOsz;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButtonTavaszKeres;
@@ -966,5 +987,10 @@
         private System.Windows.Forms.GroupBox groupBoxRandom;
         private System.Windows.Forms.CheckBox checkBoxOsszetettKeres;
         private System.Windows.Forms.ProgressBar progressBarRandom;
+        private System.Windows.Forms.GroupBox groupBoxFileokSzama;
+        private System.Windows.Forms.Panel panelKeresTorlesModGombok;
+        private System.Windows.Forms.Panel panelKeresTorlesGombok;
+        private System.Windows.Forms.RadioButton radioButtonOszFeltolt;
+        private System.Windows.Forms.RadioButton radioButtonTavaszFeltolt;
     }
 }

@@ -25,10 +25,11 @@ namespace Nyilvantarto_v2
         private static MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()-".ToCharArray();
 
-        public static void loadFuggvenyek(GroupBox gbOsszetett, GroupBox gbRandom)
+        public static void gruopBoxSetDefaultVisibility(GroupBox gbOsszetett, GroupBox gbRandom, GroupBox groupBoxFeltoltott)
         {
             gbOsszetett.Visible = false;
             gbRandom.Visible = true;
+            groupBoxFeltoltott.Visible = true;
         }
 
         public static void getDestPathFromDatabase(string folders)
@@ -37,7 +38,7 @@ namespace Nyilvantarto_v2
             var command = conn.CreateCommand();
             cmd.Connection = conn;
             cmd.CommandText = "Select s_value From settings Where s_var = @var";
-            cmd.Parameters.AddWithValue("@var", "eleresiUt");
+            cmd.Parameters.AddWithValue("@var", "eleresiUtSzakmaiVizsgaTörzslap");
             var result = cmd.ExecuteScalar();
             fullPath = result.ToString() + folders;
             fixPath = result.ToString();
@@ -69,7 +70,7 @@ namespace Nyilvantarto_v2
             conn.Close();
         }
 
-        public static void checkMissingFile(string destPath, string selectRow1, string selectRow2, 
+        public static void checkMissingFiles(string destPath, string selectRow1, string selectRow2, 
                                             string selectRow3, string selectRow4, string from, Label l1, Label l2)
         {
             List<string> dataOnPC = new List<string>();
@@ -631,6 +632,20 @@ namespace Nyilvantarto_v2
 
         }
 
+        public static bool checkNumericUpDownValue(NumericUpDown numericUpDown)
+        {
+            if (numericUpDown.Value >= 2100 || numericUpDown.Value <= 1900)
+            {
+                numericUpDown.BackColor = Color.Red;
+                return false;
+            }
+            else
+            {
+                numericUpDown.BackColor = default;
+                return true;
+            }
+        }
+
         public static bool checkIfEmptyInput(TextBox textBoxAnyjaNeveFeltolt, TextBox textBoxDokumentumNeve, TextBox textBoxTanuloNeveFeltolt, TextBox textBoxEleresi)
         {
             bool joE = true;
@@ -812,7 +827,7 @@ namespace Nyilvantarto_v2
         public static void checkDirs(GroupBox groupBoxEleresi, GroupBox groupBoxButtons, Label labelMentesiHely)
         {
             conn.Open();
-            string query = "SELECT s_value FROM settings WHERE s_var = 'eleresiUt'; ";
+            string query = "SELECT s_value FROM settings WHERE s_var = 'eleresiUtSzakmaiVizsgaTörzslap'; ";
             var command = conn.CreateCommand();
             command.CommandText = query;
             var result = command.ExecuteScalar();
@@ -832,7 +847,7 @@ namespace Nyilvantarto_v2
             conn.Close();
         }
 
-        public static void setPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, GroupBox groupBoxButtons)
+        public static void setPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, GroupBox groupBoxButtons, string eleresiUt)
         {
             try
             {
@@ -850,7 +865,7 @@ namespace Nyilvantarto_v2
                         ")";
                     cmd.Connection = conn;
                     cmd.CommandText = SQL;
-                    cmd.Parameters.AddWithValue("@s_var", "eleresiUt");
+                    cmd.Parameters.AddWithValue("@s_var", eleresiUt);
                     cmd.Parameters.AddWithValue("@s_value", labelMentesiHely.Text.ToString());
 
                     cmd.ExecuteNonQuery();
