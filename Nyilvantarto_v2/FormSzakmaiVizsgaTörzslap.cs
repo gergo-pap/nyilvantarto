@@ -28,6 +28,7 @@ namespace Nyilvantarto_v2
 			f.incrementProgress(50, 5);
 			Global.checkMissingFiles(@"\Adatok\Szakmai vizsga\Törzslap\", "szvt_tanuloNeve", "szvt_viszgaEvKezdet",
 									"szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve", "szakmaivizsgaTorzslap", labelFileokSzama, labelDBCount);
+			timer1.Enabled = true;
 			f.incrementProgress(10, 5);
 			f.Close();
 		}
@@ -390,6 +391,24 @@ namespace Nyilvantarto_v2
 		private void numericUpDownEvModosit_ValueChanged(object sender, EventArgs e)
 		{
 			Global.checkNumericUpDownValue(numericUpDownEvModosit);
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Interval = 5000;
+			if (Global.checkDB_Conn(false))
+			{
+				labelAdatbazisKapcsolat.Text = "aktív";
+				labelAdatbazisKapcsolat.BackColor = Color.LightGreen;
+			}
+			else
+			{
+				labelAdatbazisKapcsolat.Text = "offline";
+				labelAdatbazisKapcsolat.BackColor = Color.Red;
+				timer1.Enabled = false;
+				//System.Threading.Thread.Sleep(2000);
+				(new FormMain()).Show(); this.Hide();
+			}
 		}
 	}
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBoxJelszo = new System.Windows.Forms.GroupBox();
@@ -96,6 +97,9 @@
             this.panelKeresTorlesGombok = new System.Windows.Forms.Panel();
             this.radioButtonOszFeltolt = new System.Windows.Forms.RadioButton();
             this.radioButtonTavaszFeltolt = new System.Windows.Forms.RadioButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label24 = new System.Windows.Forms.Label();
+            this.labelAdatbazisKapcsolat = new System.Windows.Forms.Label();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBoxModositas.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -850,11 +854,37 @@
             this.radioButtonTavaszFeltolt.Text = "Tavasz";
             this.radioButtonTavaszFeltolt.UseVisualStyleBackColor = true;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(1048, 9);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(132, 13);
+            this.label24.TabIndex = 197;
+            this.label24.Text = "Kapcsolat az adatbázissal:";
+            // 
+            // labelAdatbazisKapcsolat
+            // 
+            this.labelAdatbazisKapcsolat.AutoSize = true;
+            this.labelAdatbazisKapcsolat.Location = new System.Drawing.Point(1187, 9);
+            this.labelAdatbazisKapcsolat.Name = "labelAdatbazisKapcsolat";
+            this.labelAdatbazisKapcsolat.Size = new System.Drawing.Size(32, 13);
+            this.labelAdatbazisKapcsolat.TabIndex = 198;
+            this.labelAdatbazisKapcsolat.Text = "aktív";
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 722);
+            this.Controls.Add(this.labelAdatbazisKapcsolat);
+            this.Controls.Add(this.label24);
             this.Controls.Add(this.radioButtonOszFeltolt);
             this.Controls.Add(this.radioButtonTavaszFeltolt);
             this.Controls.Add(this.panelKeresTorlesModGombok);
@@ -992,5 +1022,8 @@
         private System.Windows.Forms.Panel panelKeresTorlesGombok;
         private System.Windows.Forms.RadioButton radioButtonOszFeltolt;
         private System.Windows.Forms.RadioButton radioButtonTavaszFeltolt;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label labelAdatbazisKapcsolat;
     }
 }
