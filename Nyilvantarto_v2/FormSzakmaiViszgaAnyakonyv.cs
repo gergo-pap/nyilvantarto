@@ -19,7 +19,7 @@ namespace Nyilvantarto_v2
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
-        string destPath = Globális.path + @"\Adatok\Szakmai vizsga\Anyakönyv\";
+        string destPath = Global.fullPath + @"\Adatok\Szakmai vizsga\Anyakönyv\";
 
         public FormSzakmaiViszgaAnyakonyv()
         {
@@ -44,7 +44,7 @@ namespace Nyilvantarto_v2
             cmd.CommandText = "Select s_value From settings Where s_var = @Title";
             cmd.Parameters.AddWithValue("@Title", "eleresiUt");
             var result = cmd.ExecuteScalar();
-            Globális.path = result.ToString() + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
+            Global.fullPath = result.ToString() + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
         }
         private void CreateTableDokumentumok()
         {
@@ -69,11 +69,10 @@ namespace Nyilvantarto_v2
             command.ExecuteNonQuery();
         }
 
-        private void betolt()
+        private void fileBetolteseFajlkezeloben()
         {
             try
             {
-                //MySql.Data.MySqlClient.MySqlDataReader myData;
                 string[] keresesKijelolt = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
                 string nev = keresesKijelolt[0];
                 string evKezdet = keresesKijelolt[1];
@@ -99,7 +98,7 @@ namespace Nyilvantarto_v2
 
                 var formatum = result.ToString();
 
-                string filePath = Globális.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
+                string filePath = Global.fullPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
 
 
                 if (!File.Exists(filePath))
@@ -227,13 +226,13 @@ namespace Nyilvantarto_v2
 
                     string destination = destPath + fileName + "." + kiterjesztes;
                     string source = szva_eleresiUt;
-                    MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
+                    //MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
                     // To move a file or folder to a new  location:
 
                     System.IO.File.Copy(source, destination);
 
-                    MessageBox.Show("File Inserted into database successfully!",
-                    "Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    //MessageBox.Show("File Inserted into database successfully!",
+                    //"Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     textBoxFeltoltUrites();
                     cmd.Parameters.Clear();
                 }
@@ -301,7 +300,7 @@ namespace Nyilvantarto_v2
 
                 
 
-                string destination = Globális.path + fileName + "." + szva_formatum2;
+                string destination = Global.fullPath + fileName + "." + szva_formatum2;
 
                 System.IO.File.Delete(destination);
 
@@ -368,7 +367,7 @@ namespace Nyilvantarto_v2
 
                     string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxAnyjaneveModositas.Text;
                     string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
-                    System.IO.File.Move(Globális.path + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, Globális.path + destFileName + '.' + szva_formatum2);
+                    System.IO.File.Move(Global.fullPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, Global.fullPath + destFileName + '.' + szva_formatum2);
 
                     MessageBox.Show("Sikeres módosítás");
                 }
@@ -448,7 +447,7 @@ namespace Nyilvantarto_v2
 
         private void buttonLetoltes_Click(object sender, EventArgs e)
         {
-            betolt();
+            fileBetolteseFajlkezeloben();
         }
 
         private void textBoxTanuloNeveKeres_TextChanged(object sender, EventArgs e)

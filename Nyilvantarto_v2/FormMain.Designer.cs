@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonErettsegi = new System.Windows.Forms.Button();
-            this.buttonSzkmaiVizsga = new System.Windows.Forms.Button();
+            this.buttonSzakmaiVizsga = new System.Windows.Forms.Button();
             this.buttonKozepiskola = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.labelMentesiHely = new System.Windows.Forms.Label();
@@ -39,6 +40,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBoxButtons = new System.Windows.Forms.GroupBox();
             this.labelPath = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.labelKapcsolatAdatbazissal = new System.Windows.Forms.Label();
             this.groupBoxEleresi.SuspendLayout();
             this.groupBoxButtons.SuspendLayout();
             this.SuspendLayout();
@@ -53,15 +57,15 @@
             this.buttonErettsegi.UseVisualStyleBackColor = true;
             this.buttonErettsegi.Click += new System.EventHandler(this.buttonErettsegi_Click);
             // 
-            // buttonSzkmaiVizsga
+            // buttonSzakmaiVizsga
             // 
-            this.buttonSzkmaiVizsga.Location = new System.Drawing.Point(168, 43);
-            this.buttonSzkmaiVizsga.Name = "buttonSzkmaiVizsga";
-            this.buttonSzkmaiVizsga.Size = new System.Drawing.Size(112, 23);
-            this.buttonSzkmaiVizsga.TabIndex = 1;
-            this.buttonSzkmaiVizsga.Text = "Szakmai vizsga";
-            this.buttonSzkmaiVizsga.UseVisualStyleBackColor = true;
-            this.buttonSzkmaiVizsga.Click += new System.EventHandler(this.buttonSzkmaiVizsga_Click);
+            this.buttonSzakmaiVizsga.Location = new System.Drawing.Point(168, 43);
+            this.buttonSzakmaiVizsga.Name = "buttonSzakmaiVizsga";
+            this.buttonSzakmaiVizsga.Size = new System.Drawing.Size(112, 23);
+            this.buttonSzakmaiVizsga.TabIndex = 1;
+            this.buttonSzakmaiVizsga.Text = "Szakmai vizsga";
+            this.buttonSzakmaiVizsga.UseVisualStyleBackColor = true;
+            this.buttonSzakmaiVizsga.Click += new System.EventHandler(this.buttonSzkmaiVizsga_Click);
             // 
             // buttonKozepiskola
             // 
@@ -113,6 +117,7 @@
             // 
             this.groupBoxEleresi.Controls.Add(this.label3);
             this.groupBoxEleresi.Controls.Add(this.label1);
+            this.groupBoxEleresi.Controls.Add(this.labelPath);
             this.groupBoxEleresi.Controls.Add(this.buttonTallozas);
             this.groupBoxEleresi.Controls.Add(this.labelMentesiHely);
             this.groupBoxEleresi.Controls.Add(this.label2);
@@ -134,7 +139,7 @@
             // 
             // groupBoxButtons
             // 
-            this.groupBoxButtons.Controls.Add(this.buttonSzkmaiVizsga);
+            this.groupBoxButtons.Controls.Add(this.buttonSzakmaiVizsga);
             this.groupBoxButtons.Controls.Add(this.buttonErettsegi);
             this.groupBoxButtons.Controls.Add(this.buttonKozepiskola);
             this.groupBoxButtons.Location = new System.Drawing.Point(221, 165);
@@ -147,18 +152,43 @@
             // labelPath
             // 
             this.labelPath.AutoSize = true;
-            this.labelPath.Location = new System.Drawing.Point(367, 28);
+            this.labelPath.Location = new System.Drawing.Point(9, 99);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(34, 13);
             this.labelPath.TabIndex = 9;
             this.labelPath.Text = "path?";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(615, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Kapcsolat az adatbázissal:";
+            // 
+            // labelKapcsolatAdatbazissal
+            // 
+            this.labelKapcsolatAdatbazissal.AutoSize = true;
+            this.labelKapcsolatAdatbazissal.Location = new System.Drawing.Point(754, 28);
+            this.labelKapcsolatAdatbazissal.Name = "labelKapcsolatAdatbazissal";
+            this.labelKapcsolatAdatbazissal.Size = new System.Drawing.Size(32, 13);
+            this.labelKapcsolatAdatbazissal.TabIndex = 11;
+            this.labelKapcsolatAdatbazissal.Text = "aktív";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.labelPath);
+            this.Controls.Add(this.labelKapcsolatAdatbazissal);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBoxButtons);
             this.Controls.Add(this.groupBoxEleresi);
             this.Name = "FormMain";
@@ -176,7 +206,7 @@
         #endregion
 
         private System.Windows.Forms.Button buttonErettsegi;
-        private System.Windows.Forms.Button buttonSzkmaiVizsga;
+        private System.Windows.Forms.Button buttonSzakmaiVizsga;
         private System.Windows.Forms.Button buttonKozepiskola;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelMentesiHely;
@@ -186,6 +216,9 @@
         private System.Windows.Forms.GroupBox groupBoxButtons;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelPath;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelKapcsolatAdatbazissal;
     }
 }
 

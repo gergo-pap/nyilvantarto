@@ -18,7 +18,7 @@ namespace Nyilvantarto_v2
         string kiterjesztes;
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = Globális.path + @"\Adatok\Középiskola\Anyakönyv\";
+        string destPath = Global.fullPath + @"\Adatok\Középiskola\Anyakönyv\";
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
 
 
@@ -213,13 +213,13 @@ namespace Nyilvantarto_v2
                     string destination = destPath + fileName + "." + kiterjesztes;
                     string source = ka_eleresiUt;
 
-                    MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
+                    //MessageBox.Show("Forrás: " + source + "\nCél: " + destination);
                     // To move a file or folder to a new  location:
 
                     System.IO.File.Copy(source, destination);
 
-                    MessageBox.Show("File Inserted into database successfully!",
-                    "Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    //MessageBox.Show("File Inserted into database successfully!",
+                    //"Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     textBoxFeltoltUrites();
                     cmd.Parameters.Clear();
                 }

@@ -92,6 +92,12 @@
     <Compile Include="FormKozepiskolaAnyakonyv.Designer.cs">
       <DependentUpon>FormKozepiskolaAnyakonyv.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormProgressbar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProgressbar.Designer.cs">
+      <DependentUpon>FormProgressbar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSzakmaiViszgaAnyakonyv.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,7 +116,7 @@
     <Compile Include="FormSzakmaiVizsgaTörzslap.Designer.cs">
       <DependentUpon>FormSzakmaiVizsgaTörzslap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Globális.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormErettsegi.resx">
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProgressbar.resx">
+      <DependentUpon>FormProgressbar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSzakmaiViszgaAnyakonyv.resx">
       <DependentUpon>FormSzakmaiViszgaAnyakonyv.cs</DependentUpon>

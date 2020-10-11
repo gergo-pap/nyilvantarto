@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading;
 using System.Data;
 using System.Drawing;
+using System.Timers;
 
 namespace Nyilvantarto_v2
 {
@@ -21,6 +22,7 @@ namespace Nyilvantarto_v2
         public static string globTavaszVOszString;
         public static int globTavaszVoszInt;
         public static bool globTavaszVoszTrueOrFalse;
+        public static bool globIsaMessageBoxOpen;
         private static MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
         private static MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()-".ToCharArray();
@@ -672,7 +674,7 @@ namespace Nyilvantarto_v2
             return joE;
         }
 
-        public static bool checkDB_Conn()
+        public static bool checkDB_Conn(bool messageBox)
         {
             var conn_info = "Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;";
             bool isConn = false;
@@ -685,27 +687,43 @@ namespace Nyilvantarto_v2
             }
             catch (ArgumentException a_ex)
             {
-                MessageBox.Show($"Hibás connection string!\n{a_ex.Message}\n{a_ex}");
+                globIsaMessageBoxOpen = true;
+                if (messageBox) MessageBox.Show($"Hibás connection string!\n{a_ex.Message}\n{a_ex}");
+                globIsaMessageBoxOpen = false;
             }
             catch (MySqlException ex)
             {
                 string sqlErrorMessage = "Üzenet: " + ex.Message + "\n" +
                 "Forrás: " + ex.Source + "\n" +
                 "Szám: " + ex.Number;
-                MessageBox.Show(sqlErrorMessage);
 
-                isConn = false;
-                switch (ex.Number)
+                globIsaMessageBoxOpen = true;
+
+                new Thread(() =>
                 {
-                    case 1042:
-                        MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
-                        break;
-                    case 0:
-                        MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
-                        break;
-                    default:
-                        break;
-                }
+                    if (messageBox)
+                    {
+                        MessageBox.Show(sqlErrorMessage);
+                        globIsaMessageBoxOpen = false;
+
+                        isConn = false;
+                        if (messageBox)
+                        {
+                            switch (ex.Number)
+                            {
+                                case 1042:
+                                    MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
+                                    break;
+                                case 0:
+                                    MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }).Start();
+                
             }
             finally
             {
@@ -899,5 +917,6 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("Hiba");
             }
         }
+
     }
 }

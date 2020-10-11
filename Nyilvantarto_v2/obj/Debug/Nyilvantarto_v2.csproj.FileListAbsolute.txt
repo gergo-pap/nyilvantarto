@@ -58,7 +58,6 @@ D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Google.Protobuf.xml
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\MySql.Data.xml
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Renci.SshNet.xml
-D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csprojAssemblyReference.cache
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegi.resources
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormErettsegiTorzslap.resources
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormKozepiskolaAnyakonyv.resources
@@ -72,3 +71,4 @@ D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.CopyComplete
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.exe
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.pdb
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.FormProgressbar.resources
