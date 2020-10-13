@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.IO;
-using System.Threading;
 
 namespace Nyilvantarto_v2
 {
@@ -20,8 +13,8 @@ namespace Nyilvantarto_v2
         {
             InitializeComponent();
             //MessageBox.Show(Application.OpenForms.OfType<FormMain>().Count().ToString());
-            if (Application.OpenForms.OfType<FormMain>().Count() == 1)
-                Application.OpenForms.OfType<FormMain>().First().Close();
+            //if (Application.OpenForms.OfType<FormMain>().Count() == 1)
+            //    Application.OpenForms.OfType<FormMain>().First().Close();
         }
 
         private void buttonErettsegi_Click(object sender, EventArgs e)
@@ -92,6 +85,110 @@ namespace Nyilvantarto_v2
                 labelKapcsolatAdatbazissal.BackColor = Color.Red;
                 groupBoxButtons.Visible = false;
             }
+        }
+
+        private void dataGridViewBasicSettings()
+        {
+            Global.dataGridViewKeresesEredmenyeiClear(dataGridView1);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.Visible = true;
+            panelKeres.Visible = true;
+        }
+
+        private void buttonErettsegiTorzslap_Click(object sender, EventArgs e)
+        {
+            Global.dataGridViewKeresesEredmenyeiClear(dataGridView1);
+
+            dataGridView1.ColumnCount = 5;
+            dataGridView1.Columns[0].Name = "Id";
+            dataGridView1.Columns[1].Name = "Tanuló neve";
+            dataGridView1.Columns[2].Name = "Anyja neve";
+            dataGridView1.Columns[3].Name = "Vizsga éve";
+            dataGridView1.Columns[4].Name = "Vizsga időszaka";
+            dataGridViewBasicSettings();
+        }
+
+        private void buttonErettsegiTanusitvany_Click(object sender, EventArgs e)
+        {
+            
+            dataGridView1.ColumnCount = 5;
+            dataGridView1.Columns[0].Name = "Id";
+            dataGridView1.Columns[1].Name = "Tanuló neve";
+            dataGridView1.Columns[2].Name = "Anyja neve";
+            dataGridView1.Columns[3].Name = "Vizsga éve";
+            dataGridView1.Columns[4].Name = "Tanulói azonosító";
+            dataGridViewBasicSettings();
+
+        }
+
+        private void buttonSzakmaiVizsgaTorzslap_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ColumnCount = 5;
+            dataGridView1.Columns[0].Name = "Id";
+            dataGridView1.Columns[1].Name = "Tanuló neve";
+            dataGridView1.Columns[2].Name = "Anyja neve";
+            dataGridView1.Columns[3].Name = "Vizsga éve";
+            dataGridView1.Columns[4].Name = "Vizsga időszaka";
+            dataGridViewBasicSettings();
+
+        }
+
+        private void buttonSzakmaiViszgaAnyakonyv_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ColumnCount = 5;
+            dataGridView1.Columns[0].Name = "Id";
+            dataGridView1.Columns[1].Name = "Tanuló neve";
+            dataGridView1.Columns[2].Name = "Anyja neve";
+            dataGridView1.Columns[3].Name = "Középiskola kezdete";
+            dataGridView1.Columns[4].Name = "Érettségi éve";
+            dataGridViewBasicSettings();
+
+        }
+
+        private void buttonKozepiskolaAnyakonyv_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ColumnCount = 4;
+            dataGridView1.Columns[0].Name = "Id";
+            dataGridView1.Columns[1].Name = "Tanuló neve";
+            dataGridView1.Columns[2].Name = "Anyja neve";
+            dataGridView1.Columns[3].Name = "Vizsga éve";
+            dataGridViewBasicSettings();
+        }
+
+        private void textBoxTanuloNeve_TextChanged(object sender, EventArgs e)
+        {
+            Global.dataGridViewKeresesEredmenyeiClear(dataGridView1);
+
+            Global.osszetettKeresDataGridview("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve",
+                                        "szakmaivizsgaTorzslap",
+                                        textBoxTanuloNeve.Text,
+                                        textBoxAnyjaNeve.Text,
+                                        numericUpDownViszgaÉve.Value.ToString(),
+                                        dataGridView1,
+                                        checkBoxViszgaEve.Checked,
+                                        int.Parse(numericUpDownTalalatokSzama.Value.ToString()));
+        }
+
+        private void textBoxAnyjaNeve_TextChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void numericUpDownViszgaÉve_ValueChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void checkBoxViszgaEve_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void numericUpDownTalalatokSzama_ValueChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
         }
     }
 }
