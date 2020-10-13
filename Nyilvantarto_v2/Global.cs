@@ -371,6 +371,10 @@ namespace Nyilvantarto_v2
             l5.Items.Clear();
         }
 
+        public static void dataGridViewKeresesEredmenyeiClear(DataGridView dataGridView)
+        {
+            dataGridView.Rows.Clear();
+        }
         public static void osszetettKeres(string rowTneve, string rowKezdet, string rowTvOsz, string rowAnyja,
             string from, string likeText1, string likeText2,
             ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxAnyjaNeve)
@@ -440,6 +444,42 @@ namespace Nyilvantarto_v2
                     listBoxVkezdete.Items.Add(rowVkezdetData2);
                     listBoxIdoszak.Items.Add(boolConvert(bool.Parse(rowTavaszOszData2)));
                     listBoxAnyja.Items.Add(rowAnyjaData2);
+                    i++;
+                }
+            }
+            conn.Close();
+        }
+
+        public static void osszetettKeresDataGridview(string rowTneve, string rowVkezdet, string rowTavaszOsz, string rowAnyja,
+                                            string from, string like1, string like2, string like3,
+                                            DataGridView dataGridView, bool checkBoxChecked, int db)
+        {
+            if (!checkBoxChecked)
+            {
+                like3 = "";
+            }
+            conn.Open();
+            var command = conn.CreateCommand();
+            command.CommandText = $"SELECT id, {rowTneve}, {rowVkezdet}, {rowTavaszOsz}, {rowAnyja} " +
+                                $"FROM {from} " +
+                                $"WHERE {rowTneve} like '%{like1}%' " +
+                                $"AND {rowAnyja} like '%{like2}%' " +
+                                $"AND {rowVkezdet} like '%{like3}%' ";
+
+            using (var reader = command.ExecuteReader())
+            {
+                var id = reader.GetOrdinal("id");
+                var rowTneveData = reader.GetOrdinal(rowTneve);
+                var rowVkezdetData = reader.GetOrdinal(rowVkezdet);
+                var rowAnyjaData = reader.GetOrdinal(rowAnyja);
+                int i = 0;
+                while (reader.Read() && i < db)
+                {
+                    var id2 = reader.GetValue(id).ToString();
+                    var rowTneveData2 = reader.GetValue(rowTneveData).ToString();
+                    var rowVkezdetData2 = reader.GetValue(rowVkezdetData).ToString();
+                    var rowAnyjaData2 = reader.GetValue(rowAnyjaData).ToString();
+                    dataGridView.Rows.Add(id2, rowTneveData2, rowAnyjaData2, rowVkezdetData2);
                     i++;
                 }
             }
