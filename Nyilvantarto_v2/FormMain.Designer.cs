@@ -50,19 +50,19 @@
             this.buttonSzakmaiViszgaAnyakonyv = new System.Windows.Forms.Button();
             this.buttonKozepiskolaAnyakonyv = new System.Windows.Forms.Button();
             this.textBoxTanuloNeve = new System.Windows.Forms.TextBox();
-            this.textBoxAnyjaNeve = new System.Windows.Forms.TextBox();
+            this.textBoxanyjaNeve = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownViszgaÉve = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxViszgaEve = new System.Windows.Forms.CheckBox();
+            this.numericUpDownVizsgaÉve = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxVizsgaEve = new System.Windows.Forms.CheckBox();
             this.panelKeres = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownTalalatokSzama = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBoxEleresi.SuspendLayout();
             this.groupBoxButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownViszgaÉve)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaÉve)).BeginInit();
             this.panelKeres.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTalalatokSzama)).BeginInit();
             this.SuspendLayout();
@@ -143,7 +143,7 @@
             this.groupBoxEleresi.Controls.Add(this.label2);
             this.groupBoxEleresi.Location = new System.Drawing.Point(12, 12);
             this.groupBoxEleresi.Name = "groupBoxEleresi";
-            this.groupBoxEleresi.Size = new System.Drawing.Size(297, 147);
+            this.groupBoxEleresi.Size = new System.Drawing.Size(297, 127);
             this.groupBoxEleresi.TabIndex = 7;
             this.groupBoxEleresi.TabStop = false;
             this.groupBoxEleresi.Visible = false;
@@ -216,7 +216,7 @@
             this.buttonErettsegiTorzslap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonErettsegiTorzslap.Location = new System.Drawing.Point(347, 118);
+            this.buttonErettsegiTorzslap.Location = new System.Drawing.Point(68, 3);
             this.buttonErettsegiTorzslap.Name = "buttonErettsegiTorzslap";
             this.buttonErettsegiTorzslap.Size = new System.Drawing.Size(160, 23);
             this.buttonErettsegiTorzslap.TabIndex = 13;
@@ -229,7 +229,7 @@
             this.buttonErettsegiTanusitvany.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonErettsegiTanusitvany.Location = new System.Drawing.Point(513, 118);
+            this.buttonErettsegiTanusitvany.Location = new System.Drawing.Point(234, 3);
             this.buttonErettsegiTanusitvany.Name = "buttonErettsegiTanusitvany";
             this.buttonErettsegiTanusitvany.Size = new System.Drawing.Size(160, 23);
             this.buttonErettsegiTanusitvany.TabIndex = 14;
@@ -242,7 +242,7 @@
             this.buttonSzakmaiVizsgaTorzslap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(679, 118);
+            this.buttonSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(400, 3);
             this.buttonSzakmaiVizsgaTorzslap.Name = "buttonSzakmaiVizsgaTorzslap";
             this.buttonSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(160, 23);
             this.buttonSzakmaiVizsgaTorzslap.TabIndex = 15;
@@ -255,7 +255,7 @@
             this.buttonSzakmaiViszgaAnyakonyv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSzakmaiViszgaAnyakonyv.Location = new System.Drawing.Point(845, 118);
+            this.buttonSzakmaiViszgaAnyakonyv.Location = new System.Drawing.Point(566, 3);
             this.buttonSzakmaiViszgaAnyakonyv.Name = "buttonSzakmaiViszgaAnyakonyv";
             this.buttonSzakmaiViszgaAnyakonyv.Size = new System.Drawing.Size(160, 23);
             this.buttonSzakmaiViszgaAnyakonyv.TabIndex = 16;
@@ -268,7 +268,7 @@
             this.buttonKozepiskolaAnyakonyv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonKozepiskolaAnyakonyv.Location = new System.Drawing.Point(1011, 118);
+            this.buttonKozepiskolaAnyakonyv.Location = new System.Drawing.Point(732, 3);
             this.buttonKozepiskolaAnyakonyv.Name = "buttonKozepiskolaAnyakonyv";
             this.buttonKozepiskolaAnyakonyv.Size = new System.Drawing.Size(160, 23);
             this.buttonKozepiskolaAnyakonyv.TabIndex = 17;
@@ -278,24 +278,24 @@
             // 
             // textBoxTanuloNeve
             // 
-            this.textBoxTanuloNeve.Location = new System.Drawing.Point(12, 33);
+            this.textBoxTanuloNeve.Location = new System.Drawing.Point(357, 58);
             this.textBoxTanuloNeve.Name = "textBoxTanuloNeve";
             this.textBoxTanuloNeve.Size = new System.Drawing.Size(100, 20);
             this.textBoxTanuloNeve.TabIndex = 18;
             this.textBoxTanuloNeve.TextChanged += new System.EventHandler(this.textBoxTanuloNeve_TextChanged);
             // 
-            // textBoxAnyjaNeve
+            // textBoxanyjaNeve
             // 
-            this.textBoxAnyjaNeve.Location = new System.Drawing.Point(178, 33);
-            this.textBoxAnyjaNeve.Name = "textBoxAnyjaNeve";
-            this.textBoxAnyjaNeve.Size = new System.Drawing.Size(100, 20);
-            this.textBoxAnyjaNeve.TabIndex = 19;
-            this.textBoxAnyjaNeve.TextChanged += new System.EventHandler(this.textBoxAnyjaNeve_TextChanged);
+            this.textBoxanyjaNeve.Location = new System.Drawing.Point(582, 58);
+            this.textBoxanyjaNeve.Name = "textBoxanyjaNeve";
+            this.textBoxanyjaNeve.Size = new System.Drawing.Size(100, 20);
+            this.textBoxanyjaNeve.TabIndex = 19;
+            this.textBoxanyjaNeve.TextChanged += new System.EventHandler(this.textBoxanyjaNeve_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 14);
+            this.label5.Location = new System.Drawing.Point(371, 39);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
             this.label5.TabIndex = 22;
@@ -304,7 +304,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(175, 14);
+            this.label6.Location = new System.Drawing.Point(579, 39);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 13);
             this.label6.TabIndex = 23;
@@ -313,79 +313,82 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(392, 14);
+            this.label7.Location = new System.Drawing.Point(796, 43);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 24;
             this.label7.Text = "Vizsga éve";
             // 
-            // numericUpDownViszgaÉve
+            // numericUpDownVizsgaÉve
             // 
-            this.numericUpDownViszgaÉve.Location = new System.Drawing.Point(368, 32);
-            this.numericUpDownViszgaÉve.Maximum = new decimal(new int[] {
+            this.numericUpDownVizsgaÉve.Location = new System.Drawing.Point(772, 61);
+            this.numericUpDownVizsgaÉve.Maximum = new decimal(new int[] {
             2100,
             0,
             0,
             0});
-            this.numericUpDownViszgaÉve.Minimum = new decimal(new int[] {
+            this.numericUpDownVizsgaÉve.Minimum = new decimal(new int[] {
             1900,
             0,
             0,
             0});
-            this.numericUpDownViszgaÉve.Name = "numericUpDownViszgaÉve";
-            this.numericUpDownViszgaÉve.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownViszgaÉve.TabIndex = 25;
-            this.numericUpDownViszgaÉve.Value = new decimal(new int[] {
+            this.numericUpDownVizsgaÉve.Name = "numericUpDownVizsgaÉve";
+            this.numericUpDownVizsgaÉve.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownVizsgaÉve.TabIndex = 25;
+            this.numericUpDownVizsgaÉve.Value = new decimal(new int[] {
             1900,
             0,
             0,
             0});
-            this.numericUpDownViszgaÉve.ValueChanged += new System.EventHandler(this.numericUpDownViszgaÉve_ValueChanged);
+            this.numericUpDownVizsgaÉve.ValueChanged += new System.EventHandler(this.numericUpDownViszgaÉve_ValueChanged);
             // 
-            // checkBoxViszgaEve
+            // checkBoxVizsgaEve
             // 
-            this.checkBoxViszgaEve.AutoSize = true;
-            this.checkBoxViszgaEve.Location = new System.Drawing.Point(368, 12);
-            this.checkBoxViszgaEve.Name = "checkBoxViszgaEve";
-            this.checkBoxViszgaEve.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxViszgaEve.TabIndex = 26;
-            this.checkBoxViszgaEve.UseVisualStyleBackColor = true;
-            this.checkBoxViszgaEve.CheckedChanged += new System.EventHandler(this.checkBoxViszgaEve_CheckedChanged);
+            this.checkBoxVizsgaEve.AutoSize = true;
+            this.checkBoxVizsgaEve.Location = new System.Drawing.Point(772, 41);
+            this.checkBoxVizsgaEve.Name = "checkBoxVizsgaEve";
+            this.checkBoxVizsgaEve.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxVizsgaEve.TabIndex = 26;
+            this.checkBoxVizsgaEve.UseVisualStyleBackColor = true;
+            this.checkBoxVizsgaEve.CheckedChanged += new System.EventHandler(this.checkBoxViszgaEve_CheckedChanged);
             // 
             // panelKeres
             // 
+            this.panelKeres.Controls.Add(this.numericUpDownTalalatokSzama);
+            this.panelKeres.Controls.Add(this.buttonKozepiskolaAnyakonyv);
+            this.panelKeres.Controls.Add(this.buttonSzakmaiViszgaAnyakonyv);
+            this.panelKeres.Controls.Add(this.label8);
+            this.panelKeres.Controls.Add(this.buttonSzakmaiVizsgaTorzslap);
             this.panelKeres.Controls.Add(this.label5);
-            this.panelKeres.Controls.Add(this.checkBoxViszgaEve);
+            this.panelKeres.Controls.Add(this.buttonErettsegiTanusitvany);
+            this.panelKeres.Controls.Add(this.checkBoxVizsgaEve);
+            this.panelKeres.Controls.Add(this.buttonErettsegiTorzslap);
             this.panelKeres.Controls.Add(this.textBoxTanuloNeve);
-            this.panelKeres.Controls.Add(this.numericUpDownViszgaÉve);
-            this.panelKeres.Controls.Add(this.textBoxAnyjaNeve);
+            this.panelKeres.Controls.Add(this.numericUpDownVizsgaÉve);
+            this.panelKeres.Controls.Add(this.textBoxanyjaNeve);
             this.panelKeres.Controls.Add(this.label7);
             this.panelKeres.Controls.Add(this.label6);
-            this.panelKeres.Location = new System.Drawing.Point(391, 190);
+            this.panelKeres.Location = new System.Drawing.Point(96, 175);
             this.panelKeres.Name = "panelKeres";
-            this.panelKeres.Size = new System.Drawing.Size(502, 69);
+            this.panelKeres.Size = new System.Drawing.Size(945, 84);
             this.panelKeres.TabIndex = 27;
             this.panelKeres.Visible = false;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(19, 245);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 28;
-            this.label8.Text = "Találatom száma:";
-            // 
             // numericUpDownTalalatokSzama
             // 
-            this.numericUpDownTalalatokSzama.Location = new System.Drawing.Point(115, 245);
+            this.numericUpDownTalalatokSzama.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numericUpDownTalalatokSzama.Location = new System.Drawing.Point(110, 61);
             this.numericUpDownTalalatokSzama.Maximum = new decimal(new int[] {
             200,
             0,
             0,
             0});
             this.numericUpDownTalalatokSzama.Minimum = new decimal(new int[] {
-            5,
+            25,
             0,
             0,
             0});
@@ -393,25 +396,27 @@
             this.numericUpDownTalalatokSzama.Size = new System.Drawing.Size(56, 20);
             this.numericUpDownTalalatokSzama.TabIndex = 29;
             this.numericUpDownTalalatokSzama.Value = new decimal(new int[] {
-            5,
+            50,
             0,
             0,
             0});
             this.numericUpDownTalalatokSzama.ValueChanged += new System.EventHandler(this.numericUpDownTalalatokSzama_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 61);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 13);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Találatom száma:";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 729);
-            this.Controls.Add(this.numericUpDownTalalatokSzama);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.panelKeres);
-            this.Controls.Add(this.buttonKozepiskolaAnyakonyv);
-            this.Controls.Add(this.buttonSzakmaiViszgaAnyakonyv);
-            this.Controls.Add(this.buttonSzakmaiVizsgaTorzslap);
-            this.Controls.Add(this.buttonErettsegiTanusitvany);
-            this.Controls.Add(this.buttonErettsegiTorzslap);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.labelKapcsolatAdatbazissal);
             this.Controls.Add(this.label4);
@@ -425,7 +430,7 @@
             this.groupBoxEleresi.PerformLayout();
             this.groupBoxButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownViszgaÉve)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaÉve)).EndInit();
             this.panelKeres.ResumeLayout(false);
             this.panelKeres.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTalalatokSzama)).EndInit();
@@ -457,12 +462,12 @@
         private System.Windows.Forms.Button buttonSzakmaiViszgaAnyakonyv;
         private System.Windows.Forms.Button buttonKozepiskolaAnyakonyv;
         private System.Windows.Forms.TextBox textBoxTanuloNeve;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeve;
+        private System.Windows.Forms.TextBox textBoxanyjaNeve;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownViszgaÉve;
-        private System.Windows.Forms.CheckBox checkBoxViszgaEve;
+        private System.Windows.Forms.NumericUpDown numericUpDownVizsgaÉve;
+        private System.Windows.Forms.CheckBox checkBoxVizsgaEve;
         private System.Windows.Forms.Panel panelKeres;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownTalalatokSzama;
