@@ -19,7 +19,7 @@ namespace Nyilvantarto_v2
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
-        string destPath = Global.fullPath + @"\Adatok\Szakmai vizsga\Anyakönyv\";
+        string destPath = Global.fixPath;
 
         public FormSzakmaiViszgaAnyakonyv()
         {
@@ -29,7 +29,7 @@ namespace Nyilvantarto_v2
                 InitializeComponent();
                 conn.Open();
                 CreateTableDokumentumok();
-                getDestPathFromDatabase();
+                getDestPathFromDatabase("eleresiUt");
             }
             catch (MySqlException)
             {
@@ -37,14 +37,13 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private void getDestPathFromDatabase()
+        private void getDestPathFromDatabase(string var)
         {
             var command = conn.CreateCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "Select s_value From settings Where s_var = @Title";
-            cmd.Parameters.AddWithValue("@Title", "eleresiUt");
+            cmd.CommandText = $"Select value From settings Where var = {var}";
             var result = cmd.ExecuteScalar();
-            Global.fullPath = result.ToString() + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
+            Global.fixPath = result.ToString();
         }
         private void CreateTableDokumentumok()
         {
@@ -55,7 +54,7 @@ namespace Nyilvantarto_v2
                                     (
                                     id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                     szva_tanuloNeve TEXT NOT NULL,
-                                    szva_AnyjaNeve TEXT NOT NULL,
+                                    szva_anyjaNeve TEXT NOT NULL,
                                     szva_szerzo TEXT NOT NULL,
                                     szva_erettsegiEvKezdet INT NOT NULL,
                                     szva_erettsegiEvVeg INT NOT NULL,
@@ -87,7 +86,7 @@ namespace Nyilvantarto_v2
                     "WHERE " +
                     "szva_tanuloNeve = '" + nev +
                     "' AND " +
-                    "szva_AnyjaNeve = '" + anyja +
+                    "szva_anyjaNeve = '" + anyja +
                     "' AND " +
                     "szva_erettsegiEvKezdet = " + evKezdet +
                     " AND " +
@@ -98,7 +97,7 @@ namespace Nyilvantarto_v2
 
                 var formatum = result.ToString();
 
-                string filePath = Global.fullPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum;
+                string filePath = Global.fixPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + "." + formatum; // ?
 
 
                 if (!File.Exists(filePath))
@@ -160,21 +159,21 @@ namespace Nyilvantarto_v2
         {   
             listBoxKeresesEredmenye.Items.Clear();
             var command = conn.CreateCommand();
-            command.CommandText = "SELECT szva_tanuloNeve,szva_erettsegiEvKezdet,szva_erettsegiEvVeg,szva_AnyjaNeve  FROM szakmaiviszgaanyakonyv WHERE " + column + " like '%" + textboxText + "%'";
+            command.CommandText = "SELECT szva_tanuloNeve,szva_erettsegiEvKezdet,szva_erettsegiEvVeg,szva_anyjaNeve  FROM szakmaiviszgaanyakonyv WHERE " + column + " like '%" + textboxText + "%'";
             using (var reader = command.ExecuteReader())
             {
                 var szva_tanuloNeve = reader.GetOrdinal("szva_tanuloNeve");
                 var szva_erettsegiEvKezdet = reader.GetOrdinal("szva_erettsegiEvKezdet");
                 var szva_erettsegiEvVeg = reader.GetOrdinal("szva_erettsegiEvVeg");
-                var szva_AnyjaNeve = reader.GetOrdinal("szva_AnyjaNeve");
+                var szva_anyjaNeve = reader.GetOrdinal("szva_anyjaNeve");
 
                 while (reader.Read())
                 {
                     var szva_tanuloNeve2 = reader.GetValue(szva_tanuloNeve).ToString();
                     var szva_erettsegiEvKezdet2 = reader.GetValue(szva_erettsegiEvKezdet).ToString();
                     var szva_erettsegiEvVeg2 = reader.GetValue(szva_erettsegiEvVeg).ToString();
-                    var szva_AnyjaNeve2 = reader.GetValue(szva_AnyjaNeve).ToString();
-                    listBoxKeresesEredmenye.Items.Add(szva_tanuloNeve2 + "-" + szva_erettsegiEvKezdet2 + "-" + szva_erettsegiEvVeg2 + "-" + szva_AnyjaNeve2);
+                    var szva_anyjaNeve2 = reader.GetValue(szva_anyjaNeve).ToString();
+                    listBoxKeresesEredmenye.Items.Add(szva_tanuloNeve2 + "-" + szva_erettsegiEvKezdet2 + "-" + szva_erettsegiEvVeg2 + "-" + szva_anyjaNeve2);
                 }
             }
         }
@@ -182,14 +181,14 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                int indexOf = textBoxAnyjaNeveFeltolt.Text.IndexOfAny(SpecialChars);
+                int indexOf = textBoxanyjaNeveFeltolt.Text.IndexOfAny(SpecialChars);
                 int indexOf2 = textBoxTanuloNeveFeltolt.Text.IndexOfAny(SpecialChars);
                 if (indexOf == -1 && indexOf2 == -1)
                 {
                     string szva_eleresiUt = textBoxEleresi.Text;
                     FileStream fs = new FileStream(szva_eleresiUt, FileMode.Open, FileAccess.Read);
                     BinaryReader br = new BinaryReader(fs);
-                    string fileName = textBoxTanuloNeveFeltolt.Text + "_" + numericUpDownEvFeltoltKezdet.Value.ToString() + "_" + numericUpDownEvFeltoltVeg.Value.ToString() + "_" + textBoxAnyjaNeveFeltolt.Text;
+                    string fileName = textBoxTanuloNeveFeltolt.Text + "_" + numericUpDownEvFeltoltKezdet.Value.ToString() + "_" + numericUpDownEvFeltoltVeg.Value.ToString() + "_" + textBoxanyjaNeveFeltolt.Text;
                     fs.Close();
 
                     string SQL = "INSERT INTO " +
@@ -198,7 +197,7 @@ namespace Nyilvantarto_v2
                         "(" +
                             "NULL, " +
                             "@szva_tanuloNeve, " +
-                            "@szva_AnyjaNeve, " +
+                            "@szva_anyjaNeve, " +
                             "@szva_szerzo, " +
                             "@szva_erettsegiEvKezdet, " +
                             "@szva_erettsegiEvVeg, " +
@@ -212,7 +211,7 @@ namespace Nyilvantarto_v2
                     cmd.Connection = conn;
                     cmd.CommandText = SQL;
                     cmd.Parameters.AddWithValue("@szva_tanuloNeve", textBoxTanuloNeveFeltolt.Text);
-                    cmd.Parameters.AddWithValue("@szva_AnyjaNeve", textBoxAnyjaNeveFeltolt.Text);
+                    cmd.Parameters.AddWithValue("@szva_anyjaNeve", textBoxanyjaNeveFeltolt.Text);
                     cmd.Parameters.AddWithValue("@szva_szerzo", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
                     cmd.Parameters.AddWithValue("@szva_erettsegiEvKezdet", numericUpDownEvFeltoltKezdet.Value);
                     cmd.Parameters.AddWithValue("@szva_erettsegiEvVeg", numericUpDownEvFeltoltVeg.Value);
@@ -272,7 +271,7 @@ namespace Nyilvantarto_v2
                     "WHERE " +
                     "szva_tanuloNeve = '" + nev +
                     "' AND " +
-                    "szva_AnyjaNeve = '" + anyja +
+                    "szva_anyjaNeve = '" + anyja +
                     "' AND " +
                     "szva_erettsegiEvKezdet = " + evKezdet +
                     " AND " +
@@ -287,7 +286,7 @@ namespace Nyilvantarto_v2
                         "szakmaiviszgaanyakonyv " +
                         "WHERE " +
                         "szva_tanuloNeve = '" + nev + "' AND " +
-                        "szva_AnyjaNeve =  '" + anyja + "' AND " +
+                        "szva_anyjaNeve =  '" + anyja + "' AND " +
                         "szva_erettsegiEvKezdet = " + evKezdet + " AND " +
                         "szva_erettsegiEvVeg = " + evVeg +
                         ";"
@@ -300,7 +299,7 @@ namespace Nyilvantarto_v2
 
                 
 
-                string destination = Global.fullPath + fileName + "." + szva_formatum2;
+                string destination = Global.fixPath + fileName + "." + szva_formatum2; //?
 
                 System.IO.File.Delete(destination);
 
@@ -314,7 +313,7 @@ namespace Nyilvantarto_v2
 
         private void modositas()
         {
-            int indexOf = textBoxAnyjaneveModositas.Text.IndexOfAny(SpecialChars);
+            int indexOf = textBoxanyjaNeveModositas.Text.IndexOfAny(SpecialChars);
             int indexOf2 = textBoxNevModositas.Text.IndexOfAny(SpecialChars);
             if (indexOf == -1 && indexOf2 == -1)
             {
@@ -331,12 +330,12 @@ namespace Nyilvantarto_v2
                                 "szakmaiviszgaanyakonyv " +
                                 "SET " +
                                 "szva_tanuloNeve = '" + textBoxNevModositas.Text + "', " +
-                                "szva_AnyjaNeve = '" + textBoxAnyjaneveModositas.Text + "', " +
+                                "szva_anyjaNeve = '" + textBoxanyjaNeveModositas.Text + "', " +
                                 "szva_erettsegiEvKezdet = " + numericUpDownEvKezdetModositas.Value + ", " +
                                 "szva_erettsegiEvVeg = " + numericUpDownEvVegModositas.Value + " " +
                                 "WHERE " +
                                 "szva_tanuloNeve = '" + nev + "' AND " +
-                                "szva_AnyjaNeve =  '" + anyja + "' AND " +
+                                "szva_anyjaNeve =  '" + anyja + "' AND " +
                                 "szva_erettsegiEvKezdet = " + evKezdet + " AND " +
                                 "szva_erettsegiEvVeg = " + evVeg + ";"
                                 ;
@@ -354,7 +353,7 @@ namespace Nyilvantarto_v2
                         "WHERE " +
                         "szva_tanuloNeve = '" + textBoxNevModositas.Text +
                         "' AND " +
-                        "szva_AnyjaNeve = '" + textBoxAnyjaneveModositas.Text +
+                        "szva_anyjaNeve = '" + textBoxanyjaNeveModositas.Text +
                         "' AND " +
                         "szva_erettsegiEvKezdet = " + numericUpDownEvKezdetModositas.Value +
                         " AND " +
@@ -365,10 +364,10 @@ namespace Nyilvantarto_v2
 
                     var szva_formatum2 = result.ToString();
 
-                    string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxAnyjaneveModositas.Text;
+                    string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxanyjaNeveModositas.Text;
                     string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
-                    System.IO.File.Move(Global.fullPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, Global.fullPath + destFileName + '.' + szva_formatum2);
-
+                    System.IO.File.Move(Global.fixPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + szva_formatum2, Global.fixPath + destFileName + '.' + szva_formatum2);
+                    //?
                     MessageBox.Show("Sikeres módosítás");
                 }
                 catch (NullReferenceException)
@@ -388,15 +387,15 @@ namespace Nyilvantarto_v2
             textBoxDokumentumNeve.Clear();
             textBoxEleresi.Clear();
             textBoxTanuloNeveFeltolt.Clear();
-            textBoxAnyjaNeveFeltolt.Clear();
+            textBoxanyjaNeveFeltolt.Clear();
         }
 
         private bool checkIfEmptyInput()
         {
             bool joE = true;
-            if (textBoxAnyjaNeveFeltolt.Text.Length == 0)
+            if (textBoxanyjaNeveFeltolt.Text.Length == 0)
             {
-                textBoxAnyjaNeveFeltolt.BackColor = Color.Red;
+                textBoxanyjaNeveFeltolt.BackColor = Color.Red;
                 joE =  false;
             }
             if (textBoxDokumentumNeve.Text.Length == 0)
@@ -419,7 +418,7 @@ namespace Nyilvantarto_v2
 
         private void borderColorReset()
         {
-            textBoxAnyjaNeveFeltolt.BackColor = Color.White;
+            textBoxanyjaNeveFeltolt.BackColor = Color.White;
             textBoxDokumentumNeve.BackColor = Color.White;
             textBoxTanuloNeveFeltolt.BackColor = Color.White;
             textBoxEleresi.BackColor = Color.White;
@@ -455,18 +454,18 @@ namespace Nyilvantarto_v2
             keres("szva_tanuloNeve", textBoxTanuloNeveKeres.Text);
         }
 
-        private void textBoxAnyjaNeveKeres_TextChanged(object sender, EventArgs e)
+        private void textBoxanyjaNeveKeres_TextChanged(object sender, EventArgs e)
         {
-            keres("szva_AnyjaNeve", textBoxAnyjaNeveKeres.Text);
+            keres("szva_anyjaNeve", textBoxanyjaNeveKeres.Text);
 
         }
 
-        private void numericUpDownKeresVizsgaVegKeres_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownKeresVizsgaVegKerevalueChanged(object sender, EventArgs e)
         {
             keres("szva_erettsegiEvVeg", numericUpDownVizsgaVegKeres.Value.ToString());
         }
 
-        private void numericUpDownVizsgaKezdetKeres_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownVizsgaKezdetKerevalueChanged(object sender, EventArgs e)
         {
             keres("szva_erettsegiEvKezdet", numericUpDownVizsgaKezdetKeres.Value.ToString());
         }
@@ -514,15 +513,15 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private void textBoxAnyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
+        private void textBoxanyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxAnyjaNeveFeltolt.Text.Length == 0)
+            if (textBoxanyjaNeveFeltolt.Text.Length == 0)
             {
-                textBoxAnyjaNeveFeltolt.BackColor = Color.Red;
+                textBoxanyjaNeveFeltolt.BackColor = Color.Red;
             }
             else
             {
-                textBoxAnyjaNeveFeltolt.BackColor = Color.White;
+                textBoxanyjaNeveFeltolt.BackColor = Color.White;
             }
         }
 
@@ -563,7 +562,7 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private void numericUpDownEvKezdetModositas_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownEvKezdetModositavalueChanged(object sender, EventArgs e)
         {
             try
             {

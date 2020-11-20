@@ -20,14 +20,14 @@ namespace Nyilvantarto_v2
 			f.setProgressbarMax(100);
 			f.Show();
 			f.incrementProgress(10, 5);
-			Global.getDestPathFromDatabase(@"\Adatok\Szakmai Vizsga\Törzslap\");
+			Global.getDestPathFromDatabase(@"\Adatok\Szakmai Vizsga\Törzslap\", "eleresiUt");
 			f.incrementProgress(10, 5);
 			Global.gruopBoxSetDefaultVisibility(groupBoxOsszetettKereses, groupBoxRandom, groupBoxFileokSzama);
 			f.incrementProgress(20, 5);
 			Global.getCount(labelFileokSzama, labelDBCount, @"\Adatok\Szakmai vizsga\Törzslap\", "szakmaivizsgaTorzslap");
 			f.incrementProgress(50, 5);
-			Global.checkMissingFiles(@"\Adatok\Szakmai vizsga\Törzslap\", "szvt_tanuloNeve", "szvt_viszgaEvKezdet",
-									"szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve", "szakmaivizsgaTorzslap", labelFileokSzama, labelDBCount);
+			//Global.checkMissingFiles(@"\Adatok\Szakmai vizsga\Törzslap\", "tanuloNeve", "vizsgaEvVeg",
+			//						"vizsgaTavasz1Osz0", "anyjaNeve", "szakmaivizsgaTorzslap", labelFileokSzama, labelDBCount);
 			timer1.Enabled = true;
 			f.incrementProgress(10, 5);
 			f.Close();
@@ -41,23 +41,23 @@ namespace Nyilvantarto_v2
 		//gombok
 		private void buttonKereses_Click(object sender, EventArgs e)
 		{
-			Global.fileKereseseFajlkezeloben();
+			Global.fileKereseseFajlkezeloben("fos", "fos");
 		}
 
 		private void buttonTallozas_Click(object sender, EventArgs e)
 		{
-			Global.tallozas(textBoxDokumentumNeveFeltolt, textBoxEleresiFeltolt);
+			Global.tallozas(textBoxDokumentumNeveFeltolt/*, textBoxEleresiFeltolt*/);
 		}
 
 		private void buttonFeltoltes_Click(object sender, EventArgs e)
 		{
-			if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltolt, textBoxDokumentumNeveFeltolt, textBoxTanuloNeveFeltolt, textBoxEleresiFeltolt))
+			if (Global.checkIfEmptyInput(textBoxanyjaNeveFeltolt, textBoxDokumentumNeveFeltolt, textBoxTanuloNeveFeltolt, textBoxEleresiFeltolt))
 			{
-				Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltolt, textBoxTanuloNeveFeltolt, textBoxEleresiFeltolt, radioButtonOszFeltolt, numericUpDownEvFeltolt,
-														"szakmaivizsgaTorzslap", "szvt_tanuloNeve", "szvt_AnyjaNeve", "szvt_szerzo", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", 
-														"szvt_dokumentumNev", "szvt_dokLegutobbModositva", "szvt_feltoltesIdopontja", "szvt_formatum", "szvt_path");
-				Global.textBoxFeltoltUrites(textBoxDokumentumNeveFeltolt, textBoxEleresiFeltolt, textBoxTanuloNeveFeltolt, textBoxAnyjaNeveFeltolt);
-				Global.bordercolorReset(textBoxAnyjaNeveFeltolt, textBoxDokumentumNeveFeltolt, textBoxTanuloNeveFeltolt, textBoxEleresiFeltolt);
+				Global.fileFeltolteseBDreESFileMozgatasa(textBoxanyjaNeveFeltolt, textBoxTanuloNeveFeltolt, Global.globFeltoltendoFileEleresiUt, Global.globFeltoltendoFileEleresiUt.ToString(), radioButtonOszFeltolt, numericUpDownEvFeltolt,
+														"szakmaivizsgaTorzslap", "tanuloNeve", "anyjaNeve", "szerzo", "viszgaEvKezdet", "viszgaTavasz1Osz0", 
+														 "dokLegutobbModositva", "feltoltesIdopontja", "path");
+				Global.textBoxFeltoltUrites(textBoxDokumentumNeveFeltolt, textBoxEleresiFeltolt, textBoxTanuloNeveFeltolt, textBoxanyjaNeveFeltolt);
+				Global.bordercolorReset(textBoxanyjaNeveFeltolt, textBoxDokumentumNeveFeltolt, textBoxTanuloNeveFeltolt, textBoxEleresiFeltolt);
 			}
 			Global.getCount(labelFileokSzama, labelDBCount, @"\Adatok\Szakmai vizsga\Törzslap\", "szakmaivizsgaTorzslap");
 		}
@@ -66,12 +66,12 @@ namespace Nyilvantarto_v2
 		{
 			if (groupBoxModositas.Visible && Global.checkNumericUpDownValue(numericUpDownEvModosit))
 			{
-				Global.modositas(textBoxAnyjanevModosit, textBoxTanuloNevModosit, radioButtonTavaszModosit, numericUpDownEvModosit,
-								 "szakmaivizsgaTorzslap",
-								 "szvt_tanuloNeve", "szvt_AnyjaNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0");
+				//Global.modositas(textBoxAnyjanevModosit, textBoxTanuloNevModosit, radioButtonTavaszModosit, numericUpDownEvModosit,
+				//				 "szakmaivizsgaTorzslap",
+				//				 "tanuloNeve", "anyjaNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0");
 				groupBoxModositas.Visible = false;
 				panelKeresTorlesModGombok.Visible = false;
-				Global.listboxKeresesEredmenyeiClear(listBoxKeresesTanuloNeve, listBoxKeresesAnyjaNeve, listboxKeresesIdoszak, listBoxKeresesVKezdete, listBoxKeresesId);
+				Global.listboxKeresesEredmenyeiClear(listBoxKeresesTanuloNeve, listBoxKeresesanyjaNeve, listboxKeresesIdoszak, listBoxKeresesVKezdete, listBoxKeresesId);
 			}
 			else
 			{
@@ -106,7 +106,7 @@ namespace Nyilvantarto_v2
 
 				groupBoxJelszo.Visible = false;
 				textBoxJelszo.Clear();
-				Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+				Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 				panelKeresTorlesModGombok.Visible = false;
 			}
 		}
@@ -121,109 +121,7 @@ namespace Nyilvantarto_v2
 
 		private void buttonRandomGeneralas_Click(object sender, EventArgs e)
 		{
-			MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
-			MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
 
-			string[] vezetekNevek = { "Pap", "Timár", "Gulyás", "Szabó", "Horváth", "Kis", "Kiss", "Nagy"
-								,"Tóth","Kristóf","Tim","Krajcsi","Beke","Gachovetz","Móricz","Dantesz","Bánki ","Baracsiné"
-								,"Darányi","Hatvani","Földes","Sebők","Skordai","Szűcs","Zalai","Zsuppán","Borzok","Bráda"
-								,"Almássy","Tim-Bartha","Hazenfratz","Langenbacher"};
-
-			string[] keresztNevek = { "Gyula", "Julianna", "Márta", "Ilona", "Mária", "Csaba", "Attila", "Tamás"
-								,"Gabriella","Katalin","Károly","Vanda","István","Ernő","Norbert","Krisztina","Kriszta","Mariann"
-								,"Tibor","Kitti","Lajos","Nóra","Ágnes","Gergő","Klára","Zoltán","Sándor", "Elek"
-								,"Alexandra","Anasztázia","Boldizsár","Liliána","Benedek","Adrienne"};
-
-			new Thread(() =>
-			{
-				Thread.CurrentThread.IsBackground = true;
-				Random r = new Random();
-				string tanuloNeve;
-				string anyjaNeve;
-				int ev;
-				byte tavaszOsz;
-				string tavaszVOsz;
-				string szvt_eleresiUt;
-				string fileName;
-				string destination;
-				string SQL;
-				string source;
-				conn.Open();
-				for (int j = 0; j < 1000; j++)
-				{
-					for (int i = 0; i < int.Parse(textBoxRandom.Text); i++)
-					{
-						cmd.Parameters.Clear();
-
-						tanuloNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-						anyjaNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-						ev = r.Next(1900, 2100);
-						try
-						{
-
-							if (r.Next(0, 2) == 0)
-							{
-								tavaszOsz = 0;
-								tavaszVOsz = "Ősz";
-							}
-							else
-							{
-								tavaszOsz = 1;
-								tavaszVOsz = "Tavasz";
-							}
-							szvt_eleresiUt = @"C:\Users\Pap Gergő\Documents\Database1.accdb";
-							fileName = tanuloNeve + "_" + ev + "_" + tavaszVOsz + "_" + anyjaNeve;
-							destination = Global.fullPath + fileName + ".txt";
-
-							SQL = "INSERT INTO " +
-												"szakmaivizsgaTorzslap " +
-												"VALUES" +
-												"(" +
-														"NULL, " +
-														"@szvt_tanuloNeve, " +
-														"@szvt_AnyjaNeve, " +
-														"@szvt_szerzo, " +
-														"@szvt_viszgaEvKezdet, " +
-														"@szvt_viszgaTavasz1Osz0, " +
-														"@szvt_dokumentumNev, " +
-														"@szvt_dokLegutobbModositva," +
-														"@szvt_feltoltesIdopontja," +
-														"@szvt_formatum, " +
-														"@szvt_path " +
-												")";
-
-							cmd.Connection = conn;
-							cmd.CommandText = SQL;
-							cmd.Parameters.AddWithValue("@szvt_tanuloNeve", tanuloNeve);
-							cmd.Parameters.AddWithValue("@szvt_AnyjaNeve", anyjaNeve);
-							cmd.Parameters.AddWithValue("@szvt_szerzo", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-							cmd.Parameters.AddWithValue("@szvt_viszgaEvKezdet", ev);
-							cmd.Parameters.AddWithValue("@szvt_viszgaTavasz1Osz0", tavaszOsz);
-							cmd.Parameters.AddWithValue("@szvt_dokumentumNev", fileName);
-							cmd.Parameters.AddWithValue("@szvt_dokLegutobbModositva", File.GetLastWriteTime(szvt_eleresiUt));
-							cmd.Parameters.AddWithValue("@szvt_feltoltesIdopontja", DateTime.Now);
-							cmd.Parameters.AddWithValue("@szvt_formatum", "txt");
-							cmd.Parameters.AddWithValue("@szvt_path", destination);
-
-							cmd.ExecuteNonQuery();
-
-							source = szvt_eleresiUt;
-							System.IO.File.WriteAllBytes(destination, new byte[1]);
-						}
-						catch (MySql.Data.MySqlClient.MySqlException ex)
-						{
-							MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
-												"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						}
-						catch (IOException)
-						{
-							MessageBox.Show("Fájl hiba!\n A fájl már létezik vagy nem található!");
-						}
-						Thread.Sleep(25);
-					}
-				}
-			}).Start();
-			conn.Close();
 		}
 
 
@@ -232,31 +130,31 @@ namespace Nyilvantarto_v2
 		private void textBoxTanuloNeveKeres_TextChanged(object sender, EventArgs e)
 		{
 			//MessageBox.Show($"sender: {sender}\neventargs: {e}");
-			Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+			Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 			if (checkBoxOsszetettKeres.Checked)
 			{
-				Global.osszetettKeresv2("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve",
+				Global.osszetettKeresv2("tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve",
 										"szakmaivizsgaTorzslap",
 										textBoxTanuloNeveKeres.Text,
-										textBoxAnyjaNeveKeres.Text,
+										textBoxanyjaNeveKeres.Text,
 										numericUpDownEvKeres.Value.ToString(),
 										(radioButtonTavaszKeres.Checked ? 1 : 0).ToString(),
-										listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+										listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 			}
 			else
 			{
-				if (textBoxAnyjaNeveKeres.Text.Length > 0)
+				if (textBoxanyjaNeveKeres.Text.Length > 0)
 				{
-					Global.osszetettKeres("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve",
+					Global.osszetettKeres("tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve",
 										  "szakmaivizsgaTorzslap",
-										  textBoxTanuloNeveKeres.Text, textBoxAnyjaNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+										  textBoxTanuloNeveKeres.Text, textBoxanyjaNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 
 				}
 				else if (textBoxTanuloNeveKeres.Text.Length > 3)
 				{
-					Global.keres("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve",
+					Global.keres("tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve",
 								 "szakmaivizsgaTorzslap",
-								 textBoxTanuloNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+								 textBoxTanuloNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 				}
 			}
 
@@ -271,45 +169,45 @@ namespace Nyilvantarto_v2
 			}
 		}
 
-		private void textBoxAnyjaNeveKeres_TextChanged(object sender, EventArgs e)
+		private void textBoxanyjaNeveKeres_TextChanged(object sender, EventArgs e)
 		{
-			Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+			Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 			if (checkBoxOsszetettKeres.Checked)
 			{
-				Global.osszetettKeresv2("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve", 
+				Global.osszetettKeresv2("tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve", 
 										"szakmaivizsgaTorzslap",
 										textBoxTanuloNeveKeres.Text, 
-										textBoxAnyjaNeveKeres.Text,
+										textBoxanyjaNeveKeres.Text,
 										numericUpDownEvKeres.Value.ToString(),
 										(radioButtonTavaszKeres.Checked ? 1 : 0).ToString(),
-										listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+										listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 			}
 			else
 			{
 				if (textBoxTanuloNeveKeres.Text.Length != 0)
 				{
-					Global.osszetettKeres("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve", 
+					Global.osszetettKeres("tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve", 
 										  "szakmaivizsgaTorzslap", 
-										  textBoxTanuloNeveKeres.Text, textBoxAnyjaNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+										  textBoxTanuloNeveKeres.Text, textBoxanyjaNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 
 
 				}
-				else if (textBoxAnyjaNeveKeres.Text.Length > 3)
+				else if (textBoxanyjaNeveKeres.Text.Length > 3)
 				{
-					Global.keres("szvt_AnyjaNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve", 
+					Global.keres("anyjaNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve", 
 								 "szakmaivizsgaTorzslap", 
-								 textBoxAnyjaNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+								 textBoxanyjaNeveKeres.Text, listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 
 				}
 			}
 
 		}
 
-		private void textBoxAnyjaNeveKeres_KeyUp(object sender, KeyEventArgs e)
+		private void textBoxanyjaNeveKeres_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				textBoxAnyjaNeveKeres_TextChanged(sender, e);
+				textBoxanyjaNeveKeres_TextChanged(sender, e);
 			}
 		}
 
@@ -321,22 +219,22 @@ namespace Nyilvantarto_v2
 			}
 		}
 
-		private void numericUpDownEvKeres_ValueChanged(object sender, EventArgs e)
+		private void numericUpDownEvKerevalueChanged(object sender, EventArgs e)
 		{
 			radioButtonTavaszKeres_CheckedChanged(sender, e);
 		}
 
 		private void radioButtonTavaszKeres_CheckedChanged(object sender, EventArgs e)
 		{
-			Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+			Global.listboxKeresesEredmenyeiClear(listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 
-			Global.osszetettKeresv2("szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0", "szvt_AnyjaNeve",
+			Global.osszetettKeresv2("tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0", "anyjaNeve",
 										"szakmaivizsgaTorzslap",
 										textBoxTanuloNeveKeres.Text,
-										textBoxAnyjaNeveKeres.Text,
+										textBoxanyjaNeveKeres.Text,
 										numericUpDownEvKeres.Value.ToString(),
 										(radioButtonTavaszKeres.Checked ? 1 : 0).ToString(),
-										listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesAnyjaNeve);
+										listBoxKeresesId, listBoxKeresesTanuloNeve, listBoxKeresesVKezdete, listboxKeresesIdoszak, listBoxKeresesanyjaNeve);
 		}
 
 		private void radioButtonOszKeres_CheckedChanged(object sender, EventArgs e)
@@ -369,9 +267,9 @@ namespace Nyilvantarto_v2
 			Global.textBoxTextChanged(textBoxDokumentumNeveFeltolt);
 		}
 
-		private void textBoxAnyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
+		private void textBoxanyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
 		{
-			Global.textBoxTextChanged(textBoxAnyjaNeveFeltolt);
+			Global.textBoxTextChanged(textBoxanyjaNeveFeltolt);
 		}
 
 		private void textBoxEleresiFeltolt_TextChanged(object sender, EventArgs e)
@@ -382,8 +280,8 @@ namespace Nyilvantarto_v2
 
 		private void listBoxKeresesId_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			Global.setVariablesFromSelecteditem(listBoxKeresesId, "szvt_tanuloNeve", "szvt_viszgaEvKezdet", "szvt_viszgaTavasz1Osz0",
-												"szvt_AnyjaNeve", "szvt_formatum", "szakmaivizsgaTorzslap");
+			Global.setVariablesFromSelecteditem(listBoxKeresesId, "tanuloNeve", "viszgaEvKezdet", "viszgaTavasz1Osz0",
+												"anyjaNeve", "formatum", "szakmaivizsgaTorzslap");
 			panelKeresTorlesModGombok.Visible = true;
 			panelKeresTorlesGombok.Visible = true;
 		}

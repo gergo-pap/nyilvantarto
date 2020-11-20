@@ -18,7 +18,7 @@ namespace Nyilvantarto_v2
         string kiterjesztes;
         MySqlConnection conn;
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-        string destPath = Global.fullPath + @"\Adatok\Középiskola\Anyakönyv\";
+        string destPath = Global.fixPath;
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
 
 
@@ -39,7 +39,7 @@ namespace Nyilvantarto_v2
                                     (
                                     id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                     ka_tanuloNeve TEXT NOT NULL,
-                                    ka_AnyjaNeve TEXT NOT NULL,
+                                    ka_anyjaNeve TEXT NOT NULL,
                                     ka_szerzo TEXT NOT NULL,
                                     ka_erettsegiEvKezdet INT NOT NULL,
                                     ka_erettsegiEvVeg INT NOT NULL,
@@ -72,7 +72,7 @@ namespace Nyilvantarto_v2
                     "WHERE " +
                     "ka_tanuloNeve = '" + nev +
                     "' AND " +
-                    "ka_AnyjaNeve = '" + anyja +
+                    "ka_anyjaNeve = '" + anyja +
                     "' AND " +
                     "ka_erettsegiEvKezdet = " + evKezdet +
                     " AND " +
@@ -144,21 +144,21 @@ namespace Nyilvantarto_v2
         {
             listBoxKeresesEredmenye.Items.Clear();
             var command = conn.CreateCommand();
-            command.CommandText = "SELECT ka_tanuloNeve,ka_erettsegiEvKezdet,ka_erettsegiEvVeg,ka_AnyjaNeve  FROM kozepiskolaanyakonyv WHERE " + column + " like '%" + textboxText + "%'";
+            command.CommandText = "SELECT ka_tanuloNeve,ka_erettsegiEvKezdet,ka_erettsegiEvVeg,ka_anyjaNeve  FROM kozepiskolaanyakonyv WHERE " + column + " like '%" + textboxText + "%'";
             using (var reader = command.ExecuteReader())
             {
                 var ka_tanuloNeve = reader.GetOrdinal("ka_tanuloNeve");
                 var ka_erettsegiEvKezdet = reader.GetOrdinal("ka_erettsegiEvKezdet");
                 var ka_erettsegiEvVeg = reader.GetOrdinal("ka_erettsegiEvVeg");
-                var ka_AnyjaNeve = reader.GetOrdinal("ka_AnyjaNeve");
+                var ka_anyjaNeve = reader.GetOrdinal("ka_anyjaNeve");
 
                 while (reader.Read())
                 {
                     var ka_tanuloNeve2 = reader.GetValue(ka_tanuloNeve).ToString();
                     var ka_erettsegiEvKezdet2 = reader.GetValue(ka_erettsegiEvKezdet).ToString();
                     var ka_erettsegiEvVeg2 = reader.GetValue(ka_erettsegiEvVeg).ToString();
-                    var ka_AnyjaNeve2 = reader.GetValue(ka_AnyjaNeve).ToString();
-                    listBoxKeresesEredmenye.Items.Add(ka_tanuloNeve2 + "-" + ka_erettsegiEvKezdet2 + "-" + ka_erettsegiEvVeg2 + "-" + ka_AnyjaNeve2);
+                    var ka_anyjaNeve2 = reader.GetValue(ka_anyjaNeve).ToString();
+                    listBoxKeresesEredmenye.Items.Add(ka_tanuloNeve2 + "-" + ka_erettsegiEvKezdet2 + "-" + ka_erettsegiEvVeg2 + "-" + ka_anyjaNeve2);
                 }
             }
         }
@@ -166,14 +166,14 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                int indexOf = textBoxAnyjaNeveFeltolt.Text.IndexOfAny(SpecialChars);
+                int indexOf = textBoxanyjaNeveFeltolt.Text.IndexOfAny(SpecialChars);
                 int indexOf2 = textBoxTanuloNeveFeltolt.Text.IndexOfAny(SpecialChars);
                 if (indexOf == -1 && indexOf2 == -1)
                 {
                     string ka_eleresiUt = textBoxEleresi.Text;
                     FileStream fs = new FileStream(ka_eleresiUt, FileMode.Open, FileAccess.Read);
                     BinaryReader br = new BinaryReader(fs);
-                    string fileName = textBoxTanuloNeveFeltolt.Text + "_" + numericUpDownEvFeltoltKezdet.Value.ToString() + "_" + numericUpDownEvFeltoltVeg.Value.ToString() + "_" + textBoxAnyjaNeveFeltolt.Text;
+                    string fileName = textBoxTanuloNeveFeltolt.Text + "_" + numericUpDownEvFeltoltKezdet.Value.ToString() + "_" + numericUpDownEvFeltoltVeg.Value.ToString() + "_" + textBoxanyjaNeveFeltolt.Text;
                     fs.Close();
 
                     string SQL = "INSERT INTO " +
@@ -182,7 +182,7 @@ namespace Nyilvantarto_v2
                         "(" +
                             "NULL, " +
                             "@ka_tanuloNeve, " +
-                            "@ka_AnyjaNeve, " +
+                            "@ka_anyjaNeve, " +
                             "@ka_szerzo, " +
                             "@ka_erettsegiEvKezdet, " +
                             "@ka_erettsegiEvVeg, " +
@@ -196,7 +196,7 @@ namespace Nyilvantarto_v2
                     cmd.Connection = conn;
                     cmd.CommandText = SQL;
                     cmd.Parameters.AddWithValue("@ka_tanuloNeve", textBoxTanuloNeveFeltolt.Text);
-                    cmd.Parameters.AddWithValue("@ka_AnyjaNeve", textBoxAnyjaNeveFeltolt.Text);
+                    cmd.Parameters.AddWithValue("@ka_anyjaNeve", textBoxanyjaNeveFeltolt.Text);
                     cmd.Parameters.AddWithValue("@ka_szerzo", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
                     cmd.Parameters.AddWithValue("@ka_erettsegiEvKezdet", numericUpDownEvFeltoltKezdet.Value);
                     cmd.Parameters.AddWithValue("@ka_erettsegiEvVeg", numericUpDownEvFeltoltVeg.Value);
@@ -259,7 +259,7 @@ namespace Nyilvantarto_v2
                     "WHERE " +
                     "ka_tanuloNeve = '" + nev +
                     "' AND " +
-                    "ka_AnyjaNeve = '" + anyja +
+                    "ka_anyjaNeve = '" + anyja +
                     "' AND " +
                     "ka_erettsegiEvKezdet = " + evKezdet +
                     " AND " +
@@ -274,7 +274,7 @@ namespace Nyilvantarto_v2
                         "kozepiskolaanyakonyv " +
                         "WHERE " +
                         "ka_tanuloNeve = '" + nev + "' AND " +
-                        "ka_AnyjaNeve =  '" + anyja + "' AND " +
+                        "ka_anyjaNeve =  '" + anyja + "' AND " +
                         "ka_erettsegiEvKezdet = " + evKezdet + " AND " +
                         "ka_erettsegiEvVeg = " + evVeg +
                         ";"
@@ -301,7 +301,7 @@ namespace Nyilvantarto_v2
 
         private void modositas()
         {
-            int indexOf = textBoxAnyjaneveModositas.Text.IndexOfAny(SpecialChars);
+            int indexOf = textBoxanyjaNeveModositas.Text.IndexOfAny(SpecialChars);
             int indexOf2 = textBoxNevModositas.Text.IndexOfAny(SpecialChars);
             if (indexOf == -1 && indexOf2 == -1)
             {
@@ -318,12 +318,12 @@ namespace Nyilvantarto_v2
                                 "kozepiskolaanyakonyv " +
                                 "SET " +
                                 "ka_tanuloNeve = '" + textBoxNevModositas.Text + "', " +
-                                "ka_AnyjaNeve = '" + textBoxAnyjaneveModositas.Text + "', " +
+                                "ka_anyjaNeve = '" + textBoxanyjaNeveModositas.Text + "', " +
                                 "ka_erettsegiEvKezdet = " + numericUpDownEvKezdetModositas.Value + ", " +
                                 "ka_erettsegiEvVeg = " + numericUpDownEvVegModositas.Value + " " +
                                 "WHERE " +
                                 "ka_tanuloNeve = '" + nev + "' AND " +
-                                "ka_AnyjaNeve =  '" + anyja + "' AND " +
+                                "ka_anyjaNeve =  '" + anyja + "' AND " +
                                 "ka_erettsegiEvKezdet = " + evKezdet + " AND " +
                                 "ka_erettsegiEvVeg = " + evVeg + ";"
                                 ;
@@ -341,7 +341,7 @@ namespace Nyilvantarto_v2
                         "WHERE " +
                         "ka_tanuloNeve = '" + textBoxNevModositas.Text +
                         "' AND " +
-                        "ka_AnyjaNeve = '" + textBoxAnyjaneveModositas.Text +
+                        "ka_anyjaNeve = '" + textBoxanyjaNeveModositas.Text +
                         "' AND " +
                         "ka_erettsegiEvKezdet = " + numericUpDownEvKezdetModositas.Value +
                         " AND " +
@@ -352,7 +352,7 @@ namespace Nyilvantarto_v2
 
                     var ka_formatum2 = result.ToString();
 
-                    string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxAnyjaneveModositas.Text;
+                    string destFileName = textBoxNevModositas.Text + '_' + numericUpDownEvKezdetModositas.Value + '_' + numericUpDownEvVegModositas.Value + '_' + textBoxanyjaNeveModositas.Text;
                     string[] s = listBoxKeresesEredmenye.SelectedItem.ToString().Split('-');
                     System.IO.File.Move(destPath + nev + '_' + evKezdet + '_' + evVeg + '_' + anyja + '.' + ka_formatum2, destPath + destFileName + '.' + ka_formatum2);
 
@@ -375,15 +375,15 @@ namespace Nyilvantarto_v2
             textBoxDokumentumNeve.Clear();
             textBoxEleresi.Clear();
             textBoxTanuloNeveFeltolt.Clear();
-            textBoxAnyjaNeveFeltolt.Clear();
+            textBoxanyjaNeveFeltolt.Clear();
         }
 
         private bool checkIfEmptyInput()
         {
             bool joE = true;
-            if (textBoxAnyjaNeveFeltolt.Text.Length == 0)
+            if (textBoxanyjaNeveFeltolt.Text.Length == 0)
             {
-                textBoxAnyjaNeveFeltolt.BackColor = Color.Red;
+                textBoxanyjaNeveFeltolt.BackColor = Color.Red;
                 joE = false;
             }
             if (textBoxDokumentumNeve.Text.Length == 0)
@@ -406,13 +406,13 @@ namespace Nyilvantarto_v2
 
         private void borderColorReset()
         {
-            textBoxAnyjaNeveFeltolt.BackColor = Color.White;
+            textBoxanyjaNeveFeltolt.BackColor = Color.White;
             textBoxDokumentumNeve.BackColor = Color.White;
             textBoxTanuloNeveFeltolt.BackColor = Color.White;
             textBoxEleresi.BackColor = Color.White;
         }
 
-        private void textBoxAnyjaNeveKeres_TextChanged(object sender, EventArgs e)
+        private void textBoxanyjaNeveKeres_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -449,15 +449,15 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private void textBoxAnyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
+        private void textBoxanyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxAnyjaNeveFeltolt.Text.Length == 0)
+            if (textBoxanyjaNeveFeltolt.Text.Length == 0)
             {
-                textBoxAnyjaNeveFeltolt.BackColor = Color.Red;
+                textBoxanyjaNeveFeltolt.BackColor = Color.Red;
             }
             else
             {
-                textBoxAnyjaNeveFeltolt.BackColor = Color.White;
+                textBoxanyjaNeveFeltolt.BackColor = Color.White;
             }
         }
 
@@ -505,9 +505,9 @@ namespace Nyilvantarto_v2
             keres("ka_tanuloNeve", textBoxTanuloNeveKeres.Text);
         }
 
-        private void textBoxAnyjaNeveKeres_TextChanged_1(object sender, EventArgs e)
+        private void textBoxanyjaNeveKeres_TextChanged_1(object sender, EventArgs e)
         {
-            keres("ka_AnyjaNeve", textBoxAnyjaNeveKeres.Text);
+            keres("ka_anyjaNeve", textBoxanyjaNeveKeres.Text);
         }
 
         private void buttonLetoltes_Click(object sender, EventArgs e)
@@ -546,17 +546,17 @@ namespace Nyilvantarto_v2
             (new FormMain()).Show(); this.Hide();
         }
 
-        private void numericUpDownEvKezdetModositas_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownEvKezdetModositavalueChanged(object sender, EventArgs e)
         {
             numericUpDownEvVegModositas.Value = numericUpDownEvKezdetModositas.Value + 4;
         }
 
-        private void numericUpDownVizsgaKezdetKeres_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownVizsgaKezdetKerevalueChanged(object sender, EventArgs e)
         {
             keres("szva_erettsegiEvKezdet", numericUpDownVizsgaKezdetKeres.Value.ToString());
         }
 
-        private void numericUpDownVizsgaVegKeres_ValueChanged(object sender, EventArgs e)
+        private void numericUpDownVizsgaVegKerevalueChanged(object sender, EventArgs e)
         {
             keres("szva_erettsegiEvVeg", numericUpDownVizsgaVegKeres.Value.ToString());
         }

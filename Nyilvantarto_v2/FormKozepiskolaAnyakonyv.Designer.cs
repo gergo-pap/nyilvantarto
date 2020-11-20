@@ -42,7 +42,7 @@
             this.textBoxNevModositas = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBoxAnyjaneveModositas = new System.Windows.Forms.TextBox();
+            this.textBoxanyjaNeveModositas = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.numericUpDownEvKezdetModositas = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
@@ -53,9 +53,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxAnyjaNeveKeres = new System.Windows.Forms.TextBox();
+            this.textBoxanyjaNeveKeres = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxAnyjaNeveFeltolt = new System.Windows.Forms.TextBox();
+            this.textBoxanyjaNeveFeltolt = new System.Windows.Forms.TextBox();
             this.listBoxKeresesEredmenye = new System.Windows.Forms.ListBox();
             this.numericUpDownVizsgaKezdetKeres = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -117,7 +117,7 @@
             0,
             0,
             0});
-            this.numericUpDownVizsgaVegKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaVegKeres_ValueChanged);
+            this.numericUpDownVizsgaVegKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaVegKerevalueChanged);
             // 
             // label20
             // 
@@ -197,7 +197,7 @@
             this.groupBox1.Controls.Add(this.textBoxNevModositas);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.textBoxAnyjaneveModositas);
+            this.groupBox1.Controls.Add(this.textBoxanyjaNeveModositas);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.numericUpDownEvKezdetModositas);
             this.groupBox1.Controls.Add(this.label14);
@@ -269,13 +269,13 @@
             this.label16.TabIndex = 91;
             this.label16.Text = "Módosítás";
             // 
-            // textBoxAnyjaneveModositas
+            // textBoxanyjaNeveModositas
             // 
-            this.textBoxAnyjaneveModositas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaneveModositas.Location = new System.Drawing.Point(123, 69);
-            this.textBoxAnyjaneveModositas.Name = "textBoxAnyjaneveModositas";
-            this.textBoxAnyjaneveModositas.Size = new System.Drawing.Size(186, 23);
-            this.textBoxAnyjaneveModositas.TabIndex = 89;
+            this.textBoxanyjaNeveModositas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxanyjaNeveModositas.Location = new System.Drawing.Point(123, 69);
+            this.textBoxanyjaNeveModositas.Name = "textBoxanyjaNeveModositas";
+            this.textBoxanyjaNeveModositas.Size = new System.Drawing.Size(186, 23);
+            this.textBoxanyjaNeveModositas.TabIndex = 89;
             // 
             // label15
             // 
@@ -309,7 +309,7 @@
             0,
             0,
             0});
-            this.numericUpDownEvKezdetModositas.ValueChanged += new System.EventHandler(this.numericUpDownEvKezdetModositas_ValueChanged);
+            this.numericUpDownEvKezdetModositas.ValueChanged += new System.EventHandler(this.numericUpDownEvKezdetModositavalueChanged);
             // 
             // label14
             // 
@@ -392,14 +392,14 @@
             this.label8.TabIndex = 125;
             this.label8.Text = "Anyja neve:";
             // 
-            // textBoxAnyjaNeveKeres
+            // textBoxanyjaNeveKeres
             // 
-            this.textBoxAnyjaNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveKeres.Location = new System.Drawing.Point(617, 149);
-            this.textBoxAnyjaNeveKeres.Name = "textBoxAnyjaNeveKeres";
-            this.textBoxAnyjaNeveKeres.Size = new System.Drawing.Size(186, 23);
-            this.textBoxAnyjaNeveKeres.TabIndex = 112;
-            this.textBoxAnyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveKeres_TextChanged_1);
+            this.textBoxanyjaNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxanyjaNeveKeres.Location = new System.Drawing.Point(617, 149);
+            this.textBoxanyjaNeveKeres.Name = "textBoxanyjaNeveKeres";
+            this.textBoxanyjaNeveKeres.Size = new System.Drawing.Size(186, 23);
+            this.textBoxanyjaNeveKeres.TabIndex = 112;
+            this.textBoxanyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxanyjaNeveKeres_TextChanged_1);
             // 
             // label7
             // 
@@ -411,14 +411,14 @@
             this.label7.TabIndex = 124;
             this.label7.Text = "Anyja neve:";
             // 
-            // textBoxAnyjaNeveFeltolt
+            // textBoxanyjaNeveFeltolt
             // 
-            this.textBoxAnyjaNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveFeltolt.Location = new System.Drawing.Point(175, 151);
-            this.textBoxAnyjaNeveFeltolt.Name = "textBoxAnyjaNeveFeltolt";
-            this.textBoxAnyjaNeveFeltolt.Size = new System.Drawing.Size(178, 23);
-            this.textBoxAnyjaNeveFeltolt.TabIndex = 105;
-            this.textBoxAnyjaNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveFeltolt_TextChanged);
+            this.textBoxanyjaNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxanyjaNeveFeltolt.Location = new System.Drawing.Point(175, 151);
+            this.textBoxanyjaNeveFeltolt.Name = "textBoxanyjaNeveFeltolt";
+            this.textBoxanyjaNeveFeltolt.Size = new System.Drawing.Size(178, 23);
+            this.textBoxanyjaNeveFeltolt.TabIndex = 105;
+            this.textBoxanyjaNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxanyjaNeveFeltolt_TextChanged);
             // 
             // listBoxKeresesEredmenye
             // 
@@ -452,7 +452,7 @@
             0,
             0,
             0});
-            this.numericUpDownVizsgaKezdetKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaKezdetKeres_ValueChanged);
+            this.numericUpDownVizsgaKezdetKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaKezdetKerevalueChanged);
             // 
             // label6
             // 
@@ -660,9 +660,9 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBoxAnyjaNeveKeres);
+            this.Controls.Add(this.textBoxanyjaNeveKeres);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBoxAnyjaNeveFeltolt);
+            this.Controls.Add(this.textBoxanyjaNeveFeltolt);
             this.Controls.Add(this.listBoxKeresesEredmenye);
             this.Controls.Add(this.numericUpDownVizsgaKezdetKeres);
             this.Controls.Add(this.label6);
@@ -716,7 +716,7 @@
         private System.Windows.Forms.TextBox textBoxNevModositas;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBoxAnyjaneveModositas;
+        private System.Windows.Forms.TextBox textBoxanyjaNeveModositas;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.NumericUpDown numericUpDownEvKezdetModositas;
         private System.Windows.Forms.Label label14;
@@ -727,9 +727,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveKeres;
+        private System.Windows.Forms.TextBox textBoxanyjaNeveKeres;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltolt;
+        private System.Windows.Forms.TextBox textBoxanyjaNeveFeltolt;
         private System.Windows.Forms.ListBox listBoxKeresesEredmenye;
         private System.Windows.Forms.NumericUpDown numericUpDownVizsgaKezdetKeres;
         private System.Windows.Forms.Label label6;

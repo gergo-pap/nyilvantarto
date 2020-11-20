@@ -52,9 +52,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxAnyjaNeveKeres = new System.Windows.Forms.TextBox();
+            this.textBoxanyjaNeveKeres = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxAnyjaNeveFeltolt = new System.Windows.Forms.TextBox();
+            this.textBoxanyjaNeveFeltolt = new System.Windows.Forms.TextBox();
             this.listBoxKeresesTanuloNeve = new System.Windows.Forms.ListBox();
             this.numericUpDownEvKeres = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -80,7 +80,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.listBoxKeresesVKezdete = new System.Windows.Forms.ListBox();
             this.listboxKeresesIdoszak = new System.Windows.Forms.ListBox();
-            this.listBoxKeresesAnyjaNeve = new System.Windows.Forms.ListBox();
+            this.listBoxKeresesanyjaNeve = new System.Windows.Forms.ListBox();
             this.label20 = new System.Windows.Forms.Label();
             this.listBoxKeresesId = new System.Windows.Forms.ListBox();
             this.labelFileokSzama = new System.Windows.Forms.Label();
@@ -100,6 +100,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label24 = new System.Windows.Forms.Label();
             this.labelAdatbazisKapcsolat = new System.Windows.Forms.Label();
+            this.mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
             this.groupBoxJelszo.SuspendLayout();
             this.groupBoxModositas.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -365,15 +366,15 @@
             this.label8.TabIndex = 161;
             this.label8.Text = "Anyja neve:";
             // 
-            // textBoxAnyjaNeveKeres
+            // textBoxanyjaNeveKeres
             // 
-            this.textBoxAnyjaNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveKeres.Location = new System.Drawing.Point(749, 148);
-            this.textBoxAnyjaNeveKeres.Name = "textBoxAnyjaNeveKeres";
-            this.textBoxAnyjaNeveKeres.Size = new System.Drawing.Size(502, 23);
-            this.textBoxAnyjaNeveKeres.TabIndex = 148;
-            this.textBoxAnyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveKeres_TextChanged);
-            this.textBoxAnyjaNeveKeres.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxAnyjaNeveKeres_KeyUp);
+            this.textBoxanyjaNeveKeres.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxanyjaNeveKeres.Location = new System.Drawing.Point(749, 148);
+            this.textBoxanyjaNeveKeres.Name = "textBoxanyjaNeveKeres";
+            this.textBoxanyjaNeveKeres.Size = new System.Drawing.Size(502, 23);
+            this.textBoxanyjaNeveKeres.TabIndex = 148;
+            this.textBoxanyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxanyjaNeveKeres_TextChanged);
+            this.textBoxanyjaNeveKeres.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxanyjaNeveKeres_KeyUp);
             // 
             // label7
             // 
@@ -385,14 +386,14 @@
             this.label7.TabIndex = 160;
             this.label7.Text = "Anyja neve:";
             // 
-            // textBoxAnyjaNeveFeltolt
+            // textBoxanyjaNeveFeltolt
             // 
-            this.textBoxAnyjaNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveFeltolt.Location = new System.Drawing.Point(175, 150);
-            this.textBoxAnyjaNeveFeltolt.Name = "textBoxAnyjaNeveFeltolt";
-            this.textBoxAnyjaNeveFeltolt.Size = new System.Drawing.Size(254, 23);
-            this.textBoxAnyjaNeveFeltolt.TabIndex = 141;
-            this.textBoxAnyjaNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveFeltolt_TextChanged);
+            this.textBoxanyjaNeveFeltolt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxanyjaNeveFeltolt.Location = new System.Drawing.Point(175, 150);
+            this.textBoxanyjaNeveFeltolt.Name = "textBoxanyjaNeveFeltolt";
+            this.textBoxanyjaNeveFeltolt.Size = new System.Drawing.Size(254, 23);
+            this.textBoxanyjaNeveFeltolt.TabIndex = 141;
+            this.textBoxanyjaNeveFeltolt.TextChanged += new System.EventHandler(this.textBoxanyjaNeveFeltolt_TextChanged);
             // 
             // listBoxKeresesTanuloNeve
             // 
@@ -427,7 +428,7 @@
             0,
             0,
             0});
-            this.numericUpDownEvKeres.ValueChanged += new System.EventHandler(this.numericUpDownEvKeres_ValueChanged);
+            this.numericUpDownEvKeres.ValueChanged += new System.EventHandler(this.numericUpDownEvKerevalueChanged);
             this.numericUpDownEvKeres.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDownEvKeres_KeyUp);
             // 
             // label6
@@ -684,16 +685,16 @@
             this.listboxKeresesIdoszak.Size = new System.Drawing.Size(77, 308);
             this.listboxKeresesIdoszak.TabIndex = 182;
             // 
-            // listBoxKeresesAnyjaNeve
+            // listBoxKeresesanyjaNeve
             // 
-            this.listBoxKeresesAnyjaNeve.Enabled = false;
-            this.listBoxKeresesAnyjaNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.listBoxKeresesAnyjaNeve.FormattingEnabled = true;
-            this.listBoxKeresesAnyjaNeve.ItemHeight = 16;
-            this.listBoxKeresesAnyjaNeve.Location = new System.Drawing.Point(1051, 279);
-            this.listBoxKeresesAnyjaNeve.Name = "listBoxKeresesAnyjaNeve";
-            this.listBoxKeresesAnyjaNeve.Size = new System.Drawing.Size(200, 308);
-            this.listBoxKeresesAnyjaNeve.TabIndex = 183;
+            this.listBoxKeresesanyjaNeve.Enabled = false;
+            this.listBoxKeresesanyjaNeve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.listBoxKeresesanyjaNeve.FormattingEnabled = true;
+            this.listBoxKeresesanyjaNeve.ItemHeight = 16;
+            this.listBoxKeresesanyjaNeve.Location = new System.Drawing.Point(1051, 279);
+            this.listBoxKeresesanyjaNeve.Name = "listBoxKeresesanyjaNeve";
+            this.listBoxKeresesanyjaNeve.Size = new System.Drawing.Size(200, 308);
+            this.listBoxKeresesanyjaNeve.TabIndex = 183;
             // 
             // label20
             // 
@@ -757,6 +758,7 @@
             this.textBoxRandom.Name = "textBoxRandom";
             this.textBoxRandom.Size = new System.Drawing.Size(100, 20);
             this.textBoxRandom.TabIndex = 191;
+            this.textBoxRandom.Text = "1";
             // 
             // groupBoxOsszetettKereses
             // 
@@ -878,6 +880,13 @@
             this.labelAdatbazisKapcsolat.TabIndex = 198;
             this.labelAdatbazisKapcsolat.Text = "aktív";
             // 
+            // mySqlDataAdapter1
+            // 
+            this.mySqlDataAdapter1.DeleteCommand = null;
+            this.mySqlDataAdapter1.InsertCommand = null;
+            this.mySqlDataAdapter1.SelectCommand = null;
+            this.mySqlDataAdapter1.UpdateCommand = null;
+            // 
             // FormSzakmaiVizsgaTörzslap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -894,7 +903,7 @@
             this.Controls.Add(this.groupBoxOsszetettKereses);
             this.Controls.Add(this.listBoxKeresesId);
             this.Controls.Add(this.label20);
-            this.Controls.Add(this.listBoxKeresesAnyjaNeve);
+            this.Controls.Add(this.listBoxKeresesanyjaNeve);
             this.Controls.Add(this.listboxKeresesIdoszak);
             this.Controls.Add(this.listBoxKeresesVKezdete);
             this.Controls.Add(this.label12);
@@ -905,9 +914,9 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBoxAnyjaNeveKeres);
+            this.Controls.Add(this.textBoxanyjaNeveKeres);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBoxAnyjaNeveFeltolt);
+            this.Controls.Add(this.textBoxanyjaNeveFeltolt);
             this.Controls.Add(this.listBoxKeresesTanuloNeve);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxTanuloNeveKeres);
@@ -973,9 +982,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveKeres;
+        private System.Windows.Forms.TextBox textBoxanyjaNeveKeres;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltolt;
+        private System.Windows.Forms.TextBox textBoxanyjaNeveFeltolt;
         private System.Windows.Forms.ListBox listBoxKeresesTanuloNeve;
         private System.Windows.Forms.NumericUpDown numericUpDownEvKeres;
         private System.Windows.Forms.Label label6;
@@ -1005,7 +1014,7 @@
         private System.Windows.Forms.RadioButton radioButtonOszModosit;
         private System.Windows.Forms.ListBox listBoxKeresesVKezdete;
         private System.Windows.Forms.ListBox listboxKeresesIdoszak;
-        private System.Windows.Forms.ListBox listBoxKeresesAnyjaNeve;
+        private System.Windows.Forms.ListBox listBoxKeresesanyjaNeve;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ListBox listBoxKeresesId;
         private System.Windows.Forms.Label labelFileokSzama;
@@ -1025,5 +1034,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label labelAdatbazisKapcsolat;
+        private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
     }
 }
