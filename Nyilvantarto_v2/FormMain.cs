@@ -296,6 +296,10 @@ namespace Nyilvantarto_v2
                 Global.setAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonModositas);
                 panelTallozMentesujButton.Visible = true;
                 panelSzakmaiViszgaTorzslapFileName.Visible = true;
+                panelKozepiskolaAnyakonyvFilneName.Visible = true;
+                panelErettsegiTanusitvanyFileName.Visible = true;
+                panelErettsegiTtorzslapFileName.Visible = true;
+                panelSzakmaivizsgaAnyakonyvFileName.Visible = true;
             }
         }
 
@@ -319,6 +323,10 @@ namespace Nyilvantarto_v2
                 panelFeltolt.Visible = true;
                 Global.setAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles, buttonFeltoltes);
                 panelSzakmaiViszgaTorzslapFileName.Visible = false;
+                panelKozepiskolaAnyakonyvFilneName.Visible = false;
+                panelErettsegiTanusitvanyFileName.Visible = false;
+                panelErettsegiTtorzslapFileName.Visible = false;
+                panelSzakmaivizsgaAnyakonyvFileName.Visible = false;
                 panelTallozMentesujButton.Visible = false;
                 switch (labelMenuKat.Text)
                 {
