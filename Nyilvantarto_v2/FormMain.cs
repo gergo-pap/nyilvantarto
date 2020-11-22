@@ -282,6 +282,7 @@ namespace Nyilvantarto_v2
                 panelMenu.Width = 0;
                 panelMenu.Visible = false;
                 panelFeltolt.Visible = false;
+                panelModTorol.Visible = true;
                 Global.setAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonFeltoltes);
             }
             else
@@ -294,6 +295,7 @@ namespace Nyilvantarto_v2
                 }
                 panelFeltolt.Visible = true;
                 Global.setAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonModositas);
+                panelModTorol.Visible = false;
                 panelTallozMentesujButton.Visible = true;
                 panelSzakmaiViszgaTorzslapFileName.Visible = true;
                 panelKozepiskolaAnyakonyvFilneName.Visible = true;
@@ -310,6 +312,8 @@ namespace Nyilvantarto_v2
                 panelMenu.Width = 0;
                 panelMenu.Visible = false;
                 panelFeltolt.Visible = false;
+                buttonFeltoltes.Visible = true;
+                buttonTorles.Visible = true;
                 Global.setAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles, buttonModositas);
             }
             else
@@ -328,6 +332,8 @@ namespace Nyilvantarto_v2
                 panelErettsegiTtorzslapFileName.Visible = false;
                 panelSzakmaivizsgaAnyakonyvFileName.Visible = false;
                 panelTallozMentesujButton.Visible = false;
+                buttonFeltoltes.Visible = false;
+                buttonTorles.Visible = false;
                 switch (labelMenuKat.Text)
                 {
                     case "Szakmai vizsga - törzslap":
