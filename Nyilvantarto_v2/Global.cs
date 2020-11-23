@@ -72,7 +72,11 @@ namespace Nyilvantarto_v2
         public static void getDBCount(Label l, string from)
         {
             int count = 0;
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             using (var cmd = new MySqlCommand($"SELECT COUNT(id) FROM {from}", conn))
             {
                 count = Convert.ToInt32(cmd.ExecuteScalar());
@@ -96,7 +100,11 @@ namespace Nyilvantarto_v2
             }
 
             var command = conn.CreateCommand();
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             command.CommandText = $"SELECT {selectRow1}, {selectRow2}, {selectRow3}, {selectRow4} FROM {from}";
             using (var reader = command.ExecuteReader())
             {
@@ -185,8 +193,9 @@ namespace Nyilvantarto_v2
 
         private static void hianyzoElemekTorleseDBrol(List<string> lines, string from)
         {
-            if (conn.State == ConnectionState.Closed)
+            if (conn.State != ConnectionState.Open)
             {
+                conn.Close();
                 conn.Open();
             }
             foreach (var item in lines)
@@ -274,7 +283,11 @@ namespace Nyilvantarto_v2
         public static void setVariablesFromSelecteditem(ListBox lb, string rowNev, string rowEvKezdet, string rowTavaszVOsz,
                                                         string rowAnyja, string rowFormatum, string tableName)
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             var getData = conn.CreateCommand();
             if (lb.SelectedItem != null)
             {
@@ -360,7 +373,11 @@ namespace Nyilvantarto_v2
         public static void keres(string rowTneveEsWhere, string rowVkezdet, string rowViszgaTaVOsz, string rowAnyja, string from, string textboxText,
                                  ListBox ListBid, ListBox listBoxTanuloNeve, ListBox listBoxVKezdete, ListBox listBoxVVege, ListBox listBoxanyjaNeve)
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             var command = conn.CreateCommand();
             command.CommandText = $"SELECT id,{rowTneveEsWhere},{rowVkezdet},{rowViszgaTaVOsz},{rowAnyja}  FROM {from} WHERE {rowTneveEsWhere} like '%" + textboxText + "%'";
             using (var reader = command.ExecuteReader())
@@ -441,7 +458,11 @@ namespace Nyilvantarto_v2
             string from, string likeText1, string likeText2,
             ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxanyjaNeve)
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             var command = conn.CreateCommand();
             command.CommandText = $"SELECT id, {rowTneve}, {rowKezdet}, {rowTvOsz}, {rowAnyja}  " +
                 $"FROM {from} " +
@@ -478,7 +499,11 @@ namespace Nyilvantarto_v2
                                             string from, string like1, string like2, string like3, string like4,
                                             ListBox listBoxId, ListBox listBoxTanuloNeve, ListBox listBoxVkezdete, ListBox listBoxIdoszak, ListBox listBoxAnyja)
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             var command = conn.CreateCommand();
             command.CommandText = $"SELECT id, {rowTneve}, {rowVkezdet}, {rowTavaszOsz}, {rowAnyja} " +
                                 $"FROM {from} " +
@@ -693,7 +718,11 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Close();
+                    conn.Open();
+                }
                 string id = listBoxId.SelectedItem.ToString();
 
                 string SQL = "DELETE FROM " +
@@ -721,7 +750,8 @@ namespace Nyilvantarto_v2
 
         public static void ujTorles(string id, string from, string destination)
         {
-            MessageBox.Show(destination);
+            string torlendo = fullPath + destination + id + ".dat";
+            MessageBox.Show(torlendo);
             try
             {
                 if (conn.State != ConnectionState.Open)
@@ -738,8 +768,8 @@ namespace Nyilvantarto_v2
                 cmd.CommandText = SQL;
 
                 cmd.ExecuteNonQuery();
-                destination += id + ".dat";
-                System.IO.File.Delete(destination);
+
+                System.IO.File.Delete(torlendo);
 
                 MessageBox.Show("Sikeres törlés");
                 conn.Close();
@@ -898,7 +928,7 @@ namespace Nyilvantarto_v2
             try
             {
                 conn = new MySqlConnection(conn_info);
-                conn.Open();
+                            if (conn.State != ConnectionState.Open)
                 isConn = true;
             }
             catch (ArgumentException a_ex)
@@ -1069,7 +1099,11 @@ namespace Nyilvantarto_v2
 
         public static void createTableErettsegiTorzslap()
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             var command = conn.CreateCommand();
             command = conn.CreateCommand();
             command.CommandText = @"
@@ -1104,7 +1138,11 @@ namespace Nyilvantarto_v2
 
         public static void checkDirs(GroupBox groupBoxEleresi, GroupBox groupBoxButtons, Label labelMentesiHely, Panel panel, string varString)
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
             string query = $"SELECT value FROM settings WHERE var = '{varString}'; ";
             var command = conn.CreateCommand();
             command.CommandText = query;
@@ -1131,7 +1169,11 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Close();
+                    conn.Open();
+                }
                 int indexOf = labelMentesiHely.Text.IndexOfAny(SpecialChars);
                 if (indexOf == -1)
                 {
@@ -1277,7 +1319,11 @@ namespace Nyilvantarto_v2
                 int ev;
                 string destination;
 
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Close();
+                    conn.Open();
+                }
                 for (int j = 0; j < 1000; j++)
                 {
                     //szakmaivizsgaTorzslap

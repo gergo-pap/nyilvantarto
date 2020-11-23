@@ -107,7 +107,6 @@ namespace Nyilvantarto_v2
             dataGridView1.Columns[3].Name = "Vizsga éve";
             dataGridView1.Columns[4].Name = "Vizsga időszaka";
             dataGridView1.Columns[0].Width = 35;
-
             buttonKeresClick();
             textBoxTanuloNeve_TextChanged(sender, e);
 
@@ -368,7 +367,7 @@ namespace Nyilvantarto_v2
                             , numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv);
                         break;
                 }
-                
+            textBoxTanuloNeve_TextChanged(sender, e);
             }
         }
 
@@ -378,26 +377,23 @@ namespace Nyilvantarto_v2
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaTorzslap", Global.fullPath);
+                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaTorzslap", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
                 case "Érettségi - törzslap":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitorzslap", Global.fullPath);
+                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitorzslap", @"\Adatok\Érettségi\Törzslap\");
                     break;
                 case "Érettségi - tanusítvány":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitanusitvany", Global.fullPath);
+                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitanusitvany", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
                 case "Szakmai vizsga - anyakönyv":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaanyakonyv", Global.fullPath);
+                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
                 case "Középiskola - anyakönyv":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "kozepiskolaanyakonyv", Global.fullPath);
+                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "kozepiskolaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
             }
-
+            textBoxTanuloNeve_TextChanged(sender, e);
         }
-
-        
-
 
         private void buttonTalloz_Click(object sender, EventArgs e)
         {
@@ -427,6 +423,8 @@ namespace Nyilvantarto_v2
         private void buttonMegse_Click(object sender, EventArgs e)
         {
             buttonFeltoltes_Click(sender, e);
+            buttonFeltoltes.Visible = true;
+            buttonTorles.Visible = true;
         }
 
         private void buttonMentes_Click(object sender, EventArgs e)
@@ -531,7 +529,10 @@ namespace Nyilvantarto_v2
                         break;
                 }
             }
+            buttonFeltoltes.Visible = true;
+            buttonTorles.Visible = true;
             buttonFeltoltes_Click(sender, e);
+            textBoxTanuloNeve_TextChanged(sender, e);
         }
 
         private void textBoxTanuloNeveFeltolt_TextChanged(object sender, EventArgs e)
