@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -68,80 +71,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormErettsegiTorzslap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormErettsegiTorzslap.Designer.cs">
-      <DependentUpon>FormErettsegiTorzslap.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormErettsegi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormErettsegi.Designer.cs">
-      <DependentUpon>FormErettsegi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormKozepiskolaAnyakonyv.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormKozepiskolaAnyakonyv.Designer.cs">
-      <DependentUpon>FormKozepiskolaAnyakonyv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormProgressbar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormProgressbar.Designer.cs">
-      <DependentUpon>FormProgressbar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSzakmaiViszgaAnyakonyv.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSzakmaiViszgaAnyakonyv.Designer.cs">
-      <DependentUpon>FormSzakmaiViszgaAnyakonyv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSzakmaiVizsga.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSzakmaiVizsga.Designer.cs">
-      <DependentUpon>FormSzakmaiVizsga.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSzakmaiVizsgaTörzslap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSzakmaiVizsgaTörzslap.Designer.cs">
-      <DependentUpon>FormSzakmaiVizsgaTörzslap.cs</DependentUpon>
-    </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormErettsegi.resx">
-      <DependentUpon>FormErettsegi.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormErettsegiTorzslap.resx">
-      <DependentUpon>FormErettsegiTorzslap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormKozepiskolaAnyakonyv.resx">
-      <DependentUpon>FormKozepiskolaAnyakonyv.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormProgressbar.resx">
-      <DependentUpon>FormProgressbar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSzakmaiViszgaAnyakonyv.resx">
-      <DependentUpon>FormSzakmaiViszgaAnyakonyv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSzakmaiVizsga.resx">
-      <DependentUpon>FormSzakmaiVizsga.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSzakmaiVizsgaTörzslap.resx">
-      <DependentUpon>FormSzakmaiVizsgaTörzslap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -152,6 +92,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -165,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Old things\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

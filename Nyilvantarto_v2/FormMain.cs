@@ -18,59 +18,26 @@ namespace Nyilvantarto_v2
             //    Application.OpenForms.OfType<FormMain>().First().Close();
         }
 
-        private void buttonErettsegi_Click(object sender, EventArgs e)
-        {
-            (new FormErettsegi()).Show(); this.Hide();
-        }
-
-        private void buttonSzkmaiVizsga_Click(object sender, EventArgs e)
-        {
-            (new FormSzakmaiVizsga()).Show(); this.Hide();
-        }
-
-        private void buttonKozepiskola_Click(object sender, EventArgs e)
-        {
-            (new FormKozepiskolaAnyakonyv()).Show(); this.Hide();
-        }
-
         private void buttonTallozas_Click(object sender, EventArgs e)
         {
             Global.tallozas(labelMentesiHely);
-            Global.setPathInDB(labelMentesiHely, groupBoxEleresi, groupBoxButtons, "eleresiUt");
+            Global.setPathInDB(labelMentesiHely, groupBoxEleresi, "eleresiUt");
             Global.createDirectiories(labelMentesiHely);
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            Hide();
             panelMenu.Width = 0;
             if (Global.checkDB_Conn(true))
             {
-                this.Hide();
-                FormProgressbar f = new FormProgressbar();
-                f.setProgressbarMax(90);
-                f.Show();
-                f.incrementProgress(10, 5);
                 MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;charset = utf8");
-                f.incrementProgress(10, 5);
-                Global.createTablesettings();
-                f.incrementProgress(10, 5);
-                Global.createTableKozepiskolaAnyakonyv();
-                f.incrementProgress(10, 5);
-                Global.createTableszakmaiviszgaanyakonyv();
-                f.incrementProgress(10, 5);
-                Global.createTableSzakmaivizsgaTorzslap();
-                f.incrementProgress(10, 5);
-                Global.createTableErettsegiTanusitvany();
-                f.incrementProgress(10, 5);
-                Global.createTableErettsegiTorzslap();
-                f.incrementProgress(10, 5);
-                Global.checkDirs(groupBoxEleresi, groupBoxButtons, labelMentesiHely, panelKeres, "eleresiUt");
-                f.incrementProgress(10, 5);
+                Global.createTables();
+                Global.checkDirs(groupBoxEleresi, labelMentesiHely, panelKeres, "eleresiUt");
                 labelPath.Text = Global.fixPath;
-                f.Hide();
-                this.Show();
                 Global.setFeltoltPanelPosition(panelErettsegiTanusitvanyFeltolt, panelErettsegiTorzslapFeltolt, panelKozepiskolaAnyakonyvFeltolt,
                     panelSzakmaiViszgaTorzslapFeltolt, panelSzakmaiVizsgaAnyakonyvFeltolt);
+                Show();
             }
         }
 
@@ -81,103 +48,19 @@ namespace Nyilvantarto_v2
             {
                 labelKapcsolatAdatbazissal.Text = "aktív";
                 labelKapcsolatAdatbazissal.BackColor = Color.LightGreen;
-                groupBoxButtons.Visible = true;
-                Global.dataGridViewBasicSettings(dataGridView1, panelKeres, textBoxTanuloNeveKeres, textBoxanyjaNeveKeres, numericUpDownVizsgaÉveKeres);
+                Global.dataGridViewBasicSettings(dataGridView1, panelKeres);
             }
             else
             {
                 labelKapcsolatAdatbazissal.Text = "offline";
                 labelKapcsolatAdatbazissal.BackColor = Color.Red;
-                groupBoxButtons.Visible = false;
                 Global.dataGridViewOffline(dataGridView1, panelKeres, panelFeltModTorl);
             }
         }
 
-
-
-        
-
-        private void buttonErettsegiTorzslap_Click(object sender, EventArgs e)
-        {
-            Global.setAndResetButtonColors(buttonErettsegiTorzslap, buttonErettsegiTanusitvany, buttonSzakmaiVizsgaTorzslap, buttonKozepiskolaAnyakonyv, buttonSzakmaiViszgaAnyakonyv);
-            dataGridView1.ColumnCount = 5;
-            dataGridView1.Columns[0].Name = "Id";
-            dataGridView1.Columns[1].Name = "Tanuló neve";
-            dataGridView1.Columns[2].Name = "Anyja neve";
-            dataGridView1.Columns[3].Name = "Vizsga éve";
-            dataGridView1.Columns[4].Name = "Vizsga időszaka";
-            dataGridView1.Columns[0].Width = 35;
-            buttonKeresClick();
-            textBoxTanuloNeve_TextChanged(sender, e);
-
-        }
-
-        private void buttonErettsegiTanusitvany_Click(object sender, EventArgs e)
-        {
-            Global.setAndResetButtonColors(buttonErettsegiTanusitvany, buttonKozepiskolaAnyakonyv, buttonErettsegiTorzslap, buttonSzakmaiVizsgaTorzslap, buttonSzakmaiViszgaAnyakonyv);
-            dataGridView1.ColumnCount = 5;
-            dataGridView1.Columns[0].Name = "Id";
-            dataGridView1.Columns[1].Name = "Tanuló neve";
-            dataGridView1.Columns[2].Name = "Anyja neve";
-            dataGridView1.Columns[3].Name = "Vizsga éve";
-            dataGridView1.Columns[4].Name = "Tanulói azonosító";
-            dataGridView1.Columns[0].Width = 35;
-            buttonKeresClick();
-            textBoxTanuloNeve_TextChanged(sender, e);
-
-        }
-
-        private void buttonSzakmaiVizsgaTorzslap_Click(object sender, EventArgs e)
-        {
-            Global.setAndResetButtonColors(buttonSzakmaiVizsgaTorzslap, buttonErettsegiTanusitvany, buttonErettsegiTorzslap, buttonKozepiskolaAnyakonyv, buttonSzakmaiViszgaAnyakonyv);
-
-            dataGridView1.ColumnCount = 5;
-            dataGridView1.Columns[0].Name = "Id";
-            dataGridView1.Columns[1].Name = "Tanuló neve";
-            dataGridView1.Columns[2].Name = "Anyja neve";
-            dataGridView1.Columns[3].Name = "Vizsga éve";
-            dataGridView1.Columns[4].Name = "Vizsga időszaka";
-            dataGridView1.Columns[0].Width = 35;
-            buttonKeresClick();
-            textBoxTanuloNeve_TextChanged(sender, e);
-
-
-
-        }
-
-        private void buttonSzakmaiViszgaAnyakonyv_Click(object sender, EventArgs e)
-        {
-            Global.setAndResetButtonColors(buttonSzakmaiViszgaAnyakonyv, buttonErettsegiTanusitvany, buttonErettsegiTorzslap, buttonKozepiskolaAnyakonyv, buttonSzakmaiVizsgaTorzslap);
-            dataGridView1.ColumnCount = 5;
-            dataGridView1.Columns[0].Name = "Id";
-            dataGridView1.Columns[1].Name = "Tanuló neve";
-            dataGridView1.Columns[2].Name = "Anyja neve";
-            dataGridView1.Columns[3].Name = "Középiskola kezdete";
-            dataGridView1.Columns[4].Name = "Érettségi éve";
-            dataGridView1.Columns[0].Width = 35;
-            buttonKeresClick();
-            textBoxTanuloNeve_TextChanged(sender, e);
-
-        }
-
-        private void buttonKozepiskolaAnyakonyv_Click(object sender, EventArgs e)
-        {
-            Global.setAndResetButtonColors(buttonKozepiskolaAnyakonyv, buttonErettsegiTanusitvany, buttonErettsegiTorzslap, buttonSzakmaiViszgaAnyakonyv, buttonSzakmaiVizsgaTorzslap);
-            dataGridView1.ColumnCount = 5;
-            dataGridView1.Columns[0].Name = "Id";
-            dataGridView1.Columns[1].Name = "Tanuló neve";
-            dataGridView1.Columns[2].Name = "Anyja neve";
-            dataGridView1.Columns[3].Name = "Középiskola kezdete";
-            dataGridView1.Columns[4].Name = "Érettségi éve";
-            dataGridView1.Columns[0].Width = 35;
-            buttonKeresClick();
-            textBoxTanuloNeve_TextChanged(sender, e);
-
-        }
-
         private void buttonKeresClick()
         {
-            Global.dataGridViewBasicSettings(dataGridView1, panelKeres, textBoxTanuloNeveKeres, textBoxanyjaNeveKeres, numericUpDownVizsgaÉveKeres);
+            Global.dataGridViewBasicSettings(dataGridView1, panelKeres);
             Global.dataGridViewClear(dataGridView1);
             Global.firstClickShow(panelFeltModTorl, panelKeres, dataGridView1);
             Global.buttonClickClear(dataGridView1, textBoxTanuloNeveKeres, textBoxanyjaNeveKeres, numericUpDownVizsgaÉveKeres, checkBoxVizsgaEve);
@@ -253,26 +136,6 @@ namespace Nyilvantarto_v2
                                         int.Parse(numericUpDownTalalatokSzama.Value.ToString()));
         }
 
-        private void textBoxanyjaNeve_TextChanged(object sender, EventArgs e)
-        {
-            textBoxTanuloNeve_TextChanged(sender, e);
-        }
-
-        private void numericUpDownViszgaÉve_ValueChanged(object sender, EventArgs e)
-        {
-            textBoxTanuloNeve_TextChanged(sender, e);
-        }
-
-        private void checkBoxViszgaEve_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxTanuloNeve_TextChanged(sender, e);
-        }
-
-        private void numericUpDownTalalatokSzama_ValueChanged(object sender, EventArgs e)
-        {
-            textBoxTanuloNeve_TextChanged(sender, e);
-        }
-
         private void buttonFeltoltes_Click(object sender, EventArgs e)
         {
             //dataGridView1.SelectedCells[0].Value.ToString() --> id
@@ -286,21 +149,19 @@ namespace Nyilvantarto_v2
             }
             else
             {
-                panelMenu.Visible = true;       //600 széles legyen
-                for (int i = 0; i < 30; i++)
+                for (int i = 0; i < 30; i++)    //600 széles legyen
                 {
                     panelMenu.Width += 20;
                     System.Threading.Thread.Sleep(1);
                 }
+                panelMenu.BringToFront();
+                panelMenu.Visible = true;       
                 panelFeltolt.Visible = true;
                 Global.setAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonModositas);
                 panelModTorol.Visible = false;
-                panelTallozMentesujButton.Visible = true;
-                panelSzakmaiViszgaTorzslapFileName.Visible = true;
-                panelKozepiskolaAnyakonyvFilneName.Visible = true;
-                panelErettsegiTanusitvanyFileName.Visible = true;
-                panelErettsegiTtorzslapFileName.Visible = true;
-                panelSzakmaivizsgaAnyakonyvFileName.Visible = true;
+
+                Global.setPanelVisibility6(panelTallozMentesujButton, panelSzakmaiViszgaTorzslapFileName, panelKozepiskolaAnyakonyvFilneName,
+                                            panelErettsegiTanusitvanyFileName, panelErettsegiTtorzslapFileName, panelSzakmaivizsgaAnyakonyvFileName, true); ;
             }
         }
 
@@ -323,14 +184,11 @@ namespace Nyilvantarto_v2
                     panelMenu.Width += 20;
                     System.Threading.Thread.Sleep(1);
                 }
+                panelMenu.BringToFront();
                 panelFeltolt.Visible = true;
                 Global.setAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles, buttonFeltoltes);
-                panelSzakmaiViszgaTorzslapFileName.Visible = false;
-                panelKozepiskolaAnyakonyvFilneName.Visible = false;
-                panelErettsegiTanusitvanyFileName.Visible = false;
-                panelErettsegiTtorzslapFileName.Visible = false;
-                panelSzakmaivizsgaAnyakonyvFileName.Visible = false;
-                panelTallozMentesujButton.Visible = false;
+                Global.setPanelVisibility6(panelTallozMentesujButton, panelSzakmaiViszgaTorzslapFileName, panelKozepiskolaAnyakonyvFilneName,
+                                            panelErettsegiTanusitvanyFileName, panelErettsegiTtorzslapFileName, panelSzakmaivizsgaAnyakonyvFileName, false);
                 buttonFeltoltes.Visible = false;
                 buttonTorles.Visible = false;
                 switch (labelMenuKat.Text)
@@ -367,29 +225,28 @@ namespace Nyilvantarto_v2
                             , numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv);
                         break;
                 }
-            textBoxTanuloNeve_TextChanged(sender, e);
+                textBoxTanuloNeve_TextChanged(sender, e);
             }
         }
 
         private void buttonTorles_Click(object sender, EventArgs e)
         {
-            
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaTorzslap", @"\Adatok\Szakmai Vizsga\Törzslap\");
+                    Global.torles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaTorzslap", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
                 case "Érettségi - törzslap":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitorzslap", @"\Adatok\Érettségi\Törzslap\");
+                    Global.torles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitorzslap", @"\Adatok\Érettségi\Törzslap\");
                     break;
                 case "Érettségi - tanusítvány":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitanusitvany", @"\Adatok\Szakmai Vizsga\Törzslap\");
+                    Global.torles(dataGridView1.SelectedCells[0].Value.ToString(), "erettsegitanusitvany", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
                 case "Szakmai vizsga - anyakönyv":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
+                    Global.torles(dataGridView1.SelectedCells[0].Value.ToString(), "szakmaivizsgaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
                 case "Középiskola - anyakönyv":
-                    Global.ujTorles(dataGridView1.SelectedCells[0].Value.ToString(), "kozepiskolaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
+                    Global.torles(dataGridView1.SelectedCells[0].Value.ToString(), "kozepiskolaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
             }
             textBoxTanuloNeve_TextChanged(sender, e);
@@ -415,9 +272,6 @@ namespace Nyilvantarto_v2
                     Global.tallozas(textBoxFileNameFeltoltKozepsikolaAnyakonyv);
                     break;
             }
-
-
-            //Global.tallozas(textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
         }
 
         private void buttonMegse_Click(object sender, EventArgs e)
@@ -431,13 +285,13 @@ namespace Nyilvantarto_v2
         {
             if (buttonFeltoltes.BackColor == Color.Black)
             {
-                MessageBox.Show("Global fullpath" + Global.fullPath);
-                MessageBox.Show("Global feltoltendo" + Global.globFeltoltendoFileEleresiUt);
+                //MessageBox.Show("Global fullpath" + Global.fullPath);
+                //MessageBox.Show("Global feltoltendo" + Global.globFeltoltendoFileEleresiUt);
 
                 switch (labelMenuKat.Text)
                 {
                     case "Szakmai vizsga - törzslap":
-                        if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
+                        if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
                                                 textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap, textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
                         {
                             Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
@@ -449,7 +303,7 @@ namespace Nyilvantarto_v2
                         break;
 
                     case "Érettségi - törzslap":
-                        if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltErettsegiTorzslap, textBoxAnyjaNeveFeltoltErettsegiTorzslap,
+                        if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTorzslap, textBoxAnyjaNeveFeltoltErettsegiTorzslap,
                             textBoxTanuloNeveFeltoltErettsegiTorzslap, textBoxFileNameFeltoltErettsegiTorzslap))
                         {
                             Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTorzslap, textBoxTanuloNeveFeltoltErettsegiTorzslap,
@@ -461,7 +315,7 @@ namespace Nyilvantarto_v2
                         break;
 
                     case "Érettségi - tanusítvány":
-                        if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                        if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
                                                     textBoxTanuloNeveFeltoltErettsegiTanusitvany, textBoxFileNameFeltoltErettsegiTanusitvany))
                         {
                             Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxTanuloNeveFeltoltErettsegiTanusitvany,
@@ -473,7 +327,7 @@ namespace Nyilvantarto_v2
                         break;
 
                     case "Szakmai vizsga - anyakönyv":
-                        if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv, textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                        if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv, textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
                                                     textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt, textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv))
                         {
                             Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv, textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
@@ -485,7 +339,7 @@ namespace Nyilvantarto_v2
                         break;
 
                     case "Középiskola - anyakönyv":
-                        if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
+                        if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
                                                     textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv, textBoxFileNameFeltoltKozepsikolaAnyakonyv))
                         {
                             Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
@@ -535,33 +389,14 @@ namespace Nyilvantarto_v2
             textBoxTanuloNeve_TextChanged(sender, e);
         }
 
-        private void textBoxTanuloNeveFeltolt_TextChanged(object sender, EventArgs e)
-        {
-            Global.textBoxTextChanged(textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap);
-        }
 
-        private void textBoxAnyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
-        {
-            Global.textBoxTextChanged(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap);
-        }
-
-
-        private void textBoxFileNameFeltolt_TextChanged(object sender, EventArgs e)
-        {
-            Global.textBoxTextChanged(textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
-        }
-
-        private void numericUpDownKozepiskKezdeteKozepiskolaAnyakonyv_ValueChanged(object sender, EventArgs e)
-        {
-            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv.Value = numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv.Value + 4;
-        }
 
         private void buttonMentesUj_Click(object sender, EventArgs e)
         {
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
-                    if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
+                    if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
                                             textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap, textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
                     {
                         Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
@@ -573,7 +408,7 @@ namespace Nyilvantarto_v2
                     break;
 
                 case "Érettségi - törzslap":
-                    if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltErettsegiTorzslap, textBoxAnyjaNeveFeltoltErettsegiTorzslap,
+                    if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTorzslap, textBoxAnyjaNeveFeltoltErettsegiTorzslap,
                         textBoxTanuloNeveFeltoltErettsegiTorzslap, textBoxFileNameFeltoltErettsegiTorzslap))
                     {
                         Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTorzslap, textBoxTanuloNeveFeltoltErettsegiTorzslap,
@@ -585,7 +420,7 @@ namespace Nyilvantarto_v2
                     break;
 
                 case "Érettségi - tanusítvány":
-                    if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                    if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
                                                 textBoxTanuloNeveFeltoltErettsegiTanusitvany, textBoxFileNameFeltoltErettsegiTanusitvany))
                     {
                         Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxTanuloNeveFeltoltErettsegiTanusitvany,
@@ -597,7 +432,7 @@ namespace Nyilvantarto_v2
                     break;
 
                 case "Szakmai vizsga - anyakönyv":
-                    if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv, textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                    if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv, textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
                                                 textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt, textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv))
                     {
                         Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv, textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
@@ -609,7 +444,7 @@ namespace Nyilvantarto_v2
                     break;
 
                 case "Középiskola - anyakönyv":
-                    if (Global.checkIfEmptyInput(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
+                    if (Global.checkIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
                                                 textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv, textBoxFileNameFeltoltKozepsikolaAnyakonyv))
                     {
                         Global.fileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
@@ -652,17 +487,17 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                foreach (var item in Global.torlendoMappak)
-                {
-                    System.IO.Directory.Delete(item, true);
-                }
+                Global.mappakTorlese();
             }
             catch (IOException)
             {
                 MessageBox.Show("A program futása közben megnyitott fájl még meg van nyitva, így nem tud leállni a program.\nA megnyitott file-t mentsd másként vagy zárd be.");
                 e.Cancel = true;
             }
-
+            catch (Exception)
+            {
+                MessageBox.Show("Sikeretlen törlés a program zárásakkor");
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -676,5 +511,87 @@ namespace Nyilvantarto_v2
                 panelModTorol.Visible = false;
             }
         }
+
+        private void buttonErettsegiTorzslap_Click(object sender, EventArgs e)
+        {
+            Global.setAndResetButtonColors(buttonErettsegiTorzslap, buttonErettsegiTanusitvany, buttonSzakmaiVizsgaTorzslap, buttonKozepiskolaAnyakonyv, buttonSzakmaiViszgaAnyakonyv);
+            Global.setDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve", "Vizsga időszaka");
+            buttonKeresClick();
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void buttonErettsegiTanusitvany_Click(object sender, EventArgs e)
+        {
+            Global.setAndResetButtonColors(buttonErettsegiTanusitvany, buttonKozepiskolaAnyakonyv, buttonErettsegiTorzslap, buttonSzakmaiVizsgaTorzslap, buttonSzakmaiViszgaAnyakonyv);
+            Global.setDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve", "Tanulói azonosító");
+            buttonKeresClick();
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void buttonSzakmaiVizsgaTorzslap_Click(object sender, EventArgs e)
+        {
+            Global.setAndResetButtonColors(buttonSzakmaiVizsgaTorzslap, buttonErettsegiTanusitvany, buttonErettsegiTorzslap, buttonKozepiskolaAnyakonyv, buttonSzakmaiViszgaAnyakonyv);
+            Global.setDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve", "Vizsga időszaka");
+            buttonKeresClick();
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void buttonSzakmaiViszgaAnyakonyv_Click(object sender, EventArgs e)
+        {
+            Global.setAndResetButtonColors(buttonSzakmaiViszgaAnyakonyv, buttonErettsegiTanusitvany, buttonErettsegiTorzslap, buttonKozepiskolaAnyakonyv, buttonSzakmaiVizsgaTorzslap);
+            Global.setDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Középiskola kezdete", "Érettségi éve");
+            buttonKeresClick();
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void buttonKozepiskolaAnyakonyv_Click(object sender, EventArgs e)
+        {
+            Global.setAndResetButtonColors(buttonKozepiskolaAnyakonyv, buttonErettsegiTanusitvany, buttonErettsegiTorzslap, buttonSzakmaiViszgaAnyakonyv, buttonSzakmaiVizsgaTorzslap);
+            Global.setDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Középiskola kezdete", "Érettségi éve");
+            buttonKeresClick();
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void textBoxanyjaNeve_TextChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void numericUpDownViszgaÉve_ValueChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void checkBoxViszgaEve_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void numericUpDownTalalatokSzama_ValueChanged(object sender, EventArgs e)
+        {
+            textBoxTanuloNeve_TextChanged(sender, e);
+        }
+
+        private void textBoxTanuloNeveFeltolt_TextChanged(object sender, EventArgs e)
+        {
+            Global.textBoxTextChanged(textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap);
+        }
+
+        private void textBoxAnyjaNeveFeltolt_TextChanged(object sender, EventArgs e)
+        {
+            Global.textBoxTextChanged(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap);
+        }
+
+
+        private void textBoxFileNameFeltolt_TextChanged(object sender, EventArgs e)
+        {
+            Global.textBoxTextChanged(textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
+        }
+
+        private void numericUpDownKozepiskKezdeteKozepiskolaAnyakonyv_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv.Value = numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv.Value + 4;
+        }
+
     }
 }

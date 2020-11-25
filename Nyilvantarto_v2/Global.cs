@@ -28,7 +28,7 @@ namespace Nyilvantarto_v2
         public static string globFeltoltendoFileEleresiUt;
         public static List<string> torlendoMappak = new List<string>();
         private static MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
-        private static MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
+        private static MySqlCommand cmd = new MySqlCommand();
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
 
         public static void gruopBoxSetDefaultVisibility(GroupBox gbOsszetett, GroupBox gbRandom, GroupBox groupBoxFeltoltott)
@@ -45,7 +45,6 @@ namespace Nyilvantarto_v2
                 conn.Close();
                 conn.Open();
             }
-            var command = conn.CreateCommand();
             cmd.Connection = conn;
             cmd.CommandText = "Select value From settings Where var = @var";
             cmd.Parameters.AddWithValue("@var", eleresiUt);
@@ -85,137 +84,6 @@ namespace Nyilvantarto_v2
             conn.Close();
         }
 
-        public static void checkMissingFiles(string destPath, string selectRow1, string selectRow2,
-                                            string selectRow3, string selectRow4, string from, Label l1, Label l2)
-        {
-            List<string> dataOnPC = new List<string>();
-            List<string> dataDB = new List<string>();
-
-            string[] fileArray = Directory.GetFiles(fullPath);
-            Console.Error.WriteLine(fullPath);
-            foreach (var item in fileArray)
-            {
-                //MessageBox.Show(item.Split('\\').Last().Split('.').First());
-                dataOnPC.Add(item.Split('\\').Last().Split('.').First());
-            }
-
-            var command = conn.CreateCommand();
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            command.CommandText = $"SELECT {selectRow1}, {selectRow2}, {selectRow3}, {selectRow4} FROM {from}";
-            using (var reader = command.ExecuteReader())
-            {
-                var row1 = reader.GetOrdinal(selectRow1);
-                var row2 = reader.GetOrdinal(selectRow2);
-                var row3 = reader.GetOrdinal(selectRow3);
-                var row4 = reader.GetOrdinal(selectRow4);
-
-                while (reader.Read())
-                {
-                    var row1G = reader.GetValue(row1).ToString();
-                    var row2G = reader.GetValue(row2).ToString();
-                    var row3G = reader.GetValue(row3).ToString();
-                    var anyjaNeve2 = reader.GetValue(row4).ToString();
-                    string oneDataDB = row1G + "_" + row2G + "_" + boolConvertToTavaszOszString(bool.Parse(row3G)) + "_" + anyjaNeve2;
-                    //MessageBox.Show(oneDataDB);
-                    dataDB.Add(oneDataDB);
-                }
-            }
-            conn.Close();
-
-
-            //MessageBox.Show("PC: " + dataOnPC.Count);
-            //MessageBox.Show("DB: " + dataDB.Count);
-
-            new Thread(() =>
-            {
-
-                Thread.CurrentThread.IsBackground = true;
-                var listAdatbazisbolHianyzo = dataOnPC.Where(x => !dataDB.Contains(x)).ToList();
-                var listPCnHianyzo = dataDB.Where(x => !dataOnPC.Contains(x)).ToList();
-                var listUnion = dataOnPC.Union(dataDB);
-                //MessageBox.Show($"db hiany: {listAdatbazisbolHianyzo.Count} pc hiany: {listPCnHianyzo.Count}");
-                if (listAdatbazisbolHianyzo.Count > 0)
-                {
-                    string lines = string.Join(Environment.NewLine, listAdatbazisbolHianyzo);
-                    if (MessageBox.Show($"Adatbázisból hiányzó fileok: \n{lines}\nSzeretnéd törölni? a PC-ről?", "Hiányzó elemek törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        hianyzoElemeTorlesePCrol(listAdatbazisbolHianyzo, fullPath);
-                    }
-                }
-                if (listPCnHianyzo.Count > 0)
-                {
-                    string lines = string.Join(Environment.NewLine, listPCnHianyzo);
-                    if (MessageBox.Show($"PC-ről hiányzó fileok: \n{lines}\nSzeretnéd törölni az adatbázisból a bejegyzést róla?", "Hiányzó elemek törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        hianyzoElemekTorleseDBrol(listPCnHianyzo, from);
-                    }
-                }
-
-            }).Start();
-
-            Thread.Sleep(100);
-            getCount(l1, l2, destPath, from);
-        }
-
-        private static string boolConvertToTavaszOszString(bool value)
-        {
-            if (value == true)
-            {
-                return "Tavasz";
-            }
-            else
-            {
-                return "Ősz";
-            }
-        }
-
-        private static void hianyzoElemeTorlesePCrol(List<string> lines, string destPath)
-        {
-            MessageBox.Show("PC torles fv");
-            try
-            {
-                foreach (var item in lines)
-                {
-                    string destination = destPath + item + ".*";
-                    string file = item + ".*";
-                    System.IO.File.Delete(System.IO.Directory.GetFiles(destPath, file)[0].ToString());
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Hiba lépett fel a hiányzó elem törlésekkor a számítógépen!");
-            }
-        }
-
-        private static void hianyzoElemekTorleseDBrol(List<string> lines, string from)
-        {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            foreach (var item in lines)
-            {
-                cmd.Parameters.Clear();
-                string[] row = item.Split('_');
-                string SQL = $"DELETE FROM `{from}` " +
-                    "WHERE " +
-                    "`tanuloNeve` = '" + row[0] + "'and " +
-                    "`anyjaNeve` = '" + row[3] + "' and " +
-                    "`viszgaEvKezdet` = " + row[1]
-                    ;
-                cmd.Connection = conn;
-                cmd.CommandText = SQL;
-
-                cmd.ExecuteNonQuery();
-            }
-            conn.Close();
-        }
-
         public static void fileKereseseFajlkezeloben(string filaPath, string tableName)
         {
             MessageBox.Show("filename: " + filaPath);
@@ -252,7 +120,7 @@ namespace Nyilvantarto_v2
                 string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName().Split('.')[1]);
                 Directory.CreateDirectory(tempDirectory);
                 MessageBox.Show("Ez az ideiglenes könyvtár: " + tempDirectory);
-                string fileInTemp = tempDirectory + "\\"+ idIn +"." + kiterjFromDB;
+                string fileInTemp = tempDirectory + "\\" + idIn + "." + kiterjFromDB;
                 MessageBox.Show("Ez a file in temp: " + fileInTemp);
 
                 string destination = Path.Combine(tempDirectory, fileInTemp);
@@ -277,55 +145,6 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
             cmd.Parameters.Clear();
-            conn.Close();
-        }
-
-        public static void setVariablesFromSelecteditem(ListBox lb, string rowNev, string rowEvKezdet, string rowTavaszVOsz,
-                                                        string rowAnyja, string rowFormatum, string tableName)
-        {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            var getData = conn.CreateCommand();
-            if (lb.SelectedItem != null)
-            {
-                string idIn = lb.SelectedItem.ToString();
-                getData.CommandText = $"SELECT {rowNev}, " +
-                    $"{rowEvKezdet}, {rowTavaszVOsz}, {rowAnyja}, {rowFormatum} " +
-                    $"FROM {tableName} " +
-                    $"WHERE id = " + idIn;
-
-                //var result = getData.ExecuteScalar();
-                using (var reader = getData.ExecuteReader())
-                {
-                    var rowNev2 = reader.GetOrdinal(rowNev);
-                    var rowEvKezdet2 = reader.GetOrdinal(rowEvKezdet);
-                    var rowTavaszVOsz2 = reader.GetOrdinal(rowTavaszVOsz);
-                    var rowAnyja2 = reader.GetOrdinal(rowAnyja);
-                    var rowFormatum2 = reader.GetOrdinal(rowFormatum);
-
-                    while (reader.Read())
-                    {
-                        globNev = reader.GetValue(rowNev2).ToString();
-                        globEvKezdet = reader.GetValue(rowEvKezdet2).ToString();
-                        globTavaszVoszTrueOrFalse = bool.Parse(reader.GetValue(rowTavaszVOsz2).ToString());
-                        globAnyja = reader.GetValue(rowAnyja2).ToString();
-                        globKiterjesztes = reader.GetValue(rowFormatum2).ToString();
-                    }
-                    if (globTavaszVoszTrueOrFalse == true)
-                    {
-                        globTavaszVoszInt = 1;
-                        globTavaszVOszString = "Tavasz";
-                    }
-                    else
-                    {
-                        globTavaszVoszInt = 0;
-                        globTavaszVOszString = "Ősz";
-                    }
-                }
-            }
             conn.Close();
         }
 
@@ -362,71 +181,6 @@ namespace Nyilvantarto_v2
             }
         }
 
-        public static void bordercolorReset(TextBox anyja, TextBox dokumentum, TextBox tanuloneve, TextBox eleresi)
-        {
-            anyja.BackColor = Color.White;
-            dokumentum.BackColor = Color.White;
-            tanuloneve.BackColor = Color.White;
-            eleresi.BackColor = Color.White;
-        }
-
-        public static void keres(string rowTneveEsWhere, string rowVkezdet, string rowViszgaTaVOsz, string rowAnyja, string from, string textboxText,
-                                 ListBox ListBid, ListBox listBoxTanuloNeve, ListBox listBoxVKezdete, ListBox listBoxVVege, ListBox listBoxanyjaNeve)
-        {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            var command = conn.CreateCommand();
-            command.CommandText = $"SELECT id,{rowTneveEsWhere},{rowVkezdet},{rowViszgaTaVOsz},{rowAnyja}  FROM {from} WHERE {rowTneveEsWhere} like '%" + textboxText + "%'";
-            using (var reader = command.ExecuteReader())
-            {
-                var id = reader.GetOrdinal("id");
-                var tanuloNeve = reader.GetOrdinal(rowTneveEsWhere);
-                var viszgaEvKezdet = reader.GetOrdinal(rowVkezdet);
-                var viszgaTavasz1Osz0 = reader.GetOrdinal(rowViszgaTaVOsz);
-                var anyjaNeve = reader.GetOrdinal(rowAnyja);
-                int i = 0;
-                while (reader.Read() && i < 19)
-                {
-                    var id2 = reader.GetValue(id).ToString();
-                    var tanuloNeve2 = reader.GetValue(tanuloNeve).ToString();
-                    var viszgaEvKezdet2 = reader.GetValue(viszgaEvKezdet).ToString();
-                    var viszgaTavasz1Osz02 = reader.GetValue(viszgaTavasz1Osz0).ToString();
-                    var anyjaNeve2 = reader.GetValue(anyjaNeve).ToString();
-                    ListBid.Items.Add(id2);
-                    listBoxTanuloNeve.Items.Add(tanuloNeve2);
-                    listBoxVKezdete.Items.Add(viszgaEvKezdet2);
-                    listBoxVVege.Items.Add(boolConvert(bool.Parse(viszgaTavasz1Osz02)));
-                    listBoxanyjaNeve.Items.Add(anyjaNeve2);
-                    i++;
-                }
-            }
-            conn.Close();
-        }
-
-        private static string boolConvert(bool value)
-        {
-            if (value == true)
-            {
-                return "Tavasz";
-            }
-            else
-            {
-                return "Ősz";
-            }
-        }
-
-        public static void listboxKeresesEredmenyeiClear(ListBox l1, ListBox l2, ListBox l3, ListBox l4, ListBox l5)
-        {
-            l1.Items.Clear();
-            l2.Items.Clear();
-            l3.Items.Clear();
-            l4.Items.Clear();
-            l5.Items.Clear();
-        }
-
         public static void buttonClickClear(DataGridView dataGridView, TextBox textBoxTanuloNeve, TextBox textBoxAnyjaNeve, NumericUpDown numericUpDown, CheckBox checkBox)
         {
             textBoxTanuloNeve.Clear();
@@ -435,8 +189,7 @@ namespace Nyilvantarto_v2
             checkBox.Checked = false;
         }
 
-
-        public static void dataGridViewBasicSettings(DataGridView dataGridView1, Panel panel, TextBox textBoxTanuloNeve, TextBox textBoxAnyjaNeve, NumericUpDown numericUpDown)
+        public static void dataGridViewBasicSettings(DataGridView dataGridView1, Panel panel)
         {
             //Global.dataGridViewKeresesEredmenyeiClear(dataGridView1);
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -453,88 +206,6 @@ namespace Nyilvantarto_v2
         public static void dataGridViewClear(DataGridView dataGridView)
         {
             dataGridView.Rows.Clear();
-        }
-        public static void osszetettKeres(string rowTneve, string rowKezdet, string rowTvOsz, string rowAnyja,
-            string from, string likeText1, string likeText2,
-            ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxanyjaNeve)
-        {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            var command = conn.CreateCommand();
-            command.CommandText = $"SELECT id, {rowTneve}, {rowKezdet}, {rowTvOsz}, {rowAnyja}  " +
-                $"FROM {from} " +
-                $"WHERE {rowTneve} like '%{likeText1}%' " +
-                $"AND {rowAnyja} like '%{likeText2}%'";
-            //MessageBox.Show(command.CommandText.ToString());
-            using (var reader = command.ExecuteReader())
-            {
-                var id = reader.GetOrdinal("id");
-                var rowTneveData = reader.GetOrdinal(rowTneve);
-                var rowKezdetData = reader.GetOrdinal(rowKezdet);
-                var rowTvOszData = reader.GetOrdinal(rowTvOsz);
-                var rowAnyjaData = reader.GetOrdinal(rowAnyja);
-                int i = 0;
-                while (reader.Read() && i < 19)
-                {
-                    var id2 = reader.GetValue(id).ToString();
-                    var rowTneveData2 = reader.GetValue(rowTneveData).ToString();
-                    var rowKezdetData2 = reader.GetValue(rowKezdetData).ToString();
-                    var rowTvOszData2 = reader.GetValue(rowTvOszData).ToString();
-                    var rowAnyjaData2 = reader.GetValue(rowAnyjaData).ToString();
-                    listBoxId.Items.Add(id2);
-                    listBoxTanuloneve.Items.Add(rowTneveData2);
-                    ListBoxVKezdete.Items.Add(rowKezdetData2);
-                    listBoxTvOsz.Items.Add(boolConvert(bool.Parse(rowTvOszData2)));
-                    listBoxanyjaNeve.Items.Add(rowAnyjaData2);
-                    i++;
-                }
-            }
-            conn.Close();
-        }
-
-        public static void osszetettKeresv2(string rowTneve, string rowVkezdet, string rowTavaszOsz, string rowAnyja,
-                                            string from, string like1, string like2, string like3, string like4,
-                                            ListBox listBoxId, ListBox listBoxTanuloNeve, ListBox listBoxVkezdete, ListBox listBoxIdoszak, ListBox listBoxAnyja)
-        {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            var command = conn.CreateCommand();
-            command.CommandText = $"SELECT id, {rowTneve}, {rowVkezdet}, {rowTavaszOsz}, {rowAnyja} " +
-                                $"FROM {from} " +
-                                $"WHERE {rowTneve} like '%{like1}%' " +
-                                $"AND {rowAnyja} like '%{like2}%' " +
-                                $"AND {rowVkezdet} like '%{like3}%' " +
-                                $"AND {rowTavaszOsz} like '%{like4}%'";
-            using (var reader = command.ExecuteReader())
-            {
-                var id = reader.GetOrdinal("id");
-                var rowTneveData = reader.GetOrdinal(rowTneve);
-                var rowVkezdetData = reader.GetOrdinal(rowVkezdet);
-                var rowTavaszOszData = reader.GetOrdinal(rowTavaszOsz);
-                var rowAnyjaData = reader.GetOrdinal(rowAnyja);
-                int i = 0;
-                while (reader.Read() && i < 19)
-                {
-                    var id2 = reader.GetValue(id).ToString();
-                    var rowTneveData2 = reader.GetValue(rowTneveData).ToString();
-                    var rowVkezdetData2 = reader.GetValue(rowVkezdetData).ToString();
-                    var rowTavaszOszData2 = reader.GetValue(rowTavaszOszData).ToString();
-                    var rowAnyjaData2 = reader.GetValue(rowAnyjaData).ToString();
-                    listBoxId.Items.Add(id2);
-                    listBoxTanuloNeve.Items.Add(rowTneveData2);
-                    listBoxVkezdete.Items.Add(rowVkezdetData2);
-                    listBoxIdoszak.Items.Add(boolConvert(bool.Parse(rowTavaszOszData2)));
-                    listBoxAnyja.Items.Add(rowAnyjaData2);
-                    i++;
-                }
-            }
-            conn.Close();
         }
 
         public static void osszetettKeresDataGridview(string rowTneve, string rowVkezdet, string rowExtra, string rowAnyja,
@@ -592,7 +263,7 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                MessageBox.Show(hovaMasolja);
+                //MessageBox.Show(hovaMasolja);
                 if (conn.State != ConnectionState.Open)
                 {
                     conn.Close();
@@ -694,7 +365,7 @@ namespace Nyilvantarto_v2
 
                 conn.Close();
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show("Hiba " + ex.Number + " lépett fel: " + ex.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -714,41 +385,17 @@ namespace Nyilvantarto_v2
             t4.Clear();
         }
 
-        public static void torles(ListBox listBoxId, string from)
+        public static void setPanelVisibility6(Panel p1, Panel p2, Panel p3, Panel p4, Panel p5, Panel p6, bool trueOrFalse)
         {
-            try
-            {
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Close();
-                    conn.Open();
-                }
-                string id = listBoxId.SelectedItem.ToString();
-
-                string SQL = "DELETE FROM " +
-                                $"{from} " +
-                                "WHERE " +
-                                "id =" + id
-                                ;
-                cmd.Connection = conn;
-                cmd.CommandText = SQL;
-
-                cmd.ExecuteNonQuery();
-
-                string destination = fullPath + globNev + '_' + globEvKezdet + '_' + globTavaszVOszString + '_' + globAnyja + '.' + globKiterjesztes;
-
-                System.IO.File.Delete(destination);
-
-                MessageBox.Show("Sikeres törlés");
-                conn.Close();
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Nincs kijelölve semmi!");
-            }
+            p1.Visible = trueOrFalse;
+            p2.Visible = trueOrFalse;
+            p3.Visible = trueOrFalse;
+            p4.Visible = trueOrFalse;
+            p5.Visible = trueOrFalse;
+            p6.Visible = trueOrFalse;
         }
 
-        public static void ujTorles(string id, string from, string destination)
+        public static void torles(string id, string from, string destination)
         {
             string torlendo = fullPath + destination + id + ".dat";
             MessageBox.Show(torlendo);
@@ -778,6 +425,17 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
+        }
+
+        public static void setDatagridViewColumns(DataGridView dataGridView, string col2, string col3, string col4, string col5)
+        {
+            dataGridView.ColumnCount = 5;
+            dataGridView.Columns[0].Name = "Id";
+            dataGridView.Columns[1].Name = col2;
+            dataGridView.Columns[2].Name = col3;
+            dataGridView.Columns[3].Name = col4;
+            dataGridView.Columns[4].Name = col5;
+            dataGridView.Columns[0].Width = 35;
         }
 
         public static void modositas(TextBox textBoxanyjaNeveModositas, TextBox textBoxNevModositas, RadioButton radioButtonTavaszModosit, TextBox tbOther, NumericUpDown numericUpDownEvKezdetModositas, NumericUpDown numericUpDown2,
@@ -845,14 +503,14 @@ namespace Nyilvantarto_v2
 
         public static void setFeltoltPanelPosition(Panel p1, Panel p2, Panel p3, Panel p4, Panel p5)
         {
-            p1.Location = new Point(0,100);
-            p2.Location = new Point(0,100);
-            p3.Location = new Point(0,100);
-            p4.Location = new Point(0,100);
-            p5.Location = new Point(0,100);
+            p1.Location = new Point(0, 100);
+            p2.Location = new Point(0, 100);
+            p3.Location = new Point(0, 100);
+            p4.Location = new Point(0, 100);
+            p5.Location = new Point(0, 100);
         }
-        public static void loadSelectedDataWhenModifying(DataGridView dataGridView, TextBox tbAnyja, TextBox tbTan, 
-                                                        NumericUpDown numericUpDown, TextBox tb, 
+        public static void loadSelectedDataWhenModifying(DataGridView dataGridView, TextBox tbAnyja, TextBox tbTan,
+                                                        NumericUpDown numericUpDown, TextBox tb,
                                                         RadioButton radioTavaszTrue, RadioButton radioOszTrue,
                                                         NumericUpDown numeric)
         {
@@ -880,41 +538,29 @@ namespace Nyilvantarto_v2
             }
         }
 
-        public static bool checkNumericUpDownValue(NumericUpDown numericUpDown)
-        {
-            if (numericUpDown.Value >= 2100 || numericUpDown.Value <= 1900)
-            {
-                numericUpDown.BackColor = Color.Red;
-                return false;
-            }
-            else
-            {
-                numericUpDown.BackColor = default;
-                return true;
-            }
-        }
 
-        public static bool checkIfEmptyInput(TextBox textBoxanyjaNeveFeltolt, TextBox textBoxDokumentumNeve, TextBox textBoxTanuloNeveFeltolt, TextBox textBoxEleresi)
+
+        public static bool checkIfEmptyInput4Tb(TextBox tb1, TextBox tb2, TextBox tb3, TextBox tb4)
         {
             bool joE = true;
-            if (textBoxanyjaNeveFeltolt.Text.Length == 0)
+            if (tb1.Text.Length == 0)
             {
-                textBoxanyjaNeveFeltolt.BackColor = Color.Red;
+                tb1.BackColor = Color.Red;
                 joE = false;
             }
-            if (textBoxDokumentumNeve.Text.Length == 0)
+            if (tb2.Text.Length == 0)
             {
-                textBoxDokumentumNeve.BackColor = Color.Red;
+                tb2.BackColor = Color.Red;
                 joE = false;
             }
-            if (textBoxTanuloNeveFeltolt.Text.Length == 0)
+            if (tb3.Text.Length == 0)
             {
-                textBoxTanuloNeveFeltolt.BackColor = Color.Red;
+                tb3.BackColor = Color.Red;
                 joE = false;
             }
-            if (textBoxEleresi.Text.Length == 0)
+            if (tb4.Text.Length == 0)
             {
-                textBoxEleresi.BackColor = Color.Red;
+                tb4.BackColor = Color.Red;
                 joE = false;
             }
             return joE;
@@ -928,8 +574,12 @@ namespace Nyilvantarto_v2
             try
             {
                 conn = new MySqlConnection(conn_info);
-                            if (conn.State != ConnectionState.Open)
-                isConn = true;
+                conn.Open();
+                if (conn.State == ConnectionState.Open)
+                {
+                    isConn = true;
+                }
+                //MessageBox.Show(conn.State.ToString());
             }
             catch (ArgumentException a_ex)
             {
@@ -945,31 +595,31 @@ namespace Nyilvantarto_v2
 
                 globIsaMessageBoxOpen = true;
 
-                new Thread(() =>
+                //new Thread(() =>
+                //{
+                if (messageBox)
                 {
+                    MessageBox.Show(sqlErrorMessage);
+                    globIsaMessageBoxOpen = false;
+
+                    isConn = false;
                     if (messageBox)
                     {
-                        MessageBox.Show(sqlErrorMessage);
-                        globIsaMessageBoxOpen = false;
-
-                        isConn = false;
-                        if (messageBox)
+                        switch (ex.Number)
                         {
-                            switch (ex.Number)
-                            {
-                                case 1042:
-                                    MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
-                                    break;
-                                case 0:
-                                    MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
-                                    break;
-                                default:
-                                    break;
-                            }
+                            case 1042:
+                                MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
+                                break;
+                            case 0:
+                                MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
+                                break;
+                            default:
+                                break;
                         }
                     }
-                }).Start();
-                
+                }
+                //}).Start();
+
             }
             finally
             {
@@ -983,6 +633,16 @@ namespace Nyilvantarto_v2
 
         //main függvényei
 
+
+        public static void createTables()
+        {
+            createTablesettings();
+            createTableKozepiskolaAnyakonyv();
+            createTableszakmaiviszgaanyakonyv();
+            createTableSzakmaivizsgaTorzslap();
+            createTableErettsegiTanusitvany();
+            createTableErettsegiTorzslap();
+        }
         public static void createTablesettings()
         {
             conn.Open();
@@ -1047,7 +707,6 @@ namespace Nyilvantarto_v2
             command.ExecuteNonQuery();
             conn.Close();
         }
-
 
         public static void createTableSzakmaivizsgaTorzslap()
         {
@@ -1125,7 +784,6 @@ namespace Nyilvantarto_v2
             conn.Close();
         }
 
-
         public static void createDirectiories(Label labelMentesiHely)
         {
             Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Középiskola\Anyakönyv\");
@@ -1136,7 +794,7 @@ namespace Nyilvantarto_v2
             fullPath = labelMentesiHely.Text;
         }
 
-        public static void checkDirs(GroupBox groupBoxEleresi, GroupBox groupBoxButtons, Label labelMentesiHely, Panel panel, string varString)
+        public static void checkDirs(GroupBox groupBoxEleresi, Label labelMentesiHely, Panel panel, string varString)
         {
             if (conn.State != ConnectionState.Open)
             {
@@ -1150,7 +808,6 @@ namespace Nyilvantarto_v2
             if (result == null)
             {
                 groupBoxEleresi.Visible = true;
-                groupBoxButtons.Visible = false;
                 panel.Visible = false;
             }
             else
@@ -1158,14 +815,13 @@ namespace Nyilvantarto_v2
                 var path = result.ToString();
                 labelMentesiHely.Text = path;
                 groupBoxEleresi.Visible = false;
-                groupBoxButtons.Visible = true;
                 panel.Visible = true;
                 fullPath = labelMentesiHely.Text;
             }
             conn.Close();
         }
 
-        public static void setPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, GroupBox groupBoxButtons, string eleresiUt)
+        public static void setPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, string eleresiUt)
         {
             try
             {
@@ -1204,7 +860,6 @@ namespace Nyilvantarto_v2
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             groupBoxEleresi.Visible = false;
-            groupBoxButtons.Visible = true;
         }
 
         public static void tallozas(Label labelMentesiHely)
@@ -1229,8 +884,6 @@ namespace Nyilvantarto_v2
             panel2.Visible = false;
         }
 
-
-
         public static void setAndResetButtonColors(Button buttonSet, Button buttonReset1, Button buttonReset2, Button buttonReset3, Button buttonReset4)
         {
             globSelectedButton = buttonSet.Text;
@@ -1244,28 +897,6 @@ namespace Nyilvantarto_v2
             buttonReset3.BackColor = default;
             buttonReset4.ForeColor = Color.Black;
             buttonReset4.BackColor = default;
-        }
-
-        public static void search(DataGridView dataGridView)
-        {
-            try
-            {
-                string filePath = fullPath + dataGridView.SelectedCells[0].Value + "." + globKiterjesztes;
-                if (!File.Exists(filePath))
-                {
-                    MessageBox.Show("Nincs meg a File!" + filePath);
-                    return;
-                }
-                string argument = "/select, \"" + filePath + "\"";
-
-                System.Diagnostics.Process.Start("explorer.exe", argument);
-            }
-
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Nincs kijelölve semmi!");
-            }
-            cmd.Parameters.Clear();
         }
 
         public static void firstClickShow(Panel panel1, Panel panel2, DataGridView dataGridView)
@@ -1289,174 +920,12 @@ namespace Nyilvantarto_v2
 
         public static void mappakTorlese()
         {
-            foreach (var item in torlendoMappak)
+            foreach (var mappa in torlendoMappak)
             {
-                System.IO.File.Delete(item);
+                File.Delete(mappa);
+                MessageBox.Show("Mappa törlése:  " + mappa);
             }
         }
-
-        public static void randomGeneralas()
-        {
-            MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
-            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand();
-
-            string[] vezetekNevek = { "Pap", "Timár", "Gulyás", "Szabó", "Horváth", "Kis", "Kiss", "Nagy"
-                                ,"Tóth","Kristóf","Tim","Krajcsi","Beke","Gachovetz","Móricz","Dantesz","Bánki ","Baracsiné"
-                                ,"Darányi","Hatvani","Földes","Sebők","Skordai","Szűcs","Zalai","Zsuppán","Borzok","Bráda"
-                                ,"Almássy","Tim-Bartha","Hazenfratz","Langenbacher"};
-
-            string[] keresztNevek = { "Gyula", "Julianna", "Márta", "Ilona", "Mária", "Csaba", "Attila", "Tamás"
-                                ,"Gabriella","Katalin","Károly","Vanda","István","Ernő","Norbert","Krisztina","Kriszta","Mariann"
-                                ,"Tibor","Kitti","Lajos","Nóra","Ágnes","Gergő","Klára","Zoltán","Sándor", "Elek"
-                                ,"Alexandra","Anasztázia","Boldizsár","Liliána","Benedek","Adrienne"};
-
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Random r = new Random();
-                string tanuloNeve;
-                string anyjaNeve;
-                int ev;
-                string destination;
-
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Close();
-                    conn.Open();
-                }
-                for (int j = 0; j < 1000; j++)
-                {
-                    //szakmaivizsgaTorzslap
-                    for (int i = 0; i < 100; i++)
-                    {
-                        destination = Global.fixPath + @"\Adatok\Szakmai Vizsga\Törzslap\";
-
-                        cmd.Parameters.Clear();
-                        tanuloNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        anyjaNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        ev = r.Next(1900, 2100);
-                        TextBox tAnyja = new TextBox();
-                        tAnyja.Text = anyjaNeve;
-                        TextBox tTanulo = new TextBox();
-                        tTanulo.Text = tanuloNeve;
-                        TextBox tTavaszOsz = new TextBox();
-                        tTavaszOsz.Text = r.Next(0, 2).ToString();
-                        TextBox tEvKezdet = new TextBox();
-                        tEvKezdet.Text = ev.ToString();
-
-                        Global.fileFeltolteseBDreESFileMozgatasa(tAnyja, tTanulo,
-                                        @"C:\Users\Pap Gergő\Desktop\Új szöveges dokumentum.txt", @"C:\Users\Pap Gergő\Desktop\Adatok\Szakmai Vizsga\Törzslap\", tTavaszOsz,
-                                        tEvKezdet,
-                                        "szakmaivizsgaTorzslap", "tanuloNeve", "anyjaNeve", "szerzo", "viszgaEvVeg", "viszgaTavasz1Osz0",
-                                        "dokLegutobbModositva", "feltoltesIdopontja", "path");
-                        Thread.Sleep(25);
-
-                    }
-                    for (int i = 0; i < 100; i++)
-                    {
-                        destination = Global.fixPath + @"\Adatok\Érettségi\Törzslap\";
-
-                        cmd.Parameters.Clear();
-                        tanuloNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        anyjaNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        ev = r.Next(1900, 2100);
-                        TextBox tAnyja = new TextBox();
-                        tAnyja.Text = anyjaNeve;
-                        TextBox tTanulo = new TextBox();
-                        tTanulo.Text = tanuloNeve;
-                        TextBox tTavaszOsz = new TextBox();
-                        tTavaszOsz.Text = r.Next(0, 2).ToString();
-                        TextBox tEvKezdet = new TextBox();
-                        tEvKezdet.Text = ev.ToString();
-
-                        Global.fileFeltolteseBDreESFileMozgatasa(tAnyja, tTanulo,
-                                                @"C:\Users\Pap Gergő\Desktop\Új szöveges dokumentum.txt", @"C:\Users\Pap Gergő\Desktop\Adatok\Érettségi\Törzslap\", tTavaszOsz,
-                                                tEvKezdet,
-                                                "erettsegitorzslap", "tanuloNeve", "anyjaNeve", "szerzo", "viszgaEvVeg", "viszgaTavasz1Osz0",
-                                                "dokLegutobbModositva", "feltoltesIdopontja", "path");
-                        Thread.Sleep(25);
-                    }
-
-                    for (int i = 0; i < 100; i++)
-                    {
-                        destination = Global.fixPath + @"\Adatok\Érettségi\Tanusítvány\";
-
-                        cmd.Parameters.Clear();
-                        tanuloNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        anyjaNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        ev = r.Next(1900, 2100);
-                        TextBox tAnyja = new TextBox();
-                        tAnyja.Text = anyjaNeve;
-                        TextBox tTanulo = new TextBox();
-                        tTanulo.Text = tanuloNeve;
-                        TextBox tTavaszOsz = new TextBox();
-                        tTavaszOsz.Text = r.Next(1000000, 9999999).ToString();
-                        TextBox tEvKezdet = new TextBox();
-                        tEvKezdet.Text = ev.ToString();
-
-                        Global.fileFeltolteseBDreESFileMozgatasa(tAnyja, tTanulo,
-                                                @"C:\Users\Pap Gergő\Desktop\Új szöveges dokumentum.txt", @"C:\Users\Pap Gergő\Desktop\Adatok\Érettségi\Tanusítvány\", tTavaszOsz,
-                                                tEvKezdet,
-                                                "erettsegitanusitvany", "tanuloNeve", "anyjaNeve", "szerzo", "viszgaEvVeg", "viszgaTavasz1Osz0",
-                                                "dokLegutobbModositva", "feltoltesIdopontja", "path");
-                        Thread.Sleep(25);
-                    }
-
-                    for (int i = 0; i < 100; i++)
-                    {
-                        destination = Global.fixPath + @"\Adatok\Szakmai Vizsga\Anyakönyv\";
-
-                        cmd.Parameters.Clear();
-                        tanuloNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        anyjaNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        ev = r.Next(1900, 2100);
-                        TextBox tAnyja = new TextBox();
-                        tAnyja.Text = anyjaNeve;
-                        TextBox tTanulo = new TextBox();
-                        tTanulo.Text = tanuloNeve;
-                        TextBox tTavaszOsz = new TextBox();
-                        tTavaszOsz.Text = r.Next(1900, 2100).ToString();
-                        TextBox tEvKezdet = new TextBox();
-                        tEvKezdet.Text = ev.ToString();
-
-                        Global.fileFeltolteseBDreESFileMozgatasa(tAnyja, tTanulo,
-                                                @"C:\Users\Pap Gergő\Desktop\Új szöveges dokumentum.txt", @"C:\Users\Pap Gergő\Desktop\Adatok\Szakmai Vizsga\Anyakönyv\", tTavaszOsz,
-                                                tEvKezdet,
-                                                "szakmaivizsgaanyakonyv", "tanuloNeve", "anyjaNeve", "szerzo", "viszgaEvVeg", "viszgaTavasz1Osz0",
-                                                "dokLegutobbModositva", "feltoltesIdopontja", "path");
-                        Thread.Sleep(25);
-
-                    }
-                    for (int i = 0; i < 100; i++)
-                    {
-                        destination = Global.fixPath + @"\Adatok\Középiskola\Anyakönyv\";
-
-                        cmd.Parameters.Clear();
-                        tanuloNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        anyjaNeve = vezetekNevek[r.Next(0, vezetekNevek.Length)] + " " + keresztNevek[r.Next(0, keresztNevek.Length)];
-                        ev = r.Next(1900, 2100);
-                        TextBox tAnyja = new TextBox();
-                        tAnyja.Text = anyjaNeve;
-                        TextBox tTanulo = new TextBox();
-                        tTanulo.Text = tanuloNeve;
-                        TextBox tTavaszOsz = new TextBox();
-                        tTavaszOsz.Text = r.Next(1900, 2100).ToString();
-                        TextBox tEvKezdet = new TextBox();
-                        tEvKezdet.Text = ev.ToString();
-
-                        Global.fileFeltolteseBDreESFileMozgatasa(tAnyja, tTanulo,
-                                                @"C:\Users\Pap Gergő\Desktop\Új szöveges dokumentum.txt", @"C:\Users\Pap Gergő\Desktop\Adatok\Középiskola\Anyakönyv\", tTavaszOsz,
-                                                tEvKezdet,
-                                                "kozepiskolaanyakonyv", "tanuloNeve", "anyjaNeve", "szerzo", "viszgaEvVeg", "viszgaTavasz1Osz0",
-                                                "dokLegutobbModositva", "feltoltesIdopontja", "path");
-                        Thread.Sleep(25);
-
-                    }
-                }
-            }).Start();
-            conn.Close();
-        }
-
 
     }
 }
