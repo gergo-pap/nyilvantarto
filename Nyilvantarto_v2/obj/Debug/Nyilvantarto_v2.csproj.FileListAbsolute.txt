@@ -65,4 +65,6 @@ D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csproj.CopyComplete
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.exe
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.pdb
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.exe.CodeAnalysisLog.xml
+D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\bin\Debug\Nyilvantarto_v2.exe.lastcodeanalysissucceeded
 D:\OneDrive\Visual Studio Projects\nyilvantarto-git\nyilvantarto\Nyilvantarto_v2\obj\Debug\Nyilvantarto_v2.csprojAssemblyReference.cache

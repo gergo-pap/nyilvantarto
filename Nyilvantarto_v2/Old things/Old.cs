@@ -9,8 +9,8 @@ namespace Nyilvantarto_v2.Old_things
     class Old
     {
         public static void osszetettKeres(string rowTneve, string rowKezdet, string rowTvOsz, string rowAnyja,
-    string from, string likeText1, string likeText2,
-    ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxanyjaNeve)
+        string from, string likeText1, string likeText2,
+        ListBox listBoxId, ListBox listBoxTanuloneve, ListBox ListBoxVKezdete, ListBox listBoxTvOsz, ListBox listBoxanyjaNeve)
         {
             if (conn.State != ConnectionState.Open)
             {
@@ -566,6 +566,34 @@ namespace Nyilvantarto_v2.Old_things
                     }
                 }
             }).Start();
+            conn.Close();
+        }
+
+        public static void getCount(Label l, Label l2, string pathEnd, string tableName)
+        {
+            getFilesCount(l, pathEnd);
+            getDBCount(l2, tableName);
+        }
+
+        public static void getFilesCount(Label l, string destPath)
+        {
+            string[] fileArray = Directory.GetFiles(fixPath + destPath);
+            l.Text = fileArray.Length.ToString();
+        }
+
+        public static void getDBCount(Label l, string from)
+        {
+            int count = 0;
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Open();
+            }
+            using (var cmd = new MySqlCommand($"SELECT COUNT(id) FROM {from}", conn))
+            {
+                count = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            l.Text = count.ToString();
             conn.Close();
         }
     }
