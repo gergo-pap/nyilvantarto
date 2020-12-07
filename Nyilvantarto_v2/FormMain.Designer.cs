@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.labelMentesiHely = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,7 +37,7 @@
             this.groupBoxEleresi = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.labelPath = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.updateDbStateTimer = new System.Windows.Forms.Timer(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.labelKapcsolatAdatbazissal = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -231,11 +231,11 @@
             this.labelPath.TabIndex = 9;
             this.labelPath.Text = "path?";
             // 
-            // timer1
+            // updateDbStateTimer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.updateDbStateTimer.Enabled = true;
+            this.updateDbStateTimer.Interval = 2000;
+            this.updateDbStateTimer.Tick += new System.EventHandler(this.updateDbStateTimer_Tick);
             // 
             // label4
             // 
@@ -259,8 +259,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1448,7 +1448,7 @@
         private System.Windows.Forms.GroupBox groupBoxEleresi;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelPath;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer updateDbStateTimer;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelKapcsolatAdatbazissal;
         private System.Windows.Forms.DataGridView dataGridView1;

@@ -12,9 +12,7 @@ namespace Nyilvantarto_v2
         public FormMain()
         {
             InitializeComponent();
-            //MessageBox.Show(Application.OpenForms.OfType<FormMain>().Count().ToString());
-            //if (Application.OpenForms.OfType<FormMain>().Count() == 1)
-            //    Application.OpenForms.OfType<FormMain>().First().Close();
+
         }
 
         private void ButtonTallozas_Click(object sender, EventArgs e)
@@ -30,7 +28,6 @@ namespace Nyilvantarto_v2
             panelMenu.Width = 0;
             if (Global.CheckDB_Conn(true))
             {
-                MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;charset = utf8");
                 Global.CreateTables();
                 Global.CheckDirs(groupBoxEleresi, labelMentesiHely, panelKeres, "eleresiUt");
                 labelPath.Text = Global.fixPath;
@@ -47,9 +44,8 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void updateDbStateTimer_Tick(object sender, EventArgs e)
         {
-            timer1.Interval = 2000;
             if (Global.CheckDB_Conn(false))
             {
                 labelKapcsolatAdatbazissal.Text = "aktív";
@@ -170,6 +166,7 @@ namespace Nyilvantarto_v2
                 panelMenu.Width = 0;
                 panelMenu.Visible = false;
                 panelFeltolt.Visible = false;
+                panelFeltModTorl.Enabled = true;
                 panelModTorol.Visible = true;
                 Global.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonFeltoltes);
             }
@@ -186,7 +183,7 @@ namespace Nyilvantarto_v2
                 panelFeltolt.Visible = true;
                 Global.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonModositas);
                 panelModTorol.Visible = false;
-
+                panelFeltModTorl.Enabled = false;
                 Global.SetPanelVisibility(panelTallozMentesujButton,
                                         panelSzakmaiViszgaTorzslapFileName,
                                         panelKozepiskolaAnyakonyvFilneName,
@@ -489,7 +486,7 @@ namespace Nyilvantarto_v2
                                                                     numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
                                                                     numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
                                                                     "kozepiskolaanyakonyv",
-                                                                    "tanuloNeve", 
+                                                                    "tanuloNeve",
                                                                     "anyjaNeve",
                                                                     "szerzo",
                                                                     "vizsgaEvKezdet",
@@ -596,9 +593,9 @@ namespace Nyilvantarto_v2
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
-                    if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, 
+                    if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
                                                     textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                    textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap, 
+                                                    textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
                                                     textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
                     {
                         Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
@@ -616,7 +613,7 @@ namespace Nyilvantarto_v2
                                                                  "dokLegutobbModositva",
                                                                  "feltoltesIdopontja",
                                                                  "path");
-                        Global.FeltoltUrit(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap, 
+                        Global.FeltoltUrit(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
                                             textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
                                             numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap, null,
                                             radioButtonOszFeltoltSzakmaiViszgaTorzslap, radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
@@ -625,9 +622,9 @@ namespace Nyilvantarto_v2
                     break;
 
                 case "Érettségi - törzslap":
-                    if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTorzslap, 
+                    if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
                                                     textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                    textBoxTanuloNeveFeltoltErettsegiTorzslap, 
+                                                    textBoxTanuloNeveFeltoltErettsegiTorzslap,
                                                     textBoxFileNameFeltoltErettsegiTorzslap))
                     {
                         Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
@@ -648,9 +645,9 @@ namespace Nyilvantarto_v2
                         Global.FeltoltUrit(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
                                             textBoxTanuloNeveFeltoltErettsegiTorzslap,
                                             numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                            null, 
+                                            null,
                                             radioButtonOszFeltoltErettsegiTorzslap,
-                                            radioButtonTavaszFeltoltErettsegiTorzslap, 
+                                            radioButtonTavaszFeltoltErettsegiTorzslap,
                                             null,
                                             textBoxFileNameFeltoltErettsegiTorzslap);
                     }
@@ -658,7 +655,7 @@ namespace Nyilvantarto_v2
 
                 case "Érettségi - tanusítvány":
                     if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                    textBoxAnyjaNeveFeltoltErettsegiTanusitvany, 
+                                                    textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
                                                     textBoxTanuloNeveFeltoltErettsegiTanusitvany,
                                                     textBoxFileNameFeltoltErettsegiTanusitvany))
                     {

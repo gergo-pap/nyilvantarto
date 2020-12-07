@@ -19,9 +19,29 @@ namespace Nyilvantarto_v2
         public static string globSelectedButton;
         public static string globFeltoltendoFileEleresiUt;
         public static List<string> torlendoMappak = new List<string>();
-        private static MySqlConnection conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
-        private static MySqlCommand cmd = new MySqlCommand();
+        private static MySqlConnection __conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
+
+
+        private static bool isConnectionOpen()
+        {
+            return __conn.State == ConnectionState.Open;
+        }
+        public static MySqlConnection __getConnection()
+        {
+            if (!isConnectionOpen())
+            {
+                __conn.Close();
+                __conn.Open();
+            }
+
+            return __conn;
+        }
+
+        public static MySqlCommand createCommand(string sqlQuery)
+        {
+            return new MySqlCommand(sqlQuery, __getConnection());
+        }
 
         public static void gruopBoxSetDefaultVisibility(GroupBox gbOsszetett, GroupBox gbRandom, GroupBox groupBoxFeltoltott)
         {
@@ -32,18 +52,13 @@ namespace Nyilvantarto_v2
 
         public static void getDestPathFromDatabase(string eleresiUt)
         {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            cmd.Connection = conn;
-            cmd.CommandText = "Select value From settings Where var = @var";
+            MySqlCommand cmd = createCommand("Select value From settings Where var = @var");
             cmd.Parameters.AddWithValue("@var", eleresiUt);
+
             var result = cmd.ExecuteScalar();
             fixPath = result.ToString();
+
             cmd.Parameters.Clear();
-            conn.Close();
             //MessageBox.Show("Elérési út: " + fullPath);
         }
 
@@ -51,20 +66,15 @@ namespace Nyilvantarto_v2
         {
             //MessageBox.Show("filename: " + filaPath);
             //MessageBox.Show("tablename: " + tableName);
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            var getData = conn.CreateCommand();
 
             string idIn = filaPath.Split('\\').Last();
             //MessageBox.Show("id: " + idIn);
-            getData.CommandText = "SELECT path " +
-                $"FROM {tableName} " +
-                "WHERE id = " + idIn;
 
-            var pathFromDB = getData.ExecuteScalar();
+            var getDataCommand = createCommand("SELECT path FROM @tableName WHERE id = @id");
+            getDataCommand.Parameters.AddWithValue("@tableName", tableName);
+            getDataCommand.Parameters.AddWithValue("@id", idIn);
+
+            var pathFromDB = getDataCommand.ExecuteScalar();
             //MessageBox.Show("pathFromDB " + pathFromDB.ToString());
             string kiterjFromDB = pathFromDB.ToString().Split('.').Last();
             //MessageBox.Show("kiterj " + kiterjFromDB);
@@ -98,6 +108,7 @@ namespace Nyilvantarto_v2
                 //fileopener.Start();
 
 
+                // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
                 Process.Start("explorer.exe", argument);
                 torlendoMappak.Add(tempDirectory);
             }
@@ -106,8 +117,6 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
-            cmd.Parameters.Clear();
-            conn.Close();
         }
 
         public static void tallozas(TextBox textBoxFilename)
@@ -181,22 +190,19 @@ namespace Nyilvantarto_v2
                                                         bool checkBoxChecked,
                                                         int db)
         {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Open();
-            }
-
             if (!checkBoxChecked)
             {
                 likeVkezdet = "";
             }
 
-            var command = conn.CreateCommand();
-            command.CommandText = $"SELECT id, {rowTneve}, {rowVkezdet}, {rowExtra}, {rowAnyja} " +
-                                $"FROM {from} " +
-                                $"WHERE {rowTneve} like '%{likeTanuloNeve}%' " +
-                                $"AND {rowAnyja} like '%{likeAnyjaNeve}%' " +
-                                $"AND {rowVkezdet} like '%{likeVkezdet}%' ";
+
+            var command = createCommand(
+                $"SELECT id, {rowTneve}, {rowVkezdet}, {rowExtra}, {rowAnyja} " +
+                    $"FROM {from} " +
+                    $"WHERE {rowTneve} like '%{likeTanuloNeve}%' " +
+                    $"AND {rowAnyja} like '%{likeAnyjaNeve}%' " +
+                    $"AND {rowVkezdet} like '%{likeVkezdet}%'"
+            );
 
             using (var reader = command.ExecuteReader())
             {
@@ -221,7 +227,6 @@ namespace Nyilvantarto_v2
                     i++;
                 }
             }
-            conn.Close();
         }
 
         public static void FileFeltolteseBDreESFileMozgatasa(TextBox textBoxanyjaNeveFeltolt,
@@ -236,11 +241,6 @@ namespace Nyilvantarto_v2
         {
             try
             {
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Close();
-                    conn.Open();
-                }
                 int indexOf = textBoxanyjaNeveFeltolt.Text.IndexOfAny(SpecialChars);
                 int indexOf2 = textBoxTanuloNeveFeltolt.Text.IndexOfAny(SpecialChars);
                 byte tavaszOsz = 0;
@@ -278,8 +278,7 @@ namespace Nyilvantarto_v2
                             "SELECT LAST_INSERT_ID();"
                             ;
 
-                    cmd.Connection = conn;
-                    cmd.CommandText = SQL;
+                    var cmd = createCommand(SQL);
                     cmd.Parameters.AddWithValue($"@{rowTneve}", textBoxTanuloNeveFeltolt.Text);
                     cmd.Parameters.AddWithValue($"@{rowAnyja}", textBoxanyjaNeveFeltolt.Text);
                     cmd.Parameters.AddWithValue($"@{rowSzerzo}", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
@@ -328,8 +327,6 @@ namespace Nyilvantarto_v2
                 {
                     MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
                 }
-
-                conn.Close();
             }
             catch (MySqlException ex)
             {
@@ -396,25 +393,18 @@ namespace Nyilvantarto_v2
             MessageBox.Show(torlendo);
             try
             {
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Close();
-                    conn.Open();
-                }
                 string SQL = "DELETE FROM " +
                                 $"{from} " +
                                 "WHERE " +
                                 "id =" + id
                                 ;
-                cmd.Connection = conn;
-                cmd.CommandText = SQL;
+                var cmd = createCommand(SQL);
 
                 cmd.ExecuteNonQuery();
 
                 File.Delete(torlendo);
 
                 MessageBox.Show("Sikeres törlés");
-                conn.Close();
             }
             catch (NullReferenceException)
             {
@@ -450,11 +440,6 @@ namespace Nyilvantarto_v2
                                         string rowTavaszVosz,
                                         string rowId)
         {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
             int indexOf = textBoxanyjaNeveModositas.Text.IndexOfAny(SpecialChars);
             int indexOf2 = textBoxNevModositas.Text.IndexOfAny(SpecialChars);
             int tavaszVosz = 0;
@@ -489,14 +474,11 @@ namespace Nyilvantarto_v2
                                 "WHERE " +
                                 $"id = '{rowId}';"
                                 ;
-
-                    cmd.Connection = conn;
-                    cmd.CommandText = SQL;
+                    var cmd = createCommand(SQL);
 
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show("Sikeres módosítás");
-                    conn.Close();
                 }
                 catch (NullReferenceException)
                 {
@@ -507,7 +489,6 @@ namespace Nyilvantarto_v2
             {
                 MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
             }
-            conn.Close();
         }
 
         public static void SetControlPosition(Panel p1,
@@ -593,30 +574,24 @@ namespace Nyilvantarto_v2
 
         public static bool CheckDB_Conn(bool messageBox)
         {
-            var conn_info = "Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;";
-            bool isConn = false;
-            MySqlConnection conn = null;
             try
             {
-                conn = new MySqlConnection(conn_info);
-                conn.Open();
-                if (conn.State == ConnectionState.Open)
-                {
-                    isConn = true;
-                }
+                __getConnection();
                 //MessageBox.Show(conn.State.ToString());
+                return true;
             }
             catch (ArgumentException a_ex)
             {
                 globIsaMessageBoxOpen = true;
-                if (messageBox) MessageBox.Show($"Hibás connection string!\n{a_ex.Message}\n{a_ex}");
+                if (messageBox)
+                {
+                    MessageBox.Show($"Hibás connection string!\n{a_ex.Message}\n{a_ex}");
+                }
                 globIsaMessageBoxOpen = false;
             }
             catch (MySqlException ex)
             {
-                string sqlErrorMessage = "Üzenet: " + ex.Message + "\n" +
-                "Forrás: " + ex.Source + "\n" +
-                "Szám: " + ex.Number;
+                string sqlErrorMessage = $"Üzenet: {ex.Message}\nForrás: {ex.Source}\nSzám: {ex.Number}";
 
                 globIsaMessageBoxOpen = true;
 
@@ -627,33 +602,22 @@ namespace Nyilvantarto_v2
                     MessageBox.Show(sqlErrorMessage);
                     globIsaMessageBoxOpen = false;
 
-                    isConn = false;
-                    if (messageBox)
+                    switch (ex.Number)
                     {
-                        switch (ex.Number)
-                        {
-                            case 1042:
-                                MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
-                                break;
-                            case 0:
-                                MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
-                                break;
-                            default:
-                                break;
-                        }
+                        case 1042:
+                            MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server,Port)");
+                            break;
+                        case 0:
+                            MessageBox.Show("Hozzáférés megtagadva! (Check DB name,username,password)");
+                            break;
+                        default:
+                            break;
                     }
                 }
                 //}).Start();
+            }
 
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-            return isConn;
+            return false;
         }
 
         public static void CreateTables()
@@ -667,28 +631,22 @@ namespace Nyilvantarto_v2
         }
         public static void CreateTablesettings()
         {
-            conn.Open();
-            var command = conn.CreateCommand();
-            command.CommandText = @"
+            var command = createCommand(@"
                             CREATE TABLE IF NOT EXISTS 
                                 settings 
                                 (
                                 id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                 var TEXT NOT NULL,
                                 value TEXT NOT NULL
-                                );
-                                ";
+                                );"
+            );
             command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public static void CreateTableKozepiskolaAnyakonyv()
         {
-            conn.Open();
-            var command = conn.CreateCommand();
-
-            command = conn.CreateCommand();
-            command.CommandText = @"
+            var command = createCommand(
+                    @"
                             CREATE TABLE IF NOT EXISTS 
                                 kozepiskolaanyakonyv 
                                 (
@@ -701,17 +659,14 @@ namespace Nyilvantarto_v2
                                 dokLegutobbModositva DATETIME NOT NULL,
                                 feltoltesIdopontja DATETIME NOT NULL,
                                 path TEXT NULL
-                                );
-                                ";
+                                );"
+                );
             command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public static void CreateTableszakmaiviszgaanyakonyv()
         {
-            conn.Open();
-            var command = conn.CreateCommand();
-            command.CommandText = @"
+            var command = createCommand(@"
                             CREATE TABLE IF NOT EXISTS 
                                 szakmaivizsgaanyakonyv 
                                 (
@@ -725,17 +680,15 @@ namespace Nyilvantarto_v2
                                 feltoltesIdopontja DATETIME NOT NULL,
                                 path TEXT NULL
                                 );
-                                ";
+                                ");
             command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public static void CreateTableSzakmaivizsgaTorzslap()
         {
-            conn.Open();
-            var command = conn.CreateCommand();
-            command = conn.CreateCommand();
-            command.CommandText = @"
+
+            var command = createCommand(
+                @"
                             CREATE TABLE IF NOT EXISTS 
                                 szakmaivizsgaTorzslap 
                                 (
@@ -749,17 +702,13 @@ namespace Nyilvantarto_v2
                                 feltoltesIdopontja DATETIME NOT NULL,
                                 path TEXT NULL
                                 );
-                                ";
+                                ");
             command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public static void CreateTableErettsegiTanusitvany()
         {
-            conn.Open();
-            var command = conn.CreateCommand();
-            command = conn.CreateCommand();
-            command.CommandText = @"
+            var command = createCommand( @"
                             CREATE TABLE IF NOT EXISTS 
                                 erettsegitanusitvany 
                                 (
@@ -773,21 +722,13 @@ namespace Nyilvantarto_v2
                                 feltoltesIdopontja DATETIME NOT NULL,
                                 path TEXT NULL
                                 );
-                                ";
+                                ");
             command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public static void CreateTableErettsegiTorzslap()
         {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
-            var command = conn.CreateCommand();
-            command = conn.CreateCommand();
-            command.CommandText = @"
+            var command = createCommand(@"
                             CREATE TABLE IF NOT EXISTS 
                                 erettsegitorzslap 
                                 (
@@ -801,9 +742,8 @@ namespace Nyilvantarto_v2
                                 feltoltesIdopontja DATETIME NOT NULL,
                                 path TEXT NULL
                                 );
-                                ";
+                                ");
             command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public static void CreateDirectiories(Label labelMentesiHely)
@@ -818,14 +758,8 @@ namespace Nyilvantarto_v2
 
         public static void CheckDirs(GroupBox groupBoxEleresi, Label labelMentesiHely, Panel panel, string varString)
         {
-            if (conn.State != ConnectionState.Open)
-            {
-                conn.Close();
-                conn.Open();
-            }
             string query = $"SELECT value FROM settings WHERE var = '{varString}'; ";
-            var command = conn.CreateCommand();
-            command.CommandText = query;
+            var command = createCommand(query);
             var result = command.ExecuteScalar();
             if (result == null)
             {
@@ -840,18 +774,12 @@ namespace Nyilvantarto_v2
                 panel.Visible = true;
                 fullPath = labelMentesiHely.Text;
             }
-            conn.Close();
         }
 
         public static void SetPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, string eleresiUt)
         {
             try
             {
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Close();
-                    conn.Open();
-                }
                 int indexOf = labelMentesiHely.Text.IndexOfAny(SpecialChars);
                 if (indexOf == -1)
                 {
@@ -863,8 +791,8 @@ namespace Nyilvantarto_v2
                             "@var, " +
                             "@value " +
                         ")";
-                    cmd.Connection = conn;
-                    cmd.CommandText = SQL;
+
+                    var cmd = createCommand(SQL);
                     cmd.Parameters.AddWithValue("@var", eleresiUt);
                     cmd.Parameters.AddWithValue("@value", labelMentesiHely.Text.ToString());
 
@@ -874,7 +802,6 @@ namespace Nyilvantarto_v2
                 {
                     MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
                 }
-                conn.Close();
             }
             catch (MySqlException ex)
             {
