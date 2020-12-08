@@ -34,7 +34,7 @@ namespace Nyilvantarto_v2
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.labelMentesiHely = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@ namespace Nyilvantarto_v2
             this.buttonErettsegiTorzslap = new System.Windows.Forms.Button();
             this.buttonErettsegiTanusitvany = new System.Windows.Forms.Button();
             this.buttonSzakmaiVizsgaTorzslap = new System.Windows.Forms.Button();
-            this.buttonSzakmaiViszgaAnyakonyv = new System.Windows.Forms.Button();
+            this.buttonSzakmaiVizsgaAnyakonyv = new System.Windows.Forms.Button();
             this.buttonKozepiskolaAnyakonyv = new System.Windows.Forms.Button();
             this.textBoxTanuloNeveKeres = new System.Windows.Forms.TextBox();
             this.textBoxanyjaNeveKeres = new System.Windows.Forms.TextBox();
@@ -82,7 +82,7 @@ namespace Nyilvantarto_v2
             this.panelErettsegiTtorzslapFileName = new System.Windows.Forms.Panel();
             this.textBoxFileNameFeltoltErettsegiTorzslap = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.radioButtonOszFeltoltErettsegiTorzslap = new System.Windows.Forms.RadioButton();
             this.radioButtonTavaszFeltoltErettsegiTorzslap = new System.Windows.Forms.RadioButton();
@@ -118,19 +118,19 @@ namespace Nyilvantarto_v2
             this.label23 = new System.Windows.Forms.Label();
             this.textBoxAnyjaNeveFeltoltErettsegiTanusitvany = new System.Windows.Forms.TextBox();
             this.textBoxTanuloNeveFeltoltErettsegiTanusitvany = new System.Windows.Forms.TextBox();
-            this.panelSzakmaiViszgaTorzslapFeltolt = new System.Windows.Forms.Panel();
-            this.panelSzakmaiViszgaTorzslapFileName = new System.Windows.Forms.Panel();
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap = new System.Windows.Forms.TextBox();
+            this.panelSzakmaiVizsgaTorzslapFeltolt = new System.Windows.Forms.Panel();
+            this.panelSzakmaiVizsgaTorzslapFileName = new System.Windows.Forms.Panel();
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap = new System.Windows.Forms.RadioButton();
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap = new System.Windows.Forms.RadioButton();
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap = new System.Windows.Forms.RadioButton();
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap = new System.Windows.Forms.TextBox();
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap = new System.Windows.Forms.TextBox();
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap = new System.Windows.Forms.TextBox();
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap = new System.Windows.Forms.TextBox();
             this.buttonMegse = new System.Windows.Forms.Button();
             this.labelMenuKat = new System.Windows.Forms.Label();
             this.buttonMentes = new System.Windows.Forms.Button();
@@ -150,7 +150,7 @@ namespace Nyilvantarto_v2
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv)).BeginInit();
             this.panelErettsegiTorzslapFeltolt.SuspendLayout();
             this.panelErettsegiTtorzslapFileName.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownViszgaEveFeltoltErettsegiTorzslap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap)).BeginInit();
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.SuspendLayout();
             this.panelSzakmaivizsgaAnyakonyvFileName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv)).BeginInit();
@@ -159,9 +159,9 @@ namespace Nyilvantarto_v2
             this.panelErettsegiTanusitvanyFeltolt.SuspendLayout();
             this.panelErettsegiTanusitvanyFileName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaEveFeltoltErettsegiTanusitvany)).BeginInit();
-            this.panelSzakmaiViszgaTorzslapFeltolt.SuspendLayout();
-            this.panelSzakmaiViszgaTorzslapFileName.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap)).BeginInit();
+            this.panelSzakmaiVizsgaTorzslapFeltolt.SuspendLayout();
+            this.panelSzakmaiVizsgaTorzslapFileName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap)).BeginInit();
             this.panelFeltModTorl.SuspendLayout();
             this.panelModTorol.SuspendLayout();
             this.groupBoxAlso.SuspendLayout();
@@ -264,8 +264,8 @@ namespace Nyilvantarto_v2
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -275,7 +275,6 @@ namespace Nyilvantarto_v2
             this.dataGridView1.Size = new System.Drawing.Size(950, 507);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.Visible = false;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // buttonErettsegiTorzslap
@@ -320,19 +319,19 @@ namespace Nyilvantarto_v2
             this.buttonSzakmaiVizsgaTorzslap.UseVisualStyleBackColor = true;
             this.buttonSzakmaiVizsgaTorzslap.Click += new System.EventHandler(this.buttonSzakmaiVizsgaTorzslap_Click);
             // 
-            // buttonSzakmaiViszgaAnyakonyv
+            // buttonSzakmaiVizsgaAnyakonyv
             // 
-            this.buttonSzakmaiViszgaAnyakonyv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.buttonSzakmaiVizsgaAnyakonyv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSzakmaiViszgaAnyakonyv.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSzakmaiViszgaAnyakonyv.Location = new System.Drawing.Point(601, 7);
-            this.buttonSzakmaiViszgaAnyakonyv.Name = "buttonSzakmaiViszgaAnyakonyv";
-            this.buttonSzakmaiViszgaAnyakonyv.Size = new System.Drawing.Size(167, 30);
-            this.buttonSzakmaiViszgaAnyakonyv.TabIndex = 16;
-            this.buttonSzakmaiViszgaAnyakonyv.Text = "Szakmai vizsga - anyakönyv";
-            this.buttonSzakmaiViszgaAnyakonyv.UseVisualStyleBackColor = true;
-            this.buttonSzakmaiViszgaAnyakonyv.Click += new System.EventHandler(this.buttonSzakmaiViszgaAnyakonyv_Click);
+            this.buttonSzakmaiVizsgaAnyakonyv.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonSzakmaiVizsgaAnyakonyv.Location = new System.Drawing.Point(601, 7);
+            this.buttonSzakmaiVizsgaAnyakonyv.Name = "buttonSzakmaiVizsgaAnyakonyv";
+            this.buttonSzakmaiVizsgaAnyakonyv.Size = new System.Drawing.Size(167, 30);
+            this.buttonSzakmaiVizsgaAnyakonyv.TabIndex = 16;
+            this.buttonSzakmaiVizsgaAnyakonyv.Text = "Szakmai vizsga - anyakönyv";
+            this.buttonSzakmaiVizsgaAnyakonyv.UseVisualStyleBackColor = true;
+            this.buttonSzakmaiVizsgaAnyakonyv.Click += new System.EventHandler(this.buttonSzakmaiVizsgaAnyakonyv_Click);
             // 
             // buttonKozepiskolaAnyakonyv
             // 
@@ -362,7 +361,7 @@ namespace Nyilvantarto_v2
             this.textBoxanyjaNeveKeres.Name = "textBoxanyjaNeveKeres";
             this.textBoxanyjaNeveKeres.Size = new System.Drawing.Size(150, 20);
             this.textBoxanyjaNeveKeres.TabIndex = 19;
-            this.textBoxanyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxanyjaNeve_TextChanged);
+            this.textBoxanyjaNeveKeres.TextChanged += new System.EventHandler(this.textBoxAnyjaNeve_TextChanged);
             // 
             // label5
             // 
@@ -412,7 +411,7 @@ namespace Nyilvantarto_v2
             0,
             0,
             0});
-            this.numericUpDownVizsgaÉveKeres.ValueChanged += new System.EventHandler(this.numericUpDownViszgaÉve_ValueChanged);
+            this.numericUpDownVizsgaÉveKeres.ValueChanged += new System.EventHandler(this.numericUpDownVizsgaÉve_ValueChanged);
             // 
             // checkBoxVizsgaEve
             // 
@@ -422,14 +421,14 @@ namespace Nyilvantarto_v2
             this.checkBoxVizsgaEve.Size = new System.Drawing.Size(15, 14);
             this.checkBoxVizsgaEve.TabIndex = 26;
             this.checkBoxVizsgaEve.UseVisualStyleBackColor = true;
-            this.checkBoxVizsgaEve.CheckedChanged += new System.EventHandler(this.checkBoxViszgaEve_CheckedChanged);
+            this.checkBoxVizsgaEve.CheckedChanged += new System.EventHandler(this.checkBoxVizsgaEve_CheckedChanged);
             // 
             // panelKeres
             // 
             this.panelKeres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panelKeres.Controls.Add(this.numericUpDownTalalatokSzama);
             this.panelKeres.Controls.Add(this.buttonKozepiskolaAnyakonyv);
-            this.panelKeres.Controls.Add(this.buttonSzakmaiViszgaAnyakonyv);
+            this.panelKeres.Controls.Add(this.buttonSzakmaiVizsgaAnyakonyv);
             this.panelKeres.Controls.Add(this.label8);
             this.panelKeres.Controls.Add(this.buttonSzakmaiVizsgaTorzslap);
             this.panelKeres.Controls.Add(this.label5);
@@ -539,7 +538,7 @@ namespace Nyilvantarto_v2
             this.panelFeltolt.Controls.Add(this.panelSzakmaiVizsgaAnyakonyvFeltolt);
             this.panelFeltolt.Controls.Add(this.panelTallozMentesujButton);
             this.panelFeltolt.Controls.Add(this.panelErettsegiTanusitvanyFeltolt);
-            this.panelFeltolt.Controls.Add(this.panelSzakmaiViszgaTorzslapFeltolt);
+            this.panelFeltolt.Controls.Add(this.panelSzakmaiVizsgaTorzslapFeltolt);
             this.panelFeltolt.Controls.Add(this.buttonMegse);
             this.panelFeltolt.Controls.Add(this.labelMenuKat);
             this.panelFeltolt.Controls.Add(this.buttonMentes);
@@ -560,7 +559,7 @@ namespace Nyilvantarto_v2
             this.panelKozepiskolaAnyakonyvFeltolt.Controls.Add(this.label33);
             this.panelKozepiskolaAnyakonyvFeltolt.Controls.Add(this.textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv);
             this.panelKozepiskolaAnyakonyvFeltolt.Controls.Add(this.textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv);
-            this.panelKozepiskolaAnyakonyvFeltolt.Location = new System.Drawing.Point(101, 64);
+            this.panelKozepiskolaAnyakonyvFeltolt.Location = new System.Drawing.Point(53, 389);
             this.panelKozepiskolaAnyakonyvFeltolt.Name = "panelKozepiskolaAnyakonyvFeltolt";
             this.panelKozepiskolaAnyakonyvFeltolt.Size = new System.Drawing.Size(550, 170);
             this.panelKozepiskolaAnyakonyvFeltolt.TabIndex = 20;
@@ -700,7 +699,7 @@ namespace Nyilvantarto_v2
             // panelErettsegiTorzslapFeltolt
             // 
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.panelErettsegiTtorzslapFileName);
-            this.panelErettsegiTorzslapFeltolt.Controls.Add(this.numericUpDownViszgaEveFeltoltErettsegiTorzslap);
+            this.panelErettsegiTorzslapFeltolt.Controls.Add(this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap);
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.label14);
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.radioButtonOszFeltoltErettsegiTorzslap);
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.radioButtonTavaszFeltoltErettsegiTorzslap);
@@ -709,7 +708,7 @@ namespace Nyilvantarto_v2
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.label18);
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.textBoxAnyjaNeveFeltoltErettsegiTorzslap);
             this.panelErettsegiTorzslapFeltolt.Controls.Add(this.textBoxTanuloNeveFeltoltErettsegiTorzslap);
-            this.panelErettsegiTorzslapFeltolt.Location = new System.Drawing.Point(36, 113);
+            this.panelErettsegiTorzslapFeltolt.Location = new System.Drawing.Point(30, 392);
             this.panelErettsegiTorzslapFeltolt.Name = "panelErettsegiTorzslapFeltolt";
             this.panelErettsegiTorzslapFeltolt.Size = new System.Drawing.Size(550, 170);
             this.panelErettsegiTorzslapFeltolt.TabIndex = 17;
@@ -743,24 +742,24 @@ namespace Nyilvantarto_v2
             this.label15.TabIndex = 12;
             this.label15.Text = "Fájl:";
             // 
-            // numericUpDownViszgaEveFeltoltErettsegiTorzslap
+            // numericUpDownVizsgaEveFeltoltErettsegiTorzslap
             // 
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Location = new System.Drawing.Point(222, 72);
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Maximum = new decimal(new int[] {
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Location = new System.Drawing.Point(222, 72);
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Maximum = new decimal(new int[] {
             2100,
             0,
             0,
             0});
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Minimum = new decimal(new int[] {
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Minimum = new decimal(new int[] {
             1900,
             0,
             0,
             0});
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Name = "numericUpDownViszgaEveFeltoltErettsegiTorzslap";
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Size = new System.Drawing.Size(75, 24);
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.TabIndex = 16;
-            this.numericUpDownViszgaEveFeltoltErettsegiTorzslap.Value = new decimal(new int[] {
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Name = "numericUpDownVizsgaEveFeltoltErettsegiTorzslap";
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Size = new System.Drawing.Size(75, 24);
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.TabIndex = 16;
+            this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap.Value = new decimal(new int[] {
             1900,
             0,
             0,
@@ -857,7 +856,7 @@ namespace Nyilvantarto_v2
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.Controls.Add(this.label28);
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.Controls.Add(this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv);
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.Controls.Add(this.textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt);
-            this.panelSzakmaiVizsgaAnyakonyvFeltolt.Location = new System.Drawing.Point(36, 156);
+            this.panelSzakmaiVizsgaAnyakonyvFeltolt.Location = new System.Drawing.Point(10, 396);
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.Name = "panelSzakmaiVizsgaAnyakonyvFeltolt";
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.Size = new System.Drawing.Size(550, 166);
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.TabIndex = 21;
@@ -947,6 +946,7 @@ namespace Nyilvantarto_v2
             0,
             0,
             0});
+            this.numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv.ValueChanged += new System.EventHandler(this.numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv_ValueChanged);
             // 
             // label26
             // 
@@ -1039,7 +1039,7 @@ namespace Nyilvantarto_v2
             this.panelErettsegiTanusitvanyFeltolt.Controls.Add(this.label23);
             this.panelErettsegiTanusitvanyFeltolt.Controls.Add(this.textBoxAnyjaNeveFeltoltErettsegiTanusitvany);
             this.panelErettsegiTanusitvanyFeltolt.Controls.Add(this.textBoxTanuloNeveFeltoltErettsegiTanusitvany);
-            this.panelErettsegiTanusitvanyFeltolt.Location = new System.Drawing.Point(22, 185);
+            this.panelErettsegiTanusitvanyFeltolt.Location = new System.Drawing.Point(26, 185);
             this.panelErettsegiTanusitvanyFeltolt.Name = "panelErettsegiTanusitvanyFeltolt";
             this.panelErettsegiTanusitvanyFeltolt.Size = new System.Drawing.Size(550, 170);
             this.panelErettsegiTanusitvanyFeltolt.TabIndex = 18;
@@ -1161,42 +1161,43 @@ namespace Nyilvantarto_v2
             this.textBoxTanuloNeveFeltoltErettsegiTanusitvany.Size = new System.Drawing.Size(300, 24);
             this.textBoxTanuloNeveFeltoltErettsegiTanusitvany.TabIndex = 0;
             // 
-            // panelSzakmaiViszgaTorzslapFeltolt
+            // panelSzakmaiVizsgaTorzslapFeltolt
             // 
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.panelSzakmaiViszgaTorzslapFileName);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.label13);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.radioButtonOszFeltoltSzakmaiViszgaTorzslap);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.label11);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.label9);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.label10);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Controls.Add(this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Location = new System.Drawing.Point(142, 9);
-            this.panelSzakmaiViszgaTorzslapFeltolt.Name = "panelSzakmaiViszgaTorzslapFeltolt";
-            this.panelSzakmaiViszgaTorzslapFeltolt.Size = new System.Drawing.Size(550, 170);
-            this.panelSzakmaiViszgaTorzslapFeltolt.TabIndex = 13;
-            this.panelSzakmaiViszgaTorzslapFeltolt.Visible = false;
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.panelSzakmaiVizsgaTorzslapFileName);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.label13);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.label11);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.label9);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.label10);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Controls.Add(this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Location = new System.Drawing.Point(142, 9);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Name = "panelSzakmaiVizsgaTorzslapFeltolt";
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Size = new System.Drawing.Size(550, 170);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.TabIndex = 13;
+            this.panelSzakmaiVizsgaTorzslapFeltolt.Visible = false;
             // 
-            // panelSzakmaiViszgaTorzslapFileName
+            // panelSzakmaiVizsgaTorzslapFileName
             // 
-            this.panelSzakmaiViszgaTorzslapFileName.Controls.Add(this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
-            this.panelSzakmaiViszgaTorzslapFileName.Controls.Add(this.label12);
-            this.panelSzakmaiViszgaTorzslapFileName.Location = new System.Drawing.Point(14, 128);
-            this.panelSzakmaiViszgaTorzslapFileName.Name = "panelSzakmaiViszgaTorzslapFileName";
-            this.panelSzakmaiViszgaTorzslapFileName.Size = new System.Drawing.Size(522, 39);
-            this.panelSzakmaiViszgaTorzslapFileName.TabIndex = 17;
+            this.panelSzakmaiVizsgaTorzslapFileName.Controls.Add(this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap);
+            this.panelSzakmaiVizsgaTorzslapFileName.Controls.Add(this.label12);
+            this.panelSzakmaiVizsgaTorzslapFileName.Location = new System.Drawing.Point(14, 128);
+            this.panelSzakmaiVizsgaTorzslapFileName.Name = "panelSzakmaiVizsgaTorzslapFileName";
+            this.panelSzakmaiVizsgaTorzslapFileName.Size = new System.Drawing.Size(522, 39);
+            this.panelSzakmaiVizsgaTorzslapFileName.TabIndex = 17;
             // 
-            // textBoxFileNameFeltoltSzakmaiViszgaTorzslap
+            // textBoxFileNameFeltoltSzakmaiVizsgaTorzslap
             // 
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.Location = new System.Drawing.Point(208, 7);
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.Name = "textBoxFileNameFeltoltSzakmaiViszgaTorzslap";
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.ReadOnly = true;
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.Size = new System.Drawing.Size(300, 24);
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.TabIndex = 11;
-            this.textBoxFileNameFeltoltSzakmaiViszgaTorzslap.TextChanged += new System.EventHandler(this.textBoxFileNameFeltolt_TextChanged);
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(208, 7);
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.Name = "textBoxFileNameFeltoltSzakmaiVizsgaTorzslap";
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.ReadOnly = true;
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(300, 24);
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.TabIndex = 11;
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.TextChanged += new System.EventHandler(this.textBoxFileNameFeltolt_TextChanged);
+            this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxFileNameFeltoltSzakmaiVizsgaTorzslap_Validating);
             // 
             // label12
             // 
@@ -1208,24 +1209,24 @@ namespace Nyilvantarto_v2
             this.label12.TabIndex = 12;
             this.label12.Text = "Fájl:";
             // 
-            // numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap
+            // numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap
             // 
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Location = new System.Drawing.Point(222, 74);
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Maximum = new decimal(new int[] {
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(222, 74);
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Maximum = new decimal(new int[] {
             2100,
             0,
             0,
             0});
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Minimum = new decimal(new int[] {
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Minimum = new decimal(new int[] {
             1900,
             0,
             0,
             0});
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Name = "numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap";
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Size = new System.Drawing.Size(100, 24);
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.TabIndex = 16;
-            this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap.Value = new decimal(new int[] {
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Name = "numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap";
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(100, 24);
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.TabIndex = 16;
+            this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap.Value = new decimal(new int[] {
             1900,
             0,
             0,
@@ -1241,29 +1242,29 @@ namespace Nyilvantarto_v2
             this.label13.TabIndex = 15;
             this.label13.Text = "Időszak:";
             // 
-            // radioButtonOszFeltoltSzakmaiViszgaTorzslap
+            // radioButtonOszFeltoltSzakmaiVizsgaTorzslap
             // 
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.AutoSize = true;
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.Location = new System.Drawing.Point(467, 104);
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.Name = "radioButtonOszFeltoltSzakmaiViszgaTorzslap";
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.Size = new System.Drawing.Size(54, 22);
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.TabIndex = 14;
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.Text = "Ősz";
-            this.radioButtonOszFeltoltSzakmaiViszgaTorzslap.UseVisualStyleBackColor = true;
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.AutoSize = true;
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(467, 104);
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.Name = "radioButtonOszFeltoltSzakmaiVizsgaTorzslap";
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(54, 22);
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.TabIndex = 14;
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.Text = "Ősz";
+            this.radioButtonOszFeltoltSzakmaiVizsgaTorzslap.UseVisualStyleBackColor = true;
             // 
-            // radioButtonTavaszFeltoltSzakmaiViszgaTorzslap
+            // radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap
             // 
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.AutoSize = true;
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.Checked = true;
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.Location = new System.Drawing.Point(222, 104);
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.Name = "radioButtonTavaszFeltoltSzakmaiViszgaTorzslap";
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.Size = new System.Drawing.Size(74, 22);
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.TabIndex = 13;
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.TabStop = true;
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.Text = "Tavasz";
-            this.radioButtonTavaszFeltoltSzakmaiViszgaTorzslap.UseVisualStyleBackColor = true;
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.AutoSize = true;
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.Checked = true;
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(222, 104);
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.Name = "radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap";
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(74, 22);
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.TabIndex = 13;
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.TabStop = true;
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.Text = "Tavasz";
+            this.radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
@@ -1295,23 +1296,23 @@ namespace Nyilvantarto_v2
             this.label10.TabIndex = 4;
             this.label10.Text = "Anyja neve";
             // 
-            // textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap
+            // textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap
             // 
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap.Location = new System.Drawing.Point(222, 44);
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap.Name = "textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap";
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap.Size = new System.Drawing.Size(300, 24);
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap.TabIndex = 1;
-            this.textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveFeltolt_TextChanged);
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(222, 44);
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.Name = "textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap";
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(300, 24);
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.TabIndex = 1;
+            this.textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.TextChanged += new System.EventHandler(this.textBoxAnyjaNeveFeltolt_TextChanged);
             // 
-            // textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap
+            // textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap
             // 
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap.Location = new System.Drawing.Point(222, 14);
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap.Name = "textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap";
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap.Size = new System.Drawing.Size(300, 24);
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap.TabIndex = 0;
-            this.textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap.TextChanged += new System.EventHandler(this.textBoxTanuloNeveFeltolt_TextChanged);
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.Location = new System.Drawing.Point(222, 14);
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.Name = "textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap";
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.Size = new System.Drawing.Size(300, 24);
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.TabIndex = 0;
+            this.textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.TextChanged += new System.EventHandler(this.textBoxTanuloNeveFeltolt_TextChanged);
             // 
             // buttonMegse
             // 
@@ -1400,7 +1401,6 @@ namespace Nyilvantarto_v2
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormMain_Paint);
-            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.groupBoxEleresi.ResumeLayout(false);
             this.groupBoxEleresi.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -1421,7 +1421,7 @@ namespace Nyilvantarto_v2
             this.panelErettsegiTorzslapFeltolt.PerformLayout();
             this.panelErettsegiTtorzslapFileName.ResumeLayout(false);
             this.panelErettsegiTtorzslapFileName.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownViszgaEveFeltoltErettsegiTorzslap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaEveFeltoltErettsegiTorzslap)).EndInit();
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.ResumeLayout(false);
             this.panelSzakmaiVizsgaAnyakonyvFeltolt.PerformLayout();
             this.panelSzakmaivizsgaAnyakonyvFileName.ResumeLayout(false);
@@ -1434,11 +1434,11 @@ namespace Nyilvantarto_v2
             this.panelErettsegiTanusitvanyFileName.ResumeLayout(false);
             this.panelErettsegiTanusitvanyFileName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaEveFeltoltErettsegiTanusitvany)).EndInit();
-            this.panelSzakmaiViszgaTorzslapFeltolt.ResumeLayout(false);
-            this.panelSzakmaiViszgaTorzslapFeltolt.PerformLayout();
-            this.panelSzakmaiViszgaTorzslapFileName.ResumeLayout(false);
-            this.panelSzakmaiViszgaTorzslapFileName.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap)).EndInit();
+            this.panelSzakmaiVizsgaTorzslapFeltolt.ResumeLayout(false);
+            this.panelSzakmaiVizsgaTorzslapFeltolt.PerformLayout();
+            this.panelSzakmaiVizsgaTorzslapFileName.ResumeLayout(false);
+            this.panelSzakmaiVizsgaTorzslapFileName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap)).EndInit();
             this.panelFeltModTorl.ResumeLayout(false);
             this.panelModTorol.ResumeLayout(false);
             this.groupBoxAlso.ResumeLayout(false);
@@ -1462,7 +1462,7 @@ namespace Nyilvantarto_v2
         private Button buttonErettsegiTorzslap;
         private Button buttonErettsegiTanusitvany;
         private Button buttonSzakmaiVizsgaTorzslap;
-        private Button buttonSzakmaiViszgaAnyakonyv;
+        private Button buttonSzakmaiVizsgaAnyakonyv;
         private Button buttonKozepiskolaAnyakonyv;
         private TextBox textBoxTanuloNeveKeres;
         private TextBox textBoxanyjaNeveKeres;
@@ -1481,22 +1481,22 @@ namespace Nyilvantarto_v2
         private Label label11;
         private Label label10;
         private Label label9;
-        private TextBox textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap;
-        private TextBox textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap;
+        private TextBox textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap;
+        private TextBox textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap;
         private Button buttonMentes;
         private Button buttonMegse;
         private Button buttonMentesUj;
         private Label labelMenuKat;
         private Panel panelFeltModTorl;
         private Button buttonTalloz;
-        private TextBox textBoxFileNameFeltoltSzakmaiViszgaTorzslap;
+        private TextBox textBoxFileNameFeltoltSzakmaiVizsgaTorzslap;
         private Panel panelFeltolt;
-        private Panel panelSzakmaiViszgaTorzslapFeltolt;
+        private Panel panelSzakmaiVizsgaTorzslapFeltolt;
         private Label label13;
-        private RadioButton radioButtonOszFeltoltSzakmaiViszgaTorzslap;
-        private RadioButton radioButtonTavaszFeltoltSzakmaiViszgaTorzslap;
+        private RadioButton radioButtonOszFeltoltSzakmaiVizsgaTorzslap;
+        private RadioButton radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap;
         private Label label12;
-        private NumericUpDown numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap;
+        private NumericUpDown numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap;
         private Panel panelErettsegiTanusitvanyFeltolt;
         private NumericUpDown numericUpDownVizsgaEveFeltoltErettsegiTanusitvany;
         private TextBox textBoxFileNameFeltoltErettsegiTanusitvany;
@@ -1507,7 +1507,7 @@ namespace Nyilvantarto_v2
         private TextBox textBoxAnyjaNeveFeltoltErettsegiTanusitvany;
         private TextBox textBoxTanuloNeveFeltoltErettsegiTanusitvany;
         private Panel panelErettsegiTorzslapFeltolt;
-        private NumericUpDown numericUpDownViszgaEveFeltoltErettsegiTorzslap;
+        private NumericUpDown numericUpDownVizsgaEveFeltoltErettsegiTorzslap;
         private Label label14;
         private RadioButton radioButtonOszFeltoltErettsegiTorzslap;
         private RadioButton radioButtonTavaszFeltoltErettsegiTorzslap;
@@ -1543,7 +1543,7 @@ namespace Nyilvantarto_v2
         private TextBox textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany;
         private Label label19;
         private Panel panelModTorol;
-        private Panel panelSzakmaiViszgaTorzslapFileName;
+        private Panel panelSzakmaiVizsgaTorzslapFileName;
         private Panel panelTallozMentesujButton;
         private Panel panelKozepiskolaAnyakonyvFilneName;
         private Panel panelErettsegiTtorzslapFileName;
