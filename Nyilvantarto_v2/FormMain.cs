@@ -6,23 +6,32 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using Nyilvantarto_v2.Categories;
 
 namespace Nyilvantarto_v2
 {
     public partial class FormMain : Form
     {
         private List<Button> buttons;
+        private List<Panel> panels;
+        private Category selectedCategory;
 
         public FormMain()
         {
             InitializeComponent();
 
-            buttons = new List<Button> {
+            buttons = new List<Button>
+            {
                 buttonErettsegiTanusitvany,
                 buttonKozepiskolaAnyakonyv,
                 buttonErettsegiTorzslap,
                 buttonSzakmaiVizsgaTorzslap,
                 buttonSzakmaiVizsgaAnyakonyv
+            };
+
+            panels = new List<Panel>
+            {
+
             };
         }
 
@@ -246,37 +255,54 @@ namespace Nyilvantarto_v2
         //Kategória választó gombok esemémnyei
         private void buttonErettsegiTorzslap_Click(object sender, EventArgs e)
         {
-            ActivateErettsegiTorzslap();
+            SetAndResetButtonColors(buttonErettsegiTorzslap);
+            SetDatagridViewColumns("Tanuló neve", "Vizsga időszaka");
+            ButtonKeresClick();
+            UpdateResultSet();
         }
         private void buttonErettsegiTanusitvany_Click(object sender, EventArgs e)
         {
             SetAndResetButtonColors(buttonErettsegiTanusitvany);
-            Controll.SetDatagridViewColumns(dataGridView1, "Vizsga éve", "Tanulói azonosító");
+            SetDatagridViewColumns("Vizsga éve", "Tanulói azonosító");
             ButtonKeresClick();
             UpdateResultSet();
         }
         private void buttonSzakmaiVizsgaTorzslap_Click(object sender, EventArgs e)
         {
             SetAndResetButtonColors(buttonSzakmaiVizsgaTorzslap);
-            Controll.SetDatagridViewColumns(dataGridView1, "Vizsga éve", "Vizsga időszaka");
+            SetDatagridViewColumns("Vizsga éve", "Vizsga időszaka");
             ButtonKeresClick();
             UpdateResultSet();
         }
         private void buttonSzakmaiVizsgaAnyakonyv_Click(object sender, EventArgs e)
         {
             SetAndResetButtonColors(buttonSzakmaiVizsgaAnyakonyv);
-            Controll.SetDatagridViewColumns(dataGridView1, "Középiskola kezdete", "Érettségi éve");
+            SetDatagridViewColumns("Középiskola kezdete", "Érettségi éve");
             ButtonKeresClick();
             UpdateResultSet();
         }
         private void buttonKozepiskolaAnyakonyv_Click(object sender, EventArgs e)
         {
+            selectedCategory = new KozepiskolaiAnyakonyv();
+
             SetAndResetButtonColors(buttonKozepiskolaAnyakonyv);
-            Controll.SetDatagridViewColumns(dataGridView1, "Középiskola kezdete", "Érettségi éve");
+            SetDatagridViewColumns();
             ButtonKeresClick();
             UpdateResultSet();
         }
 
+        public void SetDatagridViewColumns()
+        {
+            dataGridView1.ColumnCount = selectedCategory.sqlColumns.Count;
+            int columnIndex = 0;
+
+            foreach (string columnName in selectedCategory.sqlColumns)
+            {
+                dataGridView1.Columns[columnIndex++].Name = columnName;
+            }
+
+            dataGridView1.Columns[0].Width = 35;
+        }
 
         //Keresés a datagridview-ban események
         private void TextBoxTanuloNeve_TextChanged(object sender, EventArgs e)
@@ -403,35 +429,35 @@ namespace Nyilvantarto_v2
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
-                    Controll.ShowFirstHideRestPanels(panelSzakmaiVizsgaTorzslapFeltolt,
+                    ShowFirstHideRestPanels(panelSzakmaiVizsgaTorzslapFeltolt,
                         panelErettsegiTanusitvanyFeltolt,
                         panelErettsegiTorzslapFeltolt,
                         panelSzakmaiVizsgaAnyakonyvFeltolt,
                         panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Érettségi - törzslap":
-                    Controll.ShowFirstHideRestPanels(panelErettsegiTorzslapFeltolt,
+                    ShowFirstHideRestPanels(panelErettsegiTorzslapFeltolt,
                         panelSzakmaiVizsgaTorzslapFeltolt,
                         panelErettsegiTanusitvanyFeltolt,
                         panelSzakmaiVizsgaAnyakonyvFeltolt,
                         panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Érettségi - tanusítvány":
-                    Controll.ShowFirstHideRestPanels(panelErettsegiTanusitvanyFeltolt,
+                    ShowFirstHideRestPanels(panelErettsegiTanusitvanyFeltolt,
                         panelErettsegiTorzslapFeltolt,
                         panelSzakmaiVizsgaTorzslapFeltolt,
                         panelSzakmaiVizsgaAnyakonyvFeltolt,
                         panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Szakmai vizsga - anyakönyv":
-                    Controll.ShowFirstHideRestPanels(panelSzakmaiVizsgaAnyakonyvFeltolt,
+                    ShowFirstHideRestPanels(panelSzakmaiVizsgaAnyakonyvFeltolt,
                         panelErettsegiTanusitvanyFeltolt,
                         panelErettsegiTorzslapFeltolt,
                         panelSzakmaiVizsgaTorzslapFeltolt,
                         panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Középiskola - anyakönyv":
-                    Controll.ShowFirstHideRestPanels(panelKozepiskolaAnyakonyvFeltolt,
+                    ShowFirstHideRestPanels(panelKozepiskolaAnyakonyvFeltolt,
                         panelSzakmaiVizsgaTorzslapFeltolt,
                         panelErettsegiTanusitvanyFeltolt,
                         panelErettsegiTorzslapFeltolt,
@@ -879,13 +905,7 @@ namespace Nyilvantarto_v2
                     break;
             }
         }
-        private void ActivateErettsegiTorzslap()
-        {
-            SetAndResetButtonColors(buttonErettsegiTorzslap);
-            Controll.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Vizsga időszaka");
-            ButtonKeresClick();
-            UpdateResultSet();
-        }
+
         private void ElsoInditasSetup()
         {
             Controll.Tallozas(labelMentesiHely);
@@ -918,6 +938,14 @@ namespace Nyilvantarto_v2
         private void panelMenu_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        public void ShowPanel(Panel choosenPanel)
+        {
+            foreach (Panel panel in panels)
+            {
+                panel.Visible = panel == choosenPanel;
+            }
         }
     }
 }

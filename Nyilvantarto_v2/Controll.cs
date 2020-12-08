@@ -354,20 +354,7 @@ namespace Nyilvantarto_v2
             panel1.Visible = false;
             panel2.Visible = false;
         }
-        public static void SetDatagridViewColumns(
-                                                    DataGridView dataGridView,
-                                                    string col4,
-                                                    string col5
-        )
-        {
-            dataGridView.ColumnCount = 5;
-            dataGridView.Columns[0].Name = "Id";
-            dataGridView.Columns[1].Name = "Tanuló neve";
-            dataGridView.Columns[2].Name = "Anyja neve";
-            dataGridView.Columns[3].Name = col4;
-            dataGridView.Columns[4].Name = col5;
-            dataGridView.Columns[0].Width = 35;
-        }
+        
 
 
 
@@ -705,20 +692,7 @@ namespace Nyilvantarto_v2
             p5.Visible = trueOrFalse;
             p6.Visible = trueOrFalse;
         }
-        public static void ShowFirstHideRestPanels(
-                            Panel panelOn,
-                            Panel panelOFF1,
-                            Panel panelOff2,
-                            Panel panelOff3,
-                            Panel panelOff4
-        )
-        {
-            panelOn.Visible = true;
-            panelOFF1.Visible = false;
-            panelOff2.Visible = false;
-            panelOff3.Visible = false;
-            panelOff4.Visible = false;
-        }
+
 
 
 
@@ -813,7 +787,5 @@ namespace Nyilvantarto_v2
                 dataGridView.Visible = true;
             }
         }
-
-        
     }
 }
