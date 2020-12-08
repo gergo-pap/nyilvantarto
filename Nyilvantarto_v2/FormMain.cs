@@ -1,18 +1,16 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Nyilvantarto_v2
 {
     public partial class FormMain : Form
     {
-
         public FormMain()
         {
             InitializeComponent();
-
         }
 
         private void ButtonTallozas_Click(object sender, EventArgs e)
@@ -24,24 +22,42 @@ namespace Nyilvantarto_v2
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            Hide();
             panelMenu.Width = 0;
-            if (Global.CheckDB_Conn(true))
+
+            if (!Global.CheckDB_Conn(true))
             {
-                Global.CreateTables();
-                Global.CheckDirs(groupBoxEleresi, labelMentesiHely, panelKeres, "eleresiUt");
-                labelPath.Text = Global.fixPath;
-                Global.SetControlPosition(panelErettsegiTanusitvanyFeltolt,
-                                            panelErettsegiTorzslapFeltolt,
-                                            panelKozepiskolaAnyakonyvFeltolt,
-                                            panelSzakmaiViszgaTorzslapFeltolt,
-                                            panelSzakmaiVizsgaAnyakonyvFeltolt,
-                                            dataGridView1,
-                                            panelKeres,
-                                            panelFeltModTorl);
-                buttonErettsegiTorzslap_Click(sender, e);
-                Show();
+                return;
             }
+
+            Global.CreateTables();
+            Global.CheckDirs(groupBoxEleresi, labelMentesiHely, panelKeres, "eleresiUt");
+            labelPath.Text = Global.fileStorageRelativePath;
+            //ActivateErettsegiTorzslap();
+
+            Global.loadFileStorageRelativePath();
+        }
+
+        public void SetControlPosition()
+        {
+            panelKeres.Location = new Point(20, 20);
+
+            panelFeltModTorl.Location = new Point(
+                ClientRectangle.Width - panelFeltModTorl.Width,
+                panelKeres.Height
+            );
+
+            dataGridView1.Location = new Point(20, panelKeres.Bottom + 20);
+            dataGridView1.Size = new Size(
+                ClientRectangle.Width - panelFeltModTorl.Width - 20,
+                groupBoxAlso.Top - dataGridView1.Top
+            );
+
+            panelErettsegiTanusitvanyFeltolt.Location = new Point(0, 100);
+            panelErettsegiTorzslapFeltolt.Location = new Point(0, 100);
+            panelKozepiskolaAnyakonyvFeltolt.Location = new Point(0, 100);
+            panelSzakmaiViszgaTorzslapFeltolt.Location = new Point(0, 100);
+            panelSzakmaiVizsgaAnyakonyvFeltolt.Location = new Point(0, 100);
+            //56,84
         }
 
         private void updateDbStateTimer_Tick(object sender, EventArgs e)
@@ -65,55 +81,79 @@ namespace Nyilvantarto_v2
             Global.dataGridViewBasicSettings(dataGridView1, panelKeres);
             Global.dataGridViewClear(dataGridView1);
             Global.FirstClickShow(panelFeltModTorl, panelKeres, dataGridView1);
-            Global.buttonClickClear(textBoxTanuloNeveKeres, textBoxanyjaNeveKeres, numericUpDownVizsgaÉveKeres, checkBoxVizsgaEve);
+            Global.buttonClickClear(textBoxTanuloNeveKeres, textBoxanyjaNeveKeres, numericUpDownVizsgaÉveKeres,
+                checkBoxVizsgaEve);
             labelMenuKat.Text = Global.globSelectedButton;
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
                     Global.ShowAndHidePAnels(panelSzakmaiViszgaTorzslapFeltolt,
-                                            panelErettsegiTanusitvanyFeltolt,
-                                            panelErettsegiTorzslapFeltolt,
-                                            panelSzakmaiVizsgaAnyakonyvFeltolt,
-                                            panelKozepiskolaAnyakonyvFeltolt);
+                        panelErettsegiTanusitvanyFeltolt,
+                        panelErettsegiTorzslapFeltolt,
+                        panelSzakmaiVizsgaAnyakonyvFeltolt,
+                        panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Érettségi - törzslap":
                     Global.ShowAndHidePAnels(panelErettsegiTorzslapFeltolt,
-                                            panelSzakmaiViszgaTorzslapFeltolt,
-                                            panelErettsegiTanusitvanyFeltolt,
-                                            panelSzakmaiVizsgaAnyakonyvFeltolt,
-                                            panelKozepiskolaAnyakonyvFeltolt);
+                        panelSzakmaiViszgaTorzslapFeltolt,
+                        panelErettsegiTanusitvanyFeltolt,
+                        panelSzakmaiVizsgaAnyakonyvFeltolt,
+                        panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Érettségi - tanusítvány":
                     Global.ShowAndHidePAnels(panelErettsegiTanusitvanyFeltolt,
-                                            panelErettsegiTorzslapFeltolt,
-                                            panelSzakmaiViszgaTorzslapFeltolt,
-                                            panelSzakmaiVizsgaAnyakonyvFeltolt,
-                                            panelKozepiskolaAnyakonyvFeltolt);
+                        panelErettsegiTorzslapFeltolt,
+                        panelSzakmaiViszgaTorzslapFeltolt,
+                        panelSzakmaiVizsgaAnyakonyvFeltolt,
+                        panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Szakmai vizsga - anyakönyv":
                     Global.ShowAndHidePAnels(panelSzakmaiVizsgaAnyakonyvFeltolt,
-                                            panelErettsegiTanusitvanyFeltolt,
-                                            panelErettsegiTorzslapFeltolt,
-                                            panelSzakmaiViszgaTorzslapFeltolt,
-                                            panelKozepiskolaAnyakonyvFeltolt);
+                        panelErettsegiTanusitvanyFeltolt,
+                        panelErettsegiTorzslapFeltolt,
+                        panelSzakmaiViszgaTorzslapFeltolt,
+                        panelKozepiskolaAnyakonyvFeltolt);
                     break;
                 case "Középiskola - anyakönyv":
                     Global.ShowAndHidePAnels(panelKozepiskolaAnyakonyvFeltolt,
-                                        panelSzakmaiViszgaTorzslapFeltolt,
-                                        panelErettsegiTanusitvanyFeltolt,
-                                        panelErettsegiTorzslapFeltolt,
-                                        panelSzakmaiVizsgaAnyakonyvFeltolt);
+                        panelSzakmaiViszgaTorzslapFeltolt,
+                        panelErettsegiTanusitvanyFeltolt,
+                        panelErettsegiTorzslapFeltolt,
+                        panelSzakmaiVizsgaAnyakonyvFeltolt);
                     break;
             }
-            Global.getDestPathFromDatabase("eleresiUt");
-
         }
 
         private void TextBoxTanuloNeve_TextChanged(object sender, EventArgs e)
         {
-            string from = "";
-            string row1ErreKeres = "";
-            string row2EztIsKiir = "";
+            UpdateResultSet();
+        }
+
+        private void UpdateResultSet()
+        {
+            CalculateSearchConditions(out var from, out var row1ErreKeres, out var row2EztIsKiir);
+
+            Global.dataGridViewClear(dataGridView1);
+            Global.OsszetettKeresDataGridview(
+                "tanuloNeve",
+                row1ErreKeres,
+                row2EztIsKiir,
+                "anyjaNeve",
+                @from,
+                textBoxTanuloNeveKeres.Text,
+                textBoxanyjaNeveKeres.Text,
+                numericUpDownVizsgaÉveKeres.Value.ToString(),
+                dataGridView1,
+                checkBoxVizsgaEve.Checked,
+                int.Parse(numericUpDownTalalatokSzama.Value.ToString())
+            );
+        }
+
+        private void CalculateSearchConditions(out string from, out string row1ErreKeres, out string row2EztIsKiir)
+        {
+            from = "";
+            row1ErreKeres = "";
+            row2EztIsKiir = "";
             if (buttonErettsegiTanusitvany.BackColor == Color.Black)
             {
                 from = "erettsegitanusitvany";
@@ -144,54 +184,61 @@ namespace Nyilvantarto_v2
                 row1ErreKeres = "vizsgaEvKezdet";
                 row2EztIsKiir = "vizsgaEvVeg";
             }
-            Global.dataGridViewClear(dataGridView1);
-            Global.OsszetettKeresDataGridview("tanuloNeve",
-                                                row1ErreKeres,
-                                                row2EztIsKiir,
-                                                "anyjaNeve",
-                                                from,
-                                                textBoxTanuloNeveKeres.Text,
-                                                textBoxanyjaNeveKeres.Text,
-                                                numericUpDownVizsgaÉveKeres.Value.ToString(),
-                                                dataGridView1,
-                                                checkBoxVizsgaEve.Checked,
-                                                int.Parse(numericUpDownTalalatokSzama.Value.ToString()));
         }
 
         private void ButtonFeltoltes_Click(object sender, EventArgs e)
         {
+            togglePanelMenu();
+        }
+
+        private void togglePanelMenu()
+        {
             //dataGridView1.SelectedCells[0].Value.ToString() --> id
             if (panelMenu.Visible)
             {
-                panelMenu.Width = 0;
-                panelMenu.Visible = false;
-                panelFeltolt.Visible = false;
-                panelFeltModTorl.Enabled = true;
-                panelModTorol.Visible = true;
-                Global.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonFeltoltes);
+                hidePanelMenu();
             }
             else
             {
-                panelMenu.BringToFront();
-                panelMenu.Visible = true;
-
-                for (int i = 0; i < 30; i++)    //600 széles legyen
-                {
-                    panelMenu.Width += 20;
-                    System.Threading.Thread.Sleep(5);
-                }
-                panelFeltolt.Visible = true;
-                Global.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles, buttonModositas);
-                panelModTorol.Visible = false;
-                panelFeltModTorl.Enabled = false;
-                Global.SetPanelVisibility(panelTallozMentesujButton,
-                                        panelSzakmaiViszgaTorzslapFileName,
-                                        panelKozepiskolaAnyakonyvFilneName,
-                                        panelErettsegiTanusitvanyFileName,
-                                        panelErettsegiTtorzslapFileName,
-                                        panelSzakmaivizsgaAnyakonyvFileName,
-                                        true); ;
+                showPanelMenu();
             }
+        }
+
+        private void showPanelMenu()
+        {
+            panelMenu.BringToFront();
+            panelMenu.Visible = true;
+
+            for (int i = 0; i < 30; i++) //600 széles legyen
+            {
+                panelMenu.Width += 20;
+                Thread.Sleep(3);
+            }
+
+            panelFeltolt.Visible = true;
+            Global.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles,
+                buttonModositas);
+            panelModTorol.Visible = false;
+            Global.SetPanelVisibility(panelTallozMentesujButton,
+                panelSzakmaiViszgaTorzslapFileName,
+                panelKozepiskolaAnyakonyvFilneName,
+                panelErettsegiTanusitvanyFileName,
+                panelErettsegiTtorzslapFileName,
+                panelSzakmaivizsgaAnyakonyvFileName,
+                true);
+            ;
+        }
+
+        private void hidePanelMenu()
+        {
+            panelMenu.Width = 0;
+            panelMenu.Visible = false;
+            panelFeltolt.Visible = false;
+            panelModTorol.Visible = true;
+            Global.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles,
+                buttonFeltoltes);
+
+            cleanupForm();
         }
 
         private void ButtonModositas_Click(object sender, EventArgs e)
@@ -203,83 +250,87 @@ namespace Nyilvantarto_v2
                 panelFeltolt.Visible = false;
                 buttonFeltoltes.Visible = true;
                 buttonTorles.Visible = true;
-                Global.SetAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles, buttonModositas);
+                Global.SetAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles,
+                    buttonModositas);
             }
             else
             {
-                panelMenu.Visible = true;       //600 széles legyen
+                panelMenu.Visible = true; //600 széles legyen
                 panelMenu.BringToFront();
 
                 for (int i = 0; i < 30; i++)
                 {
                     panelMenu.Width += 20;
-                    System.Threading.Thread.Sleep(1);
+                    Thread.Sleep(1);
                 }
+
                 panelFeltolt.Visible = true;
-                Global.SetAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles, buttonFeltoltes);
+                Global.SetAndResetButtonColors(buttonModositas, buttonTorles, buttonFeltoltes, buttonTorles,
+                    buttonFeltoltes);
                 Global.SetPanelVisibility(panelTallozMentesujButton,
-                                        panelSzakmaiViszgaTorzslapFileName,
-                                        panelKozepiskolaAnyakonyvFilneName,
-                                        panelErettsegiTanusitvanyFileName,
-                                        panelErettsegiTtorzslapFileName,
-                                        panelSzakmaivizsgaAnyakonyvFileName,
-                                        false);
+                    panelSzakmaiViszgaTorzslapFileName,
+                    panelKozepiskolaAnyakonyvFilneName,
+                    panelErettsegiTanusitvanyFileName,
+                    panelErettsegiTtorzslapFileName,
+                    panelSzakmaivizsgaAnyakonyvFileName,
+                    false);
                 buttonFeltoltes.Visible = false;
                 buttonTorles.Visible = false;
                 switch (labelMenuKat.Text)
                 {
                     case "Szakmai vizsga - törzslap":
                         Global.LoadSelectedDataWhenModifying(dataGridView1,
-                                                            textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                            textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                                            numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
-                                                            null,
-                                                            radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
-                                                            radioButtonOszFeltoltSzakmaiViszgaTorzslap,
-                                                            null);
+                            textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
+                            textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                            numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
+                            null,
+                            radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
+                            radioButtonOszFeltoltSzakmaiViszgaTorzslap,
+                            null);
                         break;
                     case "Érettségi - törzslap":
                         Global.LoadSelectedDataWhenModifying(dataGridView1,
-                                                            textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                            textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                            numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                                            null,
-                                                            radioButtonTavaszFeltoltErettsegiTorzslap,
-                                                            radioButtonOszFeltoltErettsegiTorzslap,
-                                                            null);
+                            textBoxAnyjaNeveFeltoltErettsegiTorzslap,
+                            textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                            numericUpDownViszgaEveFeltoltErettsegiTorzslap,
+                            null,
+                            radioButtonTavaszFeltoltErettsegiTorzslap,
+                            radioButtonOszFeltoltErettsegiTorzslap,
+                            null);
                         break;
                     case "Érettségi - tanusítvány":
                         Global.LoadSelectedDataWhenModifying(dataGridView1,
-                                                            textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                            textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                            numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                                            textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                                            null,
-                                                            null,
-                                                            null);
+                            textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                            textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                            numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
+                            textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                            null,
+                            null,
+                            null);
                         break;
                     case "Szakmai vizsga - anyakönyv":
                         Global.LoadSelectedDataWhenModifying(dataGridView1,
-                                                            textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                            numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                                            null,
-                                                            null,
-                                                            null,
-                                                            numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv);
+                            textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
+                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                            numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                            null,
+                            null,
+                            null,
+                            numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv);
                         break;
                     case "Középiskola - anyakönyv":
                         Global.LoadSelectedDataWhenModifying(dataGridView1,
-                                                            textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                                            textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                                            numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
-                                                            null,
-                                                            null,
-                                                            null,
-                                                            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv);
+                            textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
+                            textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
+                            numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
+                            null,
+                            null,
+                            null,
+                            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv);
                         break;
                 }
-                TextBoxTanuloNeve_TextChanged(sender, e);
+
+                UpdateResultSet();
             }
         }
 
@@ -304,7 +355,8 @@ namespace Nyilvantarto_v2
                     Global.Torles(id, "kozepiskolaanyakonyv", @"\Adatok\Szakmai Vizsga\Törzslap\");
                     break;
             }
-            TextBoxTanuloNeve_TextChanged(sender, e);
+
+            UpdateResultSet();
         }
 
         private void ButtonTalloz_Click(object sender, EventArgs e)
@@ -331,176 +383,187 @@ namespace Nyilvantarto_v2
 
         private void buttonMegse_Click(object sender, EventArgs e)
         {
-            ButtonFeltoltes_Click(sender, e);
+            togglePanelMenu();
             buttonFeltoltes.Visible = true;
             buttonTorles.Visible = true;
         }
 
         private void ButtonMentes_Click(object sender, EventArgs e)
         {
+            buttonFeltoltes.Visible = true;
+            buttonTorles.Visible = true;
+
+            saveChanges();
+            hidePanelMenu();
+        }
+
+        private void saveChanges()
+        {
             if (buttonFeltoltes.BackColor == Color.Black)
             {
-                //MessageBox.Show("Global fullpath" + Global.fullPath);
+                //MessageBox.Show("Global fullpath" + Global.fileStorageRelativePath);
                 //MessageBox.Show("Global feltoltendo" + Global.globFeltoltendoFileEleresiUt);
 
                 switch (labelMenuKat.Text)
                 {
                     case "Szakmai vizsga - törzslap":
                         if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                        textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                        textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                                        textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
+                            textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
+                            textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                            textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
                         {
-                            Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                                    textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                                                    Global.globFeltoltendoFileEleresiUt,
-                                                                    Global.fullPath + @"\Adatok\Szakmai Vizsga\Törzslap\",
-                                                                    radioButtonOszFeltoltSzakmaiViszgaTorzslap,
-                                                                    numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
-                                                                    "szakmaivizsgaTorzslap",
-                                                                    "tanuloNeve",
-                                                                    "anyjaNeve",
-                                                                    "szerzo",
-                                                                    "viszgaEvVeg",
-                                                                    "viszgaTavasz1Osz0",
-                                                                    "dokLegutobbModositva",
-                                                                    "feltoltesIdopontja",
-                                                                    "path");
+                            Global.FileFeltolteseBDreESFileMozgatasa(
+                                textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
+                                textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                                Global.fileStorageRelativePath + @"\Adatok\Szakmai Vizsga\Törzslap\",
+                                radioButtonOszFeltoltSzakmaiViszgaTorzslap,
+                                numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
+                                "szakmaivizsgaTorzslap",
+                                "tanuloNeve",
+                                "anyjaNeve",
+                                "szerzo",
+                                "viszgaEvVeg",
+                                "viszgaTavasz1Osz0",
+                                "dokLegutobbModositva",
+                                "feltoltesIdopontja",
+                                "filename");
 
                             Global.FeltoltUrit(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                               textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                               numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
-                                               null,
-                                               radioButtonOszFeltoltSzakmaiViszgaTorzslap,
-                                               radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
-                                               null,
-                                               textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
+                                textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                                numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
+                                null,
+                                radioButtonOszFeltoltSzakmaiViszgaTorzslap,
+                                radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
+                                null,
+                                textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
                         }
+
                         break;
 
                     case "Érettségi - törzslap":
                         if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                        textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                        textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                        textBoxFileNameFeltoltErettsegiTorzslap))
+                            textBoxAnyjaNeveFeltoltErettsegiTorzslap,
+                            textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                            textBoxFileNameFeltoltErettsegiTorzslap))
                         {
                             Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                                    textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                                    Global.globFeltoltendoFileEleresiUt,
-                                                                    Global.fullPath + @"\Adatok\Érettségi\Törzslap\",
-                                                                    radioButtonOszFeltoltErettsegiTorzslap,
-                                                                    numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                                                    "erettsegitorzslap",
-                                                                    "tanuloNeve",
-                                                                    "anyjaNeve",
-                                                                    "szerzo",
-                                                                    "viszgaEvVeg",
-                                                                    "viszgaTavasz1Osz0",
-                                                                    "dokLegutobbModositva",
-                                                                    "feltoltesIdopontja",
-                                                                    "path");
+                                textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                                Global.fileStorageRelativePath + @"\Adatok\Érettségi\Törzslap\",
+                                radioButtonOszFeltoltErettsegiTorzslap,
+                                numericUpDownViszgaEveFeltoltErettsegiTorzslap,
+                                "erettsegitorzslap",
+                                "tanuloNeve",
+                                "anyjaNeve",
+                                "szerzo",
+                                "viszgaEvVeg",
+                                "viszgaTavasz1Osz0",
+                                "dokLegutobbModositva",
+                                "feltoltesIdopontja",
+                                "filename");
 
                             Global.FeltoltUrit(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                                null,
-                                                radioButtonOszFeltoltErettsegiTorzslap,
-                                                radioButtonTavaszFeltoltErettsegiTorzslap,
-                                                null,
-                                                textBoxFileNameFeltoltErettsegiTorzslap);
+                                textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                                numericUpDownViszgaEveFeltoltErettsegiTorzslap,
+                                null,
+                                radioButtonOszFeltoltErettsegiTorzslap,
+                                radioButtonTavaszFeltoltErettsegiTorzslap,
+                                null,
+                                textBoxFileNameFeltoltErettsegiTorzslap);
                         }
+
                         break;
 
                     case "Érettségi - tanusítvány":
                         if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                        textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                        textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                        textBoxFileNameFeltoltErettsegiTanusitvany))
+                            textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                            textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                            textBoxFileNameFeltoltErettsegiTanusitvany))
                         {
                             Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                                    textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                                    Global.globFeltoltendoFileEleresiUt,
-                                                                    Global.fullPath + @"\Adatok\Érettségi\Tanusítvány\",
-                                                                    textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                                                    numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                                                    "erettsegitanusitvany",
-                                                                    "tanuloNeve",
-                                                                    "anyjaNeve",
-                                                                    "szerzo",
-                                                                    "viszgaEvVeg",
-                                                                    "tanuloiAzonosito",
-                                                                    "dokLegutobbModositva",
-                                                                    "feltoltesIdopontja",
-                                                                    "path");
+                                textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                                Global.fileStorageRelativePath + @"\Adatok\Érettségi\Tanusítvány\",
+                                textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                                numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
+                                "erettsegitanusitvany",
+                                "tanuloNeve",
+                                "anyjaNeve",
+                                "szerzo",
+                                "viszgaEvVeg",
+                                "tanuloiAzonosito",
+                                "dokLegutobbModositva",
+                                "feltoltesIdopontja",
+                                "filename");
                             Global.FeltoltUrit(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                                null,
-                                                null,
-                                                null,
-                                                textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                                textBoxFileNameFeltoltErettsegiTanusitvany);
+                                textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                                numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
+                                null,
+                                null,
+                                null,
+                                textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                                textBoxFileNameFeltoltErettsegiTanusitvany);
                         }
+
                         break;
 
                     case "Szakmai vizsga - anyakönyv":
                         if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                        textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                        textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                        textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv))
+                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                            textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv))
                         {
                             Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                                    Global.globFeltoltendoFileEleresiUt,
-                                                                    Global.fullPath + @"\Adatok\Szakmai Vizsga\Anyakönyv\",
-                                                                    numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                                    numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                                                    "szakmaivizsgaanyakonyv",
-                                                                    "tanuloNeve",
-                                                                    "anyjaNeve",
-                                                                    "szerzo",
-                                                                    "viszgaEvVeg",
-                                                                    "vizsgaEvKezdet",
-                                                                    "dokLegutobbModositva",
-                                                                    "feltoltesIdopontja",
-                                                                    "path");
+                                textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                                Global.fileStorageRelativePath + @"\Adatok\Szakmai Vizsga\Anyakönyv\",
+                                numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
+                                numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                                "szakmaivizsgaanyakonyv",
+                                "tanuloNeve",
+                                "anyjaNeve",
+                                "szerzo",
+                                "viszgaEvVeg",
+                                "vizsgaEvKezdet",
+                                "dokLegutobbModositva",
+                                "feltoltesIdopontja",
+                                "filename");
                             Global.FeltoltUrit(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                               textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                               numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
-                                               numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                               null,
-                                               null,
-                                               null,
-                                               textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv);
+                                textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                                numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
+                                numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                                null,
+                                null,
+                                null,
+                                textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv);
                         }
+
                         break;
 
                     case "Középiskola - anyakönyv":
-                        if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv, textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                                        textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv, textBoxFileNameFeltoltKozepsikolaAnyakonyv))
+                        if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
+                            textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
+                            textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv, textBoxFileNameFeltoltKozepsikolaAnyakonyv))
                         {
                             Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                                                    textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                                                    Global.globFeltoltendoFileEleresiUt,
-                                                                    Global.fullPath + @"\Adatok\Középiskola\Anyakönyv\",
-                                                                    numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
-                                                                    numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
-                                                                    "kozepiskolaanyakonyv",
-                                                                    "tanuloNeve",
-                                                                    "anyjaNeve",
-                                                                    "szerzo",
-                                                                    "vizsgaEvKezdet",
-                                                                    "viszgaEvVeg",
-                                                                    "dokLegutobbModositva",
-                                                                    "feltoltesIdopontja",
-                                                                    "path");
+                                textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
+                                Global.fileStorageRelativePath + @"\Adatok\Középiskola\Anyakönyv\",
+                                numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
+                                numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
+                                "kozepiskolaanyakonyv",
+                                "tanuloNeve",
+                                "anyjaNeve",
+                                "szerzo",
+                                "vizsgaEvKezdet",
+                                "viszgaEvVeg",
+                                "dokLegutobbModositva",
+                                "feltoltesIdopontja",
+                                "filename");
 
                             Global.FeltoltUrit(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                               textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                               numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
-                                               numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv, null, null, null,
-                                               textBoxFileNameFeltoltKozepsikolaAnyakonyv);
+                                textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
+                                numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
+                                numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv, null, null, null,
+                                textBoxFileNameFeltoltKozepsikolaAnyakonyv);
                         }
+
                         break;
                 }
             }
@@ -510,238 +573,171 @@ namespace Nyilvantarto_v2
                 {
                     case "Szakmai vizsga - törzslap":
                         Global.Modositas(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                        textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                        radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
-                                        null,
-                                        numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
-                                        null,
-                                        "szakmaivizsgaTorzslap",
-                                        "tanuloNeve",
-                                        "anyjaNeve",
-                                        "vizsgaEvVeg",
-                                        "vizsgaTavasz1Osz0",
-                                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                            textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                            radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
+                            null,
+                            numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
+                            null,
+                            "szakmaivizsgaTorzslap",
+                            "tanuloNeve",
+                            "anyjaNeve",
+                            "vizsgaEvVeg",
+                            "vizsgaTavasz1Osz0",
+                            dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                         break;
                     case "Érettségi - törzslap":
                         Global.Modositas(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                         textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                         radioButtonTavaszFeltoltErettsegiTorzslap,
-                                         null,
-                                         numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                         null,
-                                         "erettsegitorzslap",
-                                         "tanuloNeve",
-                                         "anyjaNeve",
-                                         "vizsgaEvVeg",
-                                         "vizsgaTavasz1Osz0",
-                                         dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                            textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                            radioButtonTavaszFeltoltErettsegiTorzslap,
+                            null,
+                            numericUpDownViszgaEveFeltoltErettsegiTorzslap,
+                            null,
+                            "erettsegitorzslap",
+                            "tanuloNeve",
+                            "anyjaNeve",
+                            "vizsgaEvVeg",
+                            "vizsgaTavasz1Osz0",
+                            dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                         break;
                     case "Érettségi - tanusítvány":
                         Global.Modositas(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                        textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                        null,
-                                        textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                        numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                        null,
-                                        "erettsegitanusitvany",
-                                        "tanuloNeve",
-                                        "anyjaNeve",
-                                        "vizsgaEvVeg",
-                                        "tanuloiAzonosito",
-                                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                            textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                            null,
+                            textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                            numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
+                            null,
+                            "erettsegitanusitvany",
+                            "tanuloNeve",
+                            "anyjaNeve",
+                            "vizsgaEvVeg",
+                            "tanuloiAzonosito",
+                            dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                         break;
                     case "Szakmai vizsga - anyakönyv":
                         Global.Modositas(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                         textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                         null,
-                                         null,
-                                         numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                         numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
-                                         "szakmaivizsgaanyakonyv",
-                                         "tanuloNeve",
-                                         "anyjaNeve",
-                                         "vizsgaEvKezdet",
-                                         "vizsgaEvVeg",
-                                         dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                            null,
+                            null,
+                            numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                            numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
+                            "szakmaivizsgaanyakonyv",
+                            "tanuloNeve",
+                            "anyjaNeve",
+                            "vizsgaEvKezdet",
+                            "vizsgaEvVeg",
+                            dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                         break;
                     case "Középiskola - anyakönyv":
                         Global.Modositas(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                         textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                         null,
-                                         null,
-                                         numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
-                                         numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
-                                         "kozepiskolaanyakonyv",
-                                         "tanuloNeve",
-                                         "anyjaNeve",
-                                         "vizsgaEvKezdet",
-                                         "vizsgaEvVeg",
-                                         dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                            textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
+                            null,
+                            null,
+                            numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
+                            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
+                            "kozepiskolaanyakonyv",
+                            "tanuloNeve",
+                            "anyjaNeve",
+                            "vizsgaEvKezdet",
+                            "vizsgaEvVeg",
+                            dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                         break;
                 }
             }
-            buttonFeltoltes.Visible = true;
-            buttonTorles.Visible = true;
-            ButtonFeltoltes_Click(sender, e);
-            TextBoxTanuloNeve_TextChanged(sender, e);
+
+            UpdateResultSet();
         }
 
 
-
         private void buttonMentesUj_Click(object sender, EventArgs e)
+        {
+            saveChanges();
+            cleanupForm();
+        }
+
+        private void cleanupForm()
         {
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
                     if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                    textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                    textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                                    textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
+                        textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
+                        textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                        textBoxFileNameFeltoltSzakmaiViszgaTorzslap))
                     {
-                        Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                                                 textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                                                 Global.globFeltoltendoFileEleresiUt,
-                                                                 Global.fullPath + @"\Adatok\Szakmai Vizsga\Törzslap\",
-                                                                 radioButtonOszFeltoltSzakmaiViszgaTorzslap,
-                                                                 numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap,
-                                                                 "szakmaivizsgaTorzslap",
-                                                                 "tanuloNeve",
-                                                                 "anyjaNeve",
-                                                                 "szerzo",
-                                                                 "viszgaEvVeg",
-                                                                 "viszgaTavasz1Osz0",
-                                                                 "dokLegutobbModositva",
-                                                                 "feltoltesIdopontja",
-                                                                 "path");
                         Global.FeltoltUrit(textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap,
-                                            textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
-                                            numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap, null,
-                                            radioButtonOszFeltoltSzakmaiViszgaTorzslap, radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
-                                            null, textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
+                            textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap,
+                            numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap, null,
+                            radioButtonOszFeltoltSzakmaiViszgaTorzslap, radioButtonTavaszFeltoltSzakmaiViszgaTorzslap,
+                            null, textBoxFileNameFeltoltSzakmaiViszgaTorzslap);
                     }
+
                     break;
 
                 case "Érettségi - törzslap":
                     if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                    textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                    textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                    textBoxFileNameFeltoltErettsegiTorzslap))
+                        textBoxAnyjaNeveFeltoltErettsegiTorzslap,
+                        textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                        textBoxFileNameFeltoltErettsegiTorzslap))
                     {
-                        Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                                textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                                Global.globFeltoltendoFileEleresiUt,
-                                                                Global.fullPath + @"\Adatok\Érettségi\Törzslap\",
-                                                                radioButtonOszFeltoltErettsegiTorzslap,
-                                                                numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                                                "erettsegitorzslap",
-                                                                "tanuloNeve",
-                                                                "anyjaNeve",
-                                                                "szerzo",
-                                                                "viszgaEvVeg",
-                                                                "viszgaTavasz1Osz0",
-                                                                "dokLegutobbModositva",
-                                                                "feltoltesIdopontja",
-                                                                "path");
                         Global.FeltoltUrit(textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                            textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                            numericUpDownViszgaEveFeltoltErettsegiTorzslap,
-                                            null,
-                                            radioButtonOszFeltoltErettsegiTorzslap,
-                                            radioButtonTavaszFeltoltErettsegiTorzslap,
-                                            null,
-                                            textBoxFileNameFeltoltErettsegiTorzslap);
+                            textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                            numericUpDownViszgaEveFeltoltErettsegiTorzslap,
+                            null,
+                            radioButtonOszFeltoltErettsegiTorzslap,
+                            radioButtonTavaszFeltoltErettsegiTorzslap,
+                            null,
+                            textBoxFileNameFeltoltErettsegiTorzslap);
                     }
+
                     break;
 
                 case "Érettségi - tanusítvány":
                     if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                    textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                    textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                    textBoxFileNameFeltoltErettsegiTanusitvany))
+                        textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                        textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                        textBoxFileNameFeltoltErettsegiTanusitvany))
                     {
-                        Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                                textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                                Global.globFeltoltendoFileEleresiUt,
-                                                                Global.fullPath + @"\Adatok\Érettségi\Tanusítvány\",
-                                                                textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                                                numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                                                "erettsegitanusitvany",
-                                                                "tanuloNeve",
-                                                                "anyjaNeve",
-                                                                "szerzo",
-                                                                "viszgaEvVeg",
-                                                                "tanuloiAzonosito",
-                                                                "dokLegutobbModositva",
-                                                                "feltoltesIdopontja",
-                                                                "path");
-                        Global.FeltoltUrit(textBoxAnyjaNeveFeltoltErettsegiTanusitvany, textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                            numericUpDownVizsgaEveFeltoltErettsegiTanusitvany, null, null, null,
-                                            textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                            textBoxFileNameFeltoltErettsegiTanusitvany);
+                        Global.FeltoltUrit(textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                            textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                            numericUpDownVizsgaEveFeltoltErettsegiTanusitvany, null, null, null,
+                            textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                            textBoxFileNameFeltoltErettsegiTanusitvany);
                     }
+
                     break;
 
                 case "Szakmai vizsga - anyakönyv":
                     if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                    textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv))
+                        textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                        textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                        textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv))
                     {
-                        Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                                textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                                Global.globFeltoltendoFileEleresiUt,
-                                                                Global.fullPath + @"\Adatok\Szakmai Vizsga\Anyakönyv\",
-                                                                numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                                numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                                                "szakmaivizsgaanyakonyv",
-                                                                "tanuloNeve",
-                                                                "anyjaNeve",
-                                                                "szerzo",
-                                                                "viszgaEvVeg",
-                                                                "vizsgaEvKezdet",
-                                                                "dokLegutobbModositva",
-                                                                "feltoltesIdopontja",
-                                                                "path");
                         Global.FeltoltUrit(textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                            numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
-                                            numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                            null,
-                                            null,
-                                            null,
-                                            textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv);
+                            textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                            numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
+                            numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                            null,
+                            null,
+                            null,
+                            textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv);
                     }
+
                     break;
 
                 case "Középiskola - anyakönyv":
                     if (Global.CheckIfEmptyInput4Tb(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                                    textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                                    textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                                    textBoxFileNameFeltoltKozepsikolaAnyakonyv))
+                        textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
+                        textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
+                        textBoxFileNameFeltoltKozepsikolaAnyakonyv))
                     {
-                        Global.FileFeltolteseBDreESFileMozgatasa(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                                                textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                                                Global.globFeltoltendoFileEleresiUt,
-                                                                Global.fullPath + @"\Adatok\Középiskola\Anyakönyv\",
-                                                                numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
-                                                                numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
-                                                                "kozepiskolaanyakonyv",
-                                                                "tanuloNeve",
-                                                                "anyjaNeve",
-                                                                "szerzo",
-                                                                "vizsgaEvKezdet",
-                                                                "viszgaEvVeg",
-                                                                "dokLegutobbModositva",
-                                                                "feltoltesIdopontja",
-                                                                "path");
                         Global.FeltoltUrit(textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
-                                            textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
-                                            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
-                                            numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
-                                            null,
-                                            null,
-                                            null,
-                                            textBoxFileNameFeltoltKozepsikolaAnyakonyv);
+                            textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv,
+                            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
+                            numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
+                            null,
+                            null,
+                            null,
+                            textBoxFileNameFeltoltKozepsikolaAnyakonyv);
                     }
                     break;
             }
@@ -752,23 +748,43 @@ namespace Nyilvantarto_v2
             switch (labelMenuKat.Text)
             {
                 case "Szakmai vizsga - törzslap":
-                    Global.fileKereseseFajlkezeloben(Global.fullPath + @"\Adatok\Szakmai vizsga\Törzslap\" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), "szakmaivizsgaTorzslap");
+                    Global.fileKereseseFajlkezeloben(
+                        Global.fileStorageRelativePath + @"\Adatok\Szakmai vizsga\Törzslap", 
+                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString(),
+                        "szakmaivizsgaTorzslap"
+                    );
                     break;
 
                 case "Érettségi - törzslap":
-                    Global.fileKereseseFajlkezeloben(Global.fullPath + @"\Adatok\Érettségi\Törzslap\" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), "erettsegitorzslap");
+                    Global.fileKereseseFajlkezeloben(
+                        Global.fileStorageRelativePath + @"\Adatok\Érettségi\Törzslap",
+                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString(),
+                        "erettsegitorzslap"
+                    );
                     break;
 
                 case "Érettségi - tanusítvány":
-                    Global.fileKereseseFajlkezeloben(Global.fullPath + @"\Adatok\Érettségi\Tanusítvány\" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), "erettsegitanusitvany");
+                    Global.fileKereseseFajlkezeloben(
+                        Global.fileStorageRelativePath + @"\Adatok\Érettségi\Tanusítvány",
+                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString(),
+                        "erettsegitanusitvany"
+                    );
                     break;
 
                 case "Szakmai vizsga - anyakönyv":
-                    Global.fileKereseseFajlkezeloben(Global.fullPath + @"\Adatok\Szakmai vizsga\Anyakönyv\" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), "szakmaivizsgaanyakonyv");
+                    Global.fileKereseseFajlkezeloben(
+                        Global.fileStorageRelativePath + @"\Adatok\Szakmai vizsga\Anyakönyv",
+                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString(),
+                        "szakmaivizsgaanyakonyv"
+                    );
                     break;
 
                 case "Középiskola - anyakönyv":
-                    Global.fileKereseseFajlkezeloben(Global.fullPath + @"\Adatok\Középiskola\Anyakönyv\" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), "kozepiskolaanyakonyv");
+                    Global.fileKereseseFajlkezeloben(
+                        Global.fileStorageRelativePath + @"\Adatok\Középiskola\Anyakönyv",
+                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString(),
+                        "kozepiskolaanyakonyv"
+                    );
                     break;
             }
         }
@@ -781,7 +797,8 @@ namespace Nyilvantarto_v2
             }
             catch (IOException)
             {
-                MessageBox.Show("A program futása közben megnyitott fájl még meg van nyitva, így nem tud leállni a program.\nA megnyitott file-t mentsd másként vagy zárd be.");
+                MessageBox.Show(
+                    "A program futása közben megnyitott fájl még meg van nyitva, így nem tud leállni a program.\nA megnyitott file-t mentsd másként vagy zárd be.");
                 e.Cancel = true;
             }
             catch (Exception)
@@ -804,72 +821,80 @@ namespace Nyilvantarto_v2
 
         private void buttonErettsegiTorzslap_Click(object sender, EventArgs e)
         {
+            ActivateErettsegiTorzslap();
+        }
+
+        private void ActivateErettsegiTorzslap()
+        {
             Global.SetAndResetButtonColors(buttonErettsegiTorzslap,
-                                            buttonErettsegiTanusitvany,
-                                            buttonSzakmaiVizsgaTorzslap,
-                                            buttonKozepiskolaAnyakonyv,
-                                            buttonSzakmaiViszgaAnyakonyv);
+                buttonErettsegiTanusitvany,
+                buttonSzakmaiVizsgaTorzslap,
+                buttonKozepiskolaAnyakonyv,
+                buttonSzakmaiViszgaAnyakonyv);
             Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve", "Vizsga időszaka");
             ButtonKeresClick();
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void buttonErettsegiTanusitvany_Click(object sender, EventArgs e)
         {
             Global.SetAndResetButtonColors(buttonErettsegiTanusitvany,
-                                            buttonKozepiskolaAnyakonyv,
-                                            buttonErettsegiTorzslap,
-                                            buttonSzakmaiVizsgaTorzslap,
-                                            buttonSzakmaiViszgaAnyakonyv);
-            Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve", "Tanulói azonosító");
+                buttonKozepiskolaAnyakonyv,
+                buttonErettsegiTorzslap,
+                buttonSzakmaiVizsgaTorzslap,
+                buttonSzakmaiViszgaAnyakonyv);
+            Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve",
+                "Tanulói azonosító");
             ButtonKeresClick();
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void buttonSzakmaiVizsgaTorzslap_Click(object sender, EventArgs e)
         {
             Global.SetAndResetButtonColors(buttonSzakmaiVizsgaTorzslap,
-                                            buttonErettsegiTanusitvany,
-                                            buttonErettsegiTorzslap,
-                                            buttonKozepiskolaAnyakonyv,
-                                            buttonSzakmaiViszgaAnyakonyv);
+                buttonErettsegiTanusitvany,
+                buttonErettsegiTorzslap,
+                buttonKozepiskolaAnyakonyv,
+                buttonSzakmaiViszgaAnyakonyv);
             Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Vizsga éve", "Vizsga időszaka");
             ButtonKeresClick();
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void buttonSzakmaiViszgaAnyakonyv_Click(object sender, EventArgs e)
         {
             Global.SetAndResetButtonColors(buttonSzakmaiViszgaAnyakonyv,
-                                            buttonErettsegiTanusitvany,
-                                            buttonErettsegiTorzslap,
-                                            buttonKozepiskolaAnyakonyv,
-                                            buttonSzakmaiVizsgaTorzslap);
-            Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Középiskola kezdete", "Érettségi éve");
+                buttonErettsegiTanusitvany,
+                buttonErettsegiTorzslap,
+                buttonKozepiskolaAnyakonyv,
+                buttonSzakmaiVizsgaTorzslap);
+            Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Középiskola kezdete",
+                "Érettségi éve");
             ButtonKeresClick();
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void buttonKozepiskolaAnyakonyv_Click(object sender, EventArgs e)
         {
             Global.SetAndResetButtonColors(buttonKozepiskolaAnyakonyv,
-                                            buttonErettsegiTanusitvany,
-                                            buttonErettsegiTorzslap,
-                                            buttonSzakmaiViszgaAnyakonyv,
-                                            buttonSzakmaiVizsgaTorzslap);
-            Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Középiskola kezdete", "Érettségi éve");
+                buttonErettsegiTanusitvany,
+                buttonErettsegiTorzslap,
+                buttonSzakmaiViszgaAnyakonyv,
+                buttonSzakmaiVizsgaTorzslap);
+            Global.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Anyja neve", "Középiskola kezdete",
+                "Érettségi éve");
             ButtonKeresClick();
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void textBoxanyjaNeve_TextChanged(object sender, EventArgs e)
         {
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void numericUpDownViszgaÉve_ValueChanged(object sender, EventArgs e)
         {
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void checkBoxViszgaEve_CheckedChanged(object sender, EventArgs e)
@@ -883,13 +908,13 @@ namespace Nyilvantarto_v2
             {
                 numericUpDownVizsgaÉveKeres.Controls[1].Text = "1900";
             }
-            TextBoxTanuloNeve_TextChanged(sender, e);
 
+            UpdateResultSet();
         }
 
         private void numericUpDownTalalatokSzama_ValueChanged(object sender, EventArgs e)
         {
-            TextBoxTanuloNeve_TextChanged(sender, e);
+            UpdateResultSet();
         }
 
         private void textBoxTanuloNeveFeltolt_TextChanged(object sender, EventArgs e)
@@ -910,7 +935,26 @@ namespace Nyilvantarto_v2
 
         private void numericUpDownKozepiskKezdeteKozepiskolaAnyakonyv_ValueChanged(object sender, EventArgs e)
         {
-            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv.Value = numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv.Value + 4;
+            numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv.Value =
+                numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv.Value + 4;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Resize(object sender, EventArgs e)
+        {
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+        }
+
+        private void FormMain_Paint(object sender, PaintEventArgs e)
+        {
+            SetControlPosition();
         }
     }
 }

@@ -1,11 +1,16 @@
-﻿namespace Nyilvantarto_v2
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Nyilvantarto_v2
 {
     partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,7 +34,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.labelMentesiHely = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -259,8 +264,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1394,6 +1399,8 @@
             this.Text = "Nyílvántartó";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormMain_Paint);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.groupBoxEleresi.ResumeLayout(false);
             this.groupBoxEleresi.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -1441,108 +1448,108 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelMentesiHely;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonTallozas;
-        private System.Windows.Forms.GroupBox groupBoxEleresi;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label labelPath;
-        private System.Windows.Forms.Timer updateDbStateTimer;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label labelKapcsolatAdatbazissal;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button buttonErettsegiTorzslap;
-        private System.Windows.Forms.Button buttonErettsegiTanusitvany;
-        private System.Windows.Forms.Button buttonSzakmaiVizsgaTorzslap;
-        private System.Windows.Forms.Button buttonSzakmaiViszgaAnyakonyv;
-        private System.Windows.Forms.Button buttonKozepiskolaAnyakonyv;
-        private System.Windows.Forms.TextBox textBoxTanuloNeveKeres;
-        private System.Windows.Forms.TextBox textBoxanyjaNeveKeres;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownVizsgaÉveKeres;
-        private System.Windows.Forms.CheckBox checkBoxVizsgaEve;
-        private System.Windows.Forms.Panel panelKeres;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDownTalalatokSzama;
-        private System.Windows.Forms.Button buttonFeltoltes;
-        private System.Windows.Forms.Button buttonModositas;
-        private System.Windows.Forms.Button buttonTorles;
-        private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap;
-        private System.Windows.Forms.TextBox textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap;
-        private System.Windows.Forms.Button buttonMentes;
-        private System.Windows.Forms.Button buttonMegse;
-        private System.Windows.Forms.Button buttonMentesUj;
-        private System.Windows.Forms.Label labelMenuKat;
-        private System.Windows.Forms.Panel panelFeltModTorl;
-        private System.Windows.Forms.Button buttonTalloz;
-        private System.Windows.Forms.TextBox textBoxFileNameFeltoltSzakmaiViszgaTorzslap;
-        private System.Windows.Forms.Panel panelFeltolt;
-        private System.Windows.Forms.Panel panelSzakmaiViszgaTorzslapFeltolt;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.RadioButton radioButtonOszFeltoltSzakmaiViszgaTorzslap;
-        private System.Windows.Forms.RadioButton radioButtonTavaszFeltoltSzakmaiViszgaTorzslap;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap;
-        private System.Windows.Forms.Panel panelErettsegiTanusitvanyFeltolt;
-        private System.Windows.Forms.NumericUpDown numericUpDownVizsgaEveFeltoltErettsegiTanusitvany;
-        private System.Windows.Forms.TextBox textBoxFileNameFeltoltErettsegiTanusitvany;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltoltErettsegiTanusitvany;
-        private System.Windows.Forms.TextBox textBoxTanuloNeveFeltoltErettsegiTanusitvany;
-        private System.Windows.Forms.Panel panelErettsegiTorzslapFeltolt;
-        private System.Windows.Forms.NumericUpDown numericUpDownViszgaEveFeltoltErettsegiTorzslap;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.RadioButton radioButtonOszFeltoltErettsegiTorzslap;
-        private System.Windows.Forms.RadioButton radioButtonTavaszFeltoltErettsegiTorzslap;
-        private System.Windows.Forms.TextBox textBoxFileNameFeltoltErettsegiTorzslap;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltoltErettsegiTorzslap;
-        private System.Windows.Forms.TextBox textBoxTanuloNeveFeltoltErettsegiTorzslap;
-        private System.Windows.Forms.Panel panelKozepiskolaAnyakonyvFeltolt;
-        private System.Windows.Forms.NumericUpDown numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv;
-        private System.Windows.Forms.TextBox textBoxFileNameFeltoltKozepsikolaAnyakonyv;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv;
-        private System.Windows.Forms.TextBox textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv;
-        private System.Windows.Forms.NumericUpDown numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Panel panelSzakmaiVizsgaAnyakonyvFeltolt;
-        private System.Windows.Forms.NumericUpDown numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.NumericUpDown numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv;
-        private System.Windows.Forms.TextBox textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv;
-        private System.Windows.Forms.TextBox textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt;
-        private System.Windows.Forms.TextBox textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Panel panelModTorol;
-        private System.Windows.Forms.Panel panelSzakmaiViszgaTorzslapFileName;
-        private System.Windows.Forms.Panel panelTallozMentesujButton;
-        private System.Windows.Forms.Panel panelKozepiskolaAnyakonyvFilneName;
-        private System.Windows.Forms.Panel panelErettsegiTtorzslapFileName;
-        private System.Windows.Forms.Panel panelSzakmaivizsgaAnyakonyvFileName;
-        private System.Windows.Forms.Panel panelErettsegiTanusitvanyFileName;
-        private System.Windows.Forms.GroupBox groupBoxAlso;
+        private Label label1;
+        private Label labelMentesiHely;
+        private Label label2;
+        private Button buttonTallozas;
+        private GroupBox groupBoxEleresi;
+        private Label label3;
+        private Label labelPath;
+        private Timer updateDbStateTimer;
+        private Label label4;
+        private Label labelKapcsolatAdatbazissal;
+        private DataGridView dataGridView1;
+        private Button buttonErettsegiTorzslap;
+        private Button buttonErettsegiTanusitvany;
+        private Button buttonSzakmaiVizsgaTorzslap;
+        private Button buttonSzakmaiViszgaAnyakonyv;
+        private Button buttonKozepiskolaAnyakonyv;
+        private TextBox textBoxTanuloNeveKeres;
+        private TextBox textBoxanyjaNeveKeres;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private NumericUpDown numericUpDownVizsgaÉveKeres;
+        private CheckBox checkBoxVizsgaEve;
+        private Panel panelKeres;
+        private Label label8;
+        private NumericUpDown numericUpDownTalalatokSzama;
+        private Button buttonFeltoltes;
+        private Button buttonModositas;
+        private Button buttonTorles;
+        private Panel panelMenu;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private TextBox textBoxAnyjaNeveFeltoltSzakmaiViszgaTorzslap;
+        private TextBox textBoxTanuloNeveFeltoltSzakmaiViszgaTorzslap;
+        private Button buttonMentes;
+        private Button buttonMegse;
+        private Button buttonMentesUj;
+        private Label labelMenuKat;
+        private Panel panelFeltModTorl;
+        private Button buttonTalloz;
+        private TextBox textBoxFileNameFeltoltSzakmaiViszgaTorzslap;
+        private Panel panelFeltolt;
+        private Panel panelSzakmaiViszgaTorzslapFeltolt;
+        private Label label13;
+        private RadioButton radioButtonOszFeltoltSzakmaiViszgaTorzslap;
+        private RadioButton radioButtonTavaszFeltoltSzakmaiViszgaTorzslap;
+        private Label label12;
+        private NumericUpDown numericUpDownViszgaEveFeltoltSzakmaiViszgaTorzslap;
+        private Panel panelErettsegiTanusitvanyFeltolt;
+        private NumericUpDown numericUpDownVizsgaEveFeltoltErettsegiTanusitvany;
+        private TextBox textBoxFileNameFeltoltErettsegiTanusitvany;
+        private Label label20;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private TextBox textBoxAnyjaNeveFeltoltErettsegiTanusitvany;
+        private TextBox textBoxTanuloNeveFeltoltErettsegiTanusitvany;
+        private Panel panelErettsegiTorzslapFeltolt;
+        private NumericUpDown numericUpDownViszgaEveFeltoltErettsegiTorzslap;
+        private Label label14;
+        private RadioButton radioButtonOszFeltoltErettsegiTorzslap;
+        private RadioButton radioButtonTavaszFeltoltErettsegiTorzslap;
+        private TextBox textBoxFileNameFeltoltErettsegiTorzslap;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private TextBox textBoxAnyjaNeveFeltoltErettsegiTorzslap;
+        private TextBox textBoxTanuloNeveFeltoltErettsegiTorzslap;
+        private Panel panelKozepiskolaAnyakonyvFeltolt;
+        private NumericUpDown numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv;
+        private TextBox textBoxFileNameFeltoltKozepsikolaAnyakonyv;
+        private Label label30;
+        private Label label31;
+        private Label label32;
+        private Label label33;
+        private TextBox textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv;
+        private TextBox textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv;
+        private NumericUpDown numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv;
+        private Label label29;
+        private Panel panelSzakmaiVizsgaAnyakonyvFeltolt;
+        private NumericUpDown numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv;
+        private Label label24;
+        private NumericUpDown numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv;
+        private TextBox textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv;
+        private Label label25;
+        private Label label26;
+        private Label label27;
+        private Label label28;
+        private TextBox textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv;
+        private TextBox textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt;
+        private TextBox textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany;
+        private Label label19;
+        private Panel panelModTorol;
+        private Panel panelSzakmaiViszgaTorzslapFileName;
+        private Panel panelTallozMentesujButton;
+        private Panel panelKozepiskolaAnyakonyvFilneName;
+        private Panel panelErettsegiTtorzslapFileName;
+        private Panel panelSzakmaivizsgaAnyakonyvFileName;
+        private Panel panelErettsegiTanusitvanyFileName;
+        private GroupBox groupBoxAlso;
     }
 }
 
