@@ -801,24 +801,7 @@ namespace Nyilvantarto_v2
                 MessageBox.Show("Hiba");
             }
         }
-        public static void SetAndResetButtonColors(Button buttonSet,
-                                                    Button buttonReset1,
-                                                    Button buttonReset2,
-                                                    Button buttonReset3,
-                                                    Button buttonReset4)
-        {
-            globSelectedButton = buttonSet.Text;
-            buttonSet.BackColor = Color.Black;
-            buttonSet.ForeColor = Color.White;
-            buttonReset1.ForeColor = Color.Black;
-            buttonReset1.BackColor = default;
-            buttonReset2.ForeColor = Color.Black;
-            buttonReset2.BackColor = default;
-            buttonReset3.ForeColor = Color.Black;
-            buttonReset3.BackColor = default;
-            buttonReset4.ForeColor = Color.Black;
-            buttonReset4.BackColor = default;
-        }
+
         public static void FirstClickShow(Panel panel1,
                                             Panel panel2,
                                             DataGridView dataGridView)

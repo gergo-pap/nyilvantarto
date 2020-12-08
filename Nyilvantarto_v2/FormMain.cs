@@ -30,7 +30,7 @@ namespace Nyilvantarto_v2
         //Form load, closing
         private void FormMain_Load(object sender, EventArgs e)
         {
-            panelMenu.Width = 0;
+            panelMenu.Left = - panelMenu.Width;
 
             if (!Controll.CheckDB_Conn(true))
             {
@@ -508,15 +508,6 @@ namespace Nyilvantarto_v2
         }
         private void ShowPanelMenu()
         {
-            panelMenu.BringToFront();
-            panelMenu.Visible = true;
-
-            for (int i = 0; i < 30; i++) //600 széles legyen
-            {
-                panelMenu.Width += 20;
-                Thread.Sleep(3);
-            }
-
             panelFeltolt.Visible = true;
             SetAndResetButtonColors(buttonFeltoltes);
             panelModTorol.Visible = false;
@@ -528,10 +519,22 @@ namespace Nyilvantarto_v2
                 panelSzakmaivizsgaAnyakonyvFileName,
                 true);
             ;
+
+            panelMenu.BringToFront();
+            panelMenu.Visible = true;
+
+            while (panelMenu.Left < -10)
+            {
+                panelMenu.Left += Math.Max(1, (int)((double)Math.Abs(panelMenu.Left) * 0.25));
+                panelMenu.Refresh();
+            }
+
+            panelMenu.Left = 0;
+
         }
         private void HidePanelMenu()
         {
-            panelMenu.Width = 0;
+            panelMenu.Left = - panelMenu.Width;
             panelMenu.Visible = false;
             panelFeltolt.Visible = false;
             panelModTorol.Visible = true;
@@ -910,6 +913,11 @@ namespace Nyilvantarto_v2
                     button.BackColor = default;
                 }
             }
+        }
+
+        private void panelMenu_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
