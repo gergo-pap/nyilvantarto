@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -8,9 +11,19 @@ namespace Nyilvantarto_v2
 {
     public partial class FormMain : Form
     {
+        private List<Button> buttons;
+
         public FormMain()
         {
             InitializeComponent();
+
+            buttons = new List<Button> {
+                buttonErettsegiTanusitvany,
+                buttonKozepiskolaAnyakonyv,
+                buttonErettsegiTorzslap,
+                buttonSzakmaiVizsgaTorzslap,
+                buttonSzakmaiVizsgaAnyakonyv
+            };
         }
 
 
@@ -237,44 +250,28 @@ namespace Nyilvantarto_v2
         }
         private void buttonErettsegiTanusitvany_Click(object sender, EventArgs e)
         {
-            Controll.SetAndResetButtonColors(buttonErettsegiTanusitvany,
-                buttonKozepiskolaAnyakonyv,
-                buttonErettsegiTorzslap,
-                buttonSzakmaiVizsgaTorzslap,
-                buttonSzakmaiVizsgaAnyakonyv);
+            SetAndResetButtonColors(buttonErettsegiTanusitvany);
             Controll.SetDatagridViewColumns(dataGridView1, "Vizsga éve", "Tanulói azonosító");
             ButtonKeresClick();
             UpdateResultSet();
         }
         private void buttonSzakmaiVizsgaTorzslap_Click(object sender, EventArgs e)
         {
-            Controll.SetAndResetButtonColors(buttonSzakmaiVizsgaTorzslap,
-                buttonErettsegiTanusitvany,
-                buttonErettsegiTorzslap,
-                buttonKozepiskolaAnyakonyv,
-                buttonSzakmaiVizsgaAnyakonyv);
+            SetAndResetButtonColors(buttonSzakmaiVizsgaTorzslap);
             Controll.SetDatagridViewColumns(dataGridView1, "Vizsga éve", "Vizsga időszaka");
             ButtonKeresClick();
             UpdateResultSet();
         }
         private void buttonSzakmaiVizsgaAnyakonyv_Click(object sender, EventArgs e)
         {
-            Controll.SetAndResetButtonColors(buttonSzakmaiVizsgaAnyakonyv,
-                buttonErettsegiTanusitvany,
-                buttonErettsegiTorzslap,
-                buttonKozepiskolaAnyakonyv,
-                buttonSzakmaiVizsgaTorzslap);
+            SetAndResetButtonColors(buttonSzakmaiVizsgaAnyakonyv);
             Controll.SetDatagridViewColumns(dataGridView1, "Középiskola kezdete", "Érettségi éve");
             ButtonKeresClick();
             UpdateResultSet();
         }
         private void buttonKozepiskolaAnyakonyv_Click(object sender, EventArgs e)
         {
-            Controll.SetAndResetButtonColors(buttonKozepiskolaAnyakonyv,
-                buttonErettsegiTanusitvany,
-                buttonErettsegiTorzslap,
-                buttonSzakmaiVizsgaAnyakonyv,
-                buttonSzakmaiVizsgaTorzslap);
+            SetAndResetButtonColors(buttonKozepiskolaAnyakonyv);
             Controll.SetDatagridViewColumns(dataGridView1, "Középiskola kezdete", "Érettségi éve");
             ButtonKeresClick();
             UpdateResultSet();
@@ -521,8 +518,7 @@ namespace Nyilvantarto_v2
             }
 
             panelFeltolt.Visible = true;
-            Controll.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles,
-                buttonModositas);
+            SetAndResetButtonColors(buttonFeltoltes);
             panelModTorol.Visible = false;
             Controll.SetPanelVisibility(panelTallozMentesujButton,
                 panelSzakmaiVizsgaTorzslapFileName,
@@ -539,8 +535,7 @@ namespace Nyilvantarto_v2
             panelMenu.Visible = false;
             panelFeltolt.Visible = false;
             panelModTorol.Visible = true;
-            Controll.SetAndResetButtonColors(buttonFeltoltes, buttonTorles, buttonModositas, buttonTorles,
-                buttonFeltoltes);
+            SetAndResetButtonColors(buttonFeltoltes);
 
             CleanupForm();
         }
@@ -883,11 +878,7 @@ namespace Nyilvantarto_v2
         }
         private void ActivateErettsegiTorzslap()
         {
-            Controll.SetAndResetButtonColors(buttonErettsegiTorzslap,
-                buttonErettsegiTanusitvany,
-                buttonSzakmaiVizsgaTorzslap,
-                buttonKozepiskolaAnyakonyv,
-                buttonSzakmaiVizsgaAnyakonyv);
+            SetAndResetButtonColors(buttonErettsegiTorzslap);
             Controll.SetDatagridViewColumns(dataGridView1, "Tanuló neve", "Vizsga időszaka");
             ButtonKeresClick();
             UpdateResultSet();
@@ -899,9 +890,26 @@ namespace Nyilvantarto_v2
             Controll.CreateDirectiories(labelMentesiHely);
         }
 
-        private void textBoxFileNameFeltoltSzakmaiVizsgaTorzslap_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        private void textBoxFileNameFeltoltSzakmaiVizsgaTorzslap_Validating(object sender, CancelEventArgs e)
         {
 
+        }
+
+        public void SetAndResetButtonColors(Button activeButton)
+        {
+            foreach (Button button in buttons)
+            {
+                if (button == activeButton)
+                {
+                    button.BackColor = Color.Black;
+                    button.ForeColor = Color.White;
+                }
+                else
+                {
+                    button.ForeColor = Color.Black;
+                    button.BackColor = default;
+                }
+            }
         }
     }
 }
