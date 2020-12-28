@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace Nyilvantarto_v2.Categories
 {
-    class KozepiskolaiAnyakonyv : Category
+    class SzakmaiVizsgaAnyakonyv : Category
     {
-        public override string relativePath => @"\Adatok\Középiskola\Anyakönyv";
-        public override string categoryPrettyName => "Középiskola anyakönyv";
-        public override string sqlTableName => "kozepiskolaanyakonyv";
+        public override string relativePath => @"\Adatok\Szakmai vizsga\Anyakönyv";
+        public override string categoryPrettyName => "Szakmaivizsga Anyakönyv";
+        public override string sqlTableName => "szakmaivizsgaanyakonyv";
         public override string row1Spec => "vizsgaEvKezdet";
         public override string row2Spec => "vizsgaEvVeg";
         public override Panel panelFeltolt { get; set; }
@@ -19,8 +19,8 @@ namespace Nyilvantarto_v2.Categories
 
         protected override List<string> customSqlColumns => new List<string>
         {
-             "Középiskola kezdete",
-             "Érettségi éve"
+            "Középiskola kezdete",
+            "Érettségi éve"
         };
     }
 }

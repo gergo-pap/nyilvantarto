@@ -147,14 +147,14 @@ namespace Nyilvantarto_v2
 
 
         //Directiories
-        public static void CreateDirectiories(Label labelMentesiHely)
+        public static void CreateDirectiories(string labelMentesiHely)
         {
-            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Középiskola\Anyakönyv\");
-            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Anyakönyv\");
-            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Szakmai Vizsga\Törzslap\");
-            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Törzslap\");
-            Directory.CreateDirectory(labelMentesiHely.Text + @"\Adatok\Érettségi\Tanusítvány\");
-            fileStorageRelativePath = labelMentesiHely.Text;
+            Directory.CreateDirectory(labelMentesiHely + @"\Adatok\Középiskola\Anyakönyv\");
+            Directory.CreateDirectory(labelMentesiHely + @"\Adatok\Szakmai Vizsga\Anyakönyv\");
+            Directory.CreateDirectory(labelMentesiHely + @"\Adatok\Szakmai Vizsga\Törzslap\");
+            Directory.CreateDirectory(labelMentesiHely + @"\Adatok\Érettségi\Törzslap\");
+            Directory.CreateDirectory(labelMentesiHely + @"\Adatok\Érettségi\Tanusítvány\");
+            fileStorageRelativePath = labelMentesiHely;
         }
         public static void CheckDirs(GroupBox groupBoxEleresi, Label labelMentesiHely, Panel panel, string varString)
         {
@@ -172,6 +172,7 @@ namespace Nyilvantarto_v2
                 labelMentesiHely.Text = path;
                 groupBoxEleresi.Visible = false;
                 panel.Visible = true;
+                loadFileStorageRelativePath();
                 // fileStorageRelativePath = labelMentesiHely.Text;
             }
         }
@@ -179,18 +180,18 @@ namespace Nyilvantarto_v2
         {
             foreach (var mappa in torlendoMappak)
             {
-                File.Delete(mappa);
+                Directory.Delete(mappa, true); //TODO
                 MessageBox.Show("Mappa törlése:  " + mappa);
             }
         }
 
 
         //Database függvények
-        public static void SetPathInDB(Label labelMentesiHely, GroupBox groupBoxEleresi, string eleresiUt)
+        public static void SetPathInDB(string labelMentesiHely, GroupBox groupBoxEleresi, string eleresiUt)
         {
             try
             {
-                if (!pathContainSpecChars(labelMentesiHely.Text, labelMentesiHely.Text))
+                if (!pathContainSpecChars(labelMentesiHely, labelMentesiHely))
                 {
                     string SQL = "INSERT INTO " +
                                  "settings " +
@@ -203,7 +204,7 @@ namespace Nyilvantarto_v2
 
                     var cmd = createCommand(SQL);
                     cmd.Parameters.AddWithValue("@var", eleresiUt);
-                    cmd.Parameters.AddWithValue("@value", labelMentesiHely.Text);
+                    cmd.Parameters.AddWithValue("@value", labelMentesiHely);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -280,17 +281,17 @@ namespace Nyilvantarto_v2
 
 
         //Datagridview függvények
-        public static void dataGridViewBasicSettings(DataGridView dt, Panel panel)
+        public static void dataGridViewBasicSettings(DataGridView dataGridView, Panel panelKeres)
         {
             //Global.dataGridViewKeresesEredmenyeiClear(dataGridView1);
-            dt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dt.MultiSelect = false;
-            dt.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9F, FontStyle.Bold);
-            if (!dt.Visible || !panel.Visible)
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView.MultiSelect = false;
+            dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9F, FontStyle.Bold);
+            if (!dataGridView.Visible || !panelKeres.Visible)
             {
-                dt.Visible = true;
-                panel.Visible = true;
+                dataGridView.Visible = true;
+                panelKeres.Visible = true;
             }
         }
         public static void dataGridViewClear(DataGridView dataGridView)
@@ -468,7 +469,7 @@ namespace Nyilvantarto_v2
         }
         public static void Torles(string id, string from, string destination)
         {
-            string torlendo = fileStorageRelativePath + destination + id + ".dat";
+            string torlendo = $@"{fileStorageRelativePath}{destination}\{id}.dat";
             try
             {
                 string SQL = "DELETE FROM " +
@@ -477,9 +478,10 @@ namespace Nyilvantarto_v2
                              "id =" + id
                     ;
                 var cmd = createCommand(SQL);
+                cmd.Parameters.AddWithValue($"@{from}", from);
 
                 cmd.ExecuteNonQuery();
-
+                MessageBox.Show($"Torlendo: {torlendo}");
                 File.Delete(torlendo);
 
                 MessageBox.Show("Sikeres törlés");
@@ -513,7 +515,7 @@ namespace Nyilvantarto_v2
             }
             if (tbOther != null)
             {
-                tavaszVosz = int.Parse(tbOther.Text.ToString());
+                tavaszVosz = int.Parse(tbOther.Text);
             }
             if (numericUpDown2 != null)
             {
@@ -558,64 +560,50 @@ namespace Nyilvantarto_v2
                                 RadioButton radioTavaszTrue,
                                 RadioButton radioOszTrue,
                                 NumericUpDown numeric)
-                            {
-                                tbTan.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
-                                tbAnyja.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
-                                numericUpDown.Value = decimal.Parse(dataGridView.SelectedRows[0].Cells[3].Value.ToString());
-                                if (tb != null)
-                                {
-                                    tb.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
-                                }
-                                else if (radioTavaszTrue != null)
-                                {
-                                    if (dataGridView.SelectedRows[0].Cells[4].Value.ToString() == "Tavasz")
-                                    {
-                                        radioTavaszTrue.Checked = true;
-                                    }
-                                    else
-                                    {
-                                        radioOszTrue.Checked = true;
-                                    }
-                                }
-                                else if (numeric != null)
-                                {
-                                    numeric.Value = decimal.Parse(dataGridView.SelectedRows[0].Cells[4].Value.ToString());
-                                }
-                            }
+        {
+            tbTan.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+            tbAnyja.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
+            numericUpDown.Value = decimal.Parse(dataGridView.SelectedRows[0].Cells[3].Value.ToString());
+            if (tb != null)
+            {
+                tb.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
+            }
+            else if (radioTavaszTrue != null)
+            {
+                if (dataGridView.SelectedRows[0].Cells[4].Value.ToString() == "Tavasz")
+                {
+                    radioTavaszTrue.Checked = true;
+                }
+                else
+                {
+                    radioOszTrue.Checked = true;
+                }
+            }
+            else if (numeric != null)
+            {
+                numeric.Value = decimal.Parse(dataGridView.SelectedRows[0].Cells[4].Value.ToString());
+            }
+        }
 
 
 
         //File keresése
         public static void SearchFileInFileExplorer(string specDir, string id, string tableName)
         {
-            //MessageBox.Show("filename: " + specDir);
-            //MessageBox.Show("tablename: " + tableName);
-            //MessageBox.Show("id: " + idIn);
-
             var getDataCommand = createCommand($"SELECT filename FROM {tableName} WHERE id = @id");
             getDataCommand.Parameters.AddWithValue("@id", id);
             var originalFileName = getDataCommand.ExecuteScalar().ToString();
-
-            //MessageBox.Show("pathFromDB " + pathFromDB.ToString());
-
+            MessageBox.Show($"original filename from db: {originalFileName}");
             string kiterjFromDB = Path.GetExtension(originalFileName);
-            //MessageBox.Show("kiterj " + kiterjFromDB);
-
             string filePathInDb = $"{Controll.fileStorageRelativePath + specDir}\\{id}.dat";
-            //MessageBox.Show("filepath: " + filePath);
             if (!File.Exists(filePathInDb))
             {
                 MessageBox.Show("Nincs meg a File!" + filePathInDb);
                 return;
             }
-
             string tempDirectory = Path.Combine(Path.GetTempPath(), "nyilvantarto_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
             Directory.CreateDirectory(tempDirectory);
-
-            //MessageBox.Show("Ez az ideiglenes könyvtár: " + tempDirectory);
             string filePathInTemp = Path.Combine(tempDirectory, originalFileName);
-            //MessageBox.Show("Ez a file in temp: " + fileInTemp);
-
             try
             {
                 File.Copy(filePathInDb, filePathInTemp);
@@ -627,8 +615,10 @@ namespace Nyilvantarto_v2
 
 
                 // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-                System.Diagnostics.Process.Start(filePathInTemp);
+                MessageBox.Show($"ezt nyitja meg: {filePathInTemp}");
+                Process.Start(filePathInTemp);
                 torlendoMappak.Add(tempDirectory);
+                MessageBox.Show($"tempodir: {tempDirectory}");
             }
 
             catch (NullReferenceException)
@@ -637,24 +627,23 @@ namespace Nyilvantarto_v2
             }
         }
 
-
-
         //Ellenörző függvények
-        public static void CheckTbTextLength(TextBox tb)
+        public static Color CheckTbTextLength(string  text)
         {
-            if (tb.Text.Length == 0)
+            if (text.Length == 0)
             {
-                tb.BackColor = Color.Red;
+                return Color.Red;
             }
             else
             {
-                tb.BackColor = Color.White;
+                return Color.White;
             }
         }
         public static bool pathContainSpecChars(string s1, string s2)
         {
             return s1.IndexOfAny(SpecialChars) != -1 || s2.IndexOfAny(SpecialChars) != -1;
         }
+
         public static bool CheckIfEmptyInput4TextBox(TextBox tb1, TextBox tb2, TextBox tb3, TextBox tb4)
         {
             bool joE = true;
@@ -683,7 +672,7 @@ namespace Nyilvantarto_v2
 
 
         //Panel visibility függvények
-        public static void SetPanelVisibility(Panel p1, Panel p2, Panel p3, Panel p4, Panel p5, Panel p6, bool trueOrFalse)
+        public static void Set6PanelsVisibility(Panel p1, Panel p2, Panel p3, Panel p4, Panel p5, Panel p6, bool trueOrFalse)
         {
             p1.Visible = trueOrFalse;
             p2.Visible = trueOrFalse;
@@ -693,17 +682,12 @@ namespace Nyilvantarto_v2
             p6.Visible = trueOrFalse;
         }
 
-
-
-
         public static void loadFileStorageRelativePath()
         {
             MySqlCommand cmd = createCommand("Select value From settings Where var = @var");
             cmd.Parameters.AddWithValue("@var", "eleresiUt");
-
             var result = cmd.ExecuteScalar();
             fileStorageRelativePath = result.ToString();
-
             cmd.Parameters.Clear();
             //MessageBox.Show("Elérési út: " + fileStorageRelativePath);
         }
@@ -721,6 +705,7 @@ namespace Nyilvantarto_v2
 
                 globKiterjesztes = Path.GetExtension(fileNameWExtension);
                 textBoxFilename.Text = fileNameWExtension;
+
                 globFeltoltendoFileEleresiUt = openFileDialog1.FileName;
             }
         }
@@ -743,7 +728,7 @@ namespace Nyilvantarto_v2
             t1.Clear();
             t2.Clear();
             t4.Clear();
-            n1.Value = 1900;
+            n1.Value = 1904;
             if (n2 != null)
             {
                 n2.Value = 1904;
@@ -761,14 +746,14 @@ namespace Nyilvantarto_v2
                 t3.Clear();
             }
         }
-        public static void Tallozas(Label labelMentesiHely)
+        public static void Tallozas(string labelMentesiHely)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
 
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 string sSelectedPath = fbd.SelectedPath;
-                labelMentesiHely.Text = sSelectedPath;
+                labelMentesiHely = sSelectedPath;
             }
             else
             {
@@ -776,9 +761,10 @@ namespace Nyilvantarto_v2
             }
         }
 
-        public static void FirstClickShow(Panel panel1,
-                                            Panel panel2,
-                                            DataGridView dataGridView)
+        public static void FirstClickShow(
+            Panel panel1,
+            Panel panel2,
+            DataGridView dataGridView)
         {
             if (!panel1.Visible)
             {

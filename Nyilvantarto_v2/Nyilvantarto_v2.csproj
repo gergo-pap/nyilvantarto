@@ -78,8 +78,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories\ErettsegiTanusitvany.cs" />
+    <Compile Include="Categories\ErettsegiTorzslap.cs" />
     <Compile Include="Categories\KozepiskolaiAnyakonyv.cs" />
     <Compile Include="Categories\Category.cs" />
+    <Compile Include="Categories\SzakmaiVizsgaAnyakonyv.cs" />
+    <Compile Include="Categories\SzakmaiVizsgaTorzslap.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
