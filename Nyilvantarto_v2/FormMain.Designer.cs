@@ -239,7 +239,7 @@ namespace Nyilvantarto_v2
             // updateDbStateTimer
             // 
             this.updateDbStateTimer.Enabled = true;
-            this.updateDbStateTimer.Interval = 2000;
+            this.updateDbStateTimer.Interval = 5000;
             this.updateDbStateTimer.Tick += new System.EventHandler(this.updateDbStateTimer_Tick);
             // 
             // label4
@@ -472,7 +472,7 @@ namespace Nyilvantarto_v2
             0,
             0,
             0});
-            this.numericUpDownTalalatokSzama.ValueChanged += new System.EventHandler(this.numericUpDownTalalatokSzama_ValueChanged);
+            this.numericUpDownTalalatokSzama.ValueChanged += new System.EventHandler(this.NumericUpDownTalalatokSzama_ValueChanged);
             // 
             // label8
             // 

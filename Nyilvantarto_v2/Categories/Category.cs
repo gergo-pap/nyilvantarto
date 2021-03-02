@@ -31,7 +31,7 @@ namespace Nyilvantarto_v2.Categories
         
         public void OpenFile(string rowId)
         {
-            MessageBox.Show($"rel path: {relativePath} rowid:{rowId}, sqltablename: {sqlTableName}");
+            //MessageBox.Show($"rel path: {relativePath} rowid:{rowId}, sqltablename: {sqlTableName}");
             Controll.SearchFileInFileExplorer(relativePath, rowId, sqlTableName);
         }
     }
