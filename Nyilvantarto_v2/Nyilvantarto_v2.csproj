@@ -84,6 +84,7 @@
     <Compile Include="Categories\Category.cs" />
     <Compile Include="Categories\SzakmaiVizsgaAnyakonyv.cs" />
     <Compile Include="Categories\SzakmaiVizsgaTorzslap.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
