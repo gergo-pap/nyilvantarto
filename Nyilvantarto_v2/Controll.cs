@@ -5,146 +5,20 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Nyilvantarto_v2
 {
-    class Controll
+  class Controll
     {
         public static string FileStorageRelativePath;
         public static string GlobKiterjesztes;
-        public static bool GlobIsaMessageBoxOpen;
         public static string GlobSelectedButton;
         public static string GlobFeltoltendoFileEleresiUt;
-        public static List<string> TorlendoMappak = new List<string>();
+        public static List<string> FoldersToDeleteList = new List<string>();
 
-        private static MySqlConnection _conn = new MySqlConnection("Server=localhost;Database=nyilvantartas;Uid=root;Pwd=;CharSet=utf8;");
 
         private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
-
-        //Create tables
-        public static void CreateTables()
-        {
-            CreateTableSettings();
-            CreateTableKozepiskolaAnyakonyv();
-            CreateTableSzakmaivizsgaAnyakonyv();
-            CreateTableSzakmaivizsgaTorzslap();
-            CreateTableErettsegiTanusitvany();
-            CreateTableErettsegiTorzslap();
-        }
-        public static void CreateTableSettings()
-        {
-            var command = CreateCommand(@"
-                            CREATE TABLE IF NOT EXISTS 
-                                settings 
-                                (
-                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                var TEXT NOT NULL,
-                                value TEXT NOT NULL
-                                );"
-            );
-            command.ExecuteNonQuery();
-        }
-        public static void CreateTableKozepiskolaAnyakonyv()
-        {
-            var command = CreateCommand(
-                    @"
-                            CREATE TABLE IF NOT EXISTS 
-                                kozepiskolaanyakonyv 
-                                (
-                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                tanuloNeve TEXT NOT NULL,
-                                anyjaNeve TEXT NOT NULL,
-                                szerzo TEXT NOT NULL,
-                                vizsgaEvKezdet INT NOT NULL,
-                                vizsgaEvVeg INT NOT NULL,
-                                dokLegutobbModositva DATETIME NOT NULL,
-                                feltoltesIdopontja DATETIME NOT NULL,
-                                filename TEXT NULL
-                                );"
-                );
-            command.ExecuteNonQuery();
-        }
-        public static void CreateTableSzakmaivizsgaAnyakonyv()
-        {
-            var command = CreateCommand(@"
-                            CREATE TABLE IF NOT EXISTS 
-                                szakmaivizsgaanyakonyv 
-                                (
-                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                tanuloNeve TEXT NOT NULL,
-                                anyjaNeve TEXT NOT NULL,
-                                szerzo TEXT NOT NULL,
-                                vizsgaEvKezdet INT NOT NULL,
-                                vizsgaEvVeg INT NOT NULL,
-                                dokLegutobbModositva DATETIME NOT NULL,
-                                feltoltesIdopontja DATETIME NOT NULL,
-                                filename TEXT NULL
-                                );
-                                ");
-            command.ExecuteNonQuery();
-        }
-        public static void CreateTableSzakmaivizsgaTorzslap()
-        {
-
-            var command = CreateCommand(
-                @"
-                            CREATE TABLE IF NOT EXISTS 
-                                szakmaivizsgaTorzslap 
-                                (
-                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                tanuloNeve TEXT NOT NULL,
-                                anyjaNeve TEXT NOT NULL,
-                                szerzo TEXT NOT NULL,
-                                vizsgaEvVeg INT NOT NULL,
-                                vizsgaTavasz1Osz0 BOOLEAN NOT NULL,
-                                dokLegutobbModositva DATETIME NOT NULL,
-                                feltoltesIdopontja DATETIME NOT NULL,
-                                filename TEXT NULL
-                                );
-                                ");
-            command.ExecuteNonQuery();
-        }
-        public static void CreateTableErettsegiTanusitvany()
-        {
-            var command = CreateCommand(@"
-                            CREATE TABLE IF NOT EXISTS 
-                                erettsegitanusitvany 
-                                (
-                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                tanuloNeve TEXT NOT NULL,
-                                anyjaNeve TEXT NOT NULL,
-                                szerzo TEXT NOT NULL,
-                                vizsgaEvVeg INT NOT NULL,
-                                tanuloiAzonosito INT NOT NULL,
-                                dokLegutobbModositva DATETIME NOT NULL,
-                                feltoltesIdopontja DATETIME NOT NULL,
-                                filename TEXT NULL
-                                );
-                                ");
-            command.ExecuteNonQuery();
-        }
-        public static void CreateTableErettsegiTorzslap()
-        {
-            var command = CreateCommand(@"
-                            CREATE TABLE IF NOT EXISTS 
-                                erettsegitorzslap 
-                                (
-                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                tanuloNeve TEXT NOT NULL,
-                                anyjaNeve TEXT NOT NULL,
-                                szerzo TEXT NOT NULL,
-                                vizsgaEvVeg INT NOT NULL,
-                                vizsgaTavasz1Osz0 BOOLEAN NOT NULL,
-                                dokLegutobbModositva DATETIME NOT NULL,
-                                feltoltesIdopontja DATETIME NOT NULL,
-                                filename TEXT NULL
-                                );
-                                ");
-            command.ExecuteNonQuery();
-        }
-
 
         //Directiories
         public static void CreateDirectiories(string labelMentesiHely)
@@ -158,16 +32,11 @@ namespace Nyilvantarto_v2
         }
         public static void CheckDirs(GroupBox groupBoxEleresi, Label labelMentesiHely, Panel panel, string varString)
         {
-            string query = $"SELECT value FROM settings WHERE var = @var; ";
-            MySqlCommand cmd = CreateCommand(query);
-            cmd.Parameters.AddWithValue("@var", varString);
-
-
-            object result = cmd.ExecuteScalar();
-            HandleReasultCheckDirs(groupBoxEleresi, labelMentesiHely, panel, result);
+	        var path = Database.GetFileStoragePathFromDb(varString);
+	        HandleResultCheckDirs(groupBoxEleresi, labelMentesiHely, panel, path);
         }
 
-        private static void HandleReasultCheckDirs(GroupBox groupBoxEleresi, Label labelMentesiHely, Panel panel, object result)
+        private static void HandleResultCheckDirs(GroupBox groupBoxEleresi, Label labelMentesiHely, Panel panel, object result)
         {
             if (result == null)
             {
@@ -187,7 +56,7 @@ namespace Nyilvantarto_v2
 
         public static void DeleteDirsInTemp()
         {
-            foreach (var mappa in TorlendoMappak)
+            foreach (var mappa in FoldersToDeleteList)
             {
                 Directory.Delete(mappa, recursive: true);
                 MessageBox.Show("Mappa törlése:  " + mappa);
@@ -196,110 +65,8 @@ namespace Nyilvantarto_v2
 
 
         //Database függvények
-        public static void SetPathInDb(string labelMentesiHely, GroupBox groupBoxEleresi, string eleresiUt)
-        {
-            try
-            {
-                if (!PathsContainSpecChars(labelMentesiHely, labelMentesiHely))
-                {
-                    string sql = "INSERT INTO " +
-                                 "settings " +
-                                 "VALUES" +
-                                 "(" +
-                                 "NULL, " +
-                                 "@var, " +
-                                 "@value " +
-                                 ")";
 
-                    var cmd = CreateCommand(sql);
-                    cmd.Parameters.AddWithValue("@var", eleresiUt);
-                    cmd.Parameters.AddWithValue("@value", labelMentesiHely);
 
-                    cmd.ExecuteNonQuery();
-                }
-                else
-                {
-                    MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
-                }
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("SQL hiba " + ex.Number + " has occurred: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            groupBoxEleresi.Visible = false;
-        } 
-
-        private static bool IsConnectionOpen()
-        {
-            return _conn.State == ConnectionState.Open;
-        }
-
-        public static MySqlConnection __getConnection()
-        {
-            if (!IsConnectionOpen())
-            {
-                _conn.Close();
-                _conn.Open();
-            }
-
-            return _conn;
-        }
-        public static MySqlCommand CreateCommand(string sqlQuery)
-        {
-            return new MySqlCommand(sqlQuery, __getConnection());
-        }
-        public static bool CheckDB_Conn(bool messageBox)
-        {
-            try
-            {
-                __getConnection();
-                return true;
-            }
-            catch (ArgumentException aEx)
-            {
-                ThrowArgumentException(messageBox, aEx);
-            }
-            catch (MySqlException ex)
-            {
-                ThrowMySqlException(messageBox, ex);
-            }
-
-            return false;
-        }
-
-        private static void ThrowArgumentException(bool messageBox, ArgumentException aEx)
-        {
-            GlobIsaMessageBoxOpen = true;
-            if (messageBox)
-            {
-                MessageBox.Show($"Hibás connection string!\n{aEx.Message}\n{aEx}");
-            }
-
-            GlobIsaMessageBoxOpen = false;
-        }
-
-        private static void ThrowMySqlException(bool showMessageBox, MySqlException ex)
-        {
-            string sqlErrorMessage = $"Üzenet: {ex.Message}\nForrás: {ex.Source}\nSzám: {ex.Number}";
-            GlobIsaMessageBoxOpen = true;
-            if (showMessageBox)
-            {
-                MessageBox.Show(sqlErrorMessage);
-                GlobIsaMessageBoxOpen = false;
-                switch (ex.Number)
-                {
-                    case 1042:
-                        MessageBox.Show("Nem lehet csatlakozni a MySql hosthoz! (Check Server, Port)");
-                        break;
-                    case 0:
-                        MessageBox.Show("Hozzáférés megtagadva! (Check DB name, username, password)");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
 
 
         //Datagridview függvények
@@ -345,13 +112,7 @@ namespace Nyilvantarto_v2
                 likeVkezdet = "";
             }
 
-            var cmd = CreateCommand(
-                $"SELECT id, {rowTneve}, {rowVkezdet}, {rowExtra}, {rowAnyja} " +
-                    $"FROM {from} " +
-                    $"WHERE {rowTneve} like '%{likeTanuloNeve}%' " +
-                    $"AND {rowAnyja} like '%{likeAnyjaNeve}%' " +
-                    $"AND {rowVkezdet} like '%{likeVkezdet}%'"
-            );
+            MySqlCommand cmd = Database.GetSearchResultFromDb(rowVkezdet, rowExtra, @from, likeTanuloNeve, likeAnyjaNeve, likeVkezdet);
 
             FillDataGridViewWithData(rowTneve, rowVkezdet, rowExtra, rowAnyja, dataGridView, db, cmd);
         }
@@ -382,7 +143,7 @@ namespace Nyilvantarto_v2
                 int i = 0;
                 while (reader.Read() && i < db)
                 {
-                    var id2 = GetValues(
+                    var id2 = GetValuesFromOriginalData(
                         reader,
                         id,
                         rowTneveData,
@@ -401,7 +162,7 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private static string GetValues(
+        private static string GetValuesFromOriginalData(
                                         MySqlDataReader reader,
                                         int id,
                                         int rowTneveData,
@@ -458,160 +219,35 @@ namespace Nyilvantarto_v2
 
 
         //Feltölt, töröl, módosít
-        public static void FileFeltolteseBDreEsFileMozgatasa(
-                                                            string textBoxAnyjaNeveFeltolt,
-                                                            string textBoxTanuloNeveFeltolt,
-                                                            string hovaMasolja,
-                                                            dynamic radioButtonOszFeltolt,
-                                                            dynamic numericUpDownEvFeltoltKezdet,
-                                                            string into,
-                                                            string rowVevKezdet,
-                                                            string rowTavaszVosz,
-                                                            string rowDokLegutobbModositva
-        )
+        
+
+
+
+        public static void CopyFile(string hovaMasolja, int returnValue)
         {
-            try
-            {
-
-                byte tavaszOsz = 0;
-                int returnValue = -1;
-                tavaszOsz = SetTavaszOrOszValue(radioButtonOszFeltolt, tavaszOsz);
-
-                if (hovaMasolja.IndexOfAny(SpecialChars) == -1)
-                {
-                    var sql = SetSqlCommandInsertInto(into, rowVevKezdet, rowTavaszVosz, rowDokLegutobbModositva);
-
-                    var cmd = CreateCommand(sql);
-
-                    AddParametersToCmdVizsgaEvKezdet(numericUpDownEvFeltoltKezdet, rowVevKezdet, cmd);
-
-                    AddParametersToCmdTavaszOrOsz(radioButtonOszFeltolt, rowTavaszVosz, cmd, tavaszOsz);
-
-                    AddParametersToCmdRemaining(textBoxAnyjaNeveFeltolt, textBoxTanuloNeveFeltolt, rowDokLegutobbModositva, cmd);
-
-                    object modified = cmd.ExecuteScalar();
-                    returnValue = TryGetLastId(modified, returnValue);
-                    //MessageBox.Show("Feltöltés köv id: " + returnValue.ToString());
-                    string destination = FileStorageRelativePath + hovaMasolja + returnValue + ".dat";
-                    File.Copy(GlobFeltoltendoFileEleresiUt, destination);
-
-                    MessageBox.Show("Sikeres feltöltés!",
-                    "Siker!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    cmd.Parameters.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*");
-                }
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Hiba " + ex.Number + " lépett fel: " + ex.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (IOException)
-            {
-
-                MessageBox.Show("Fájl hiba!\n A fájl már létezik vagy nem található!");
-            }
+	        if (hovaMasolja.IndexOfAny(SpecialChars) != -1)
+	        {
+		        MessageBox.Show("A fájl neve érvénytelen karaktereket tartalmaz! !@#$%^&*\nMásolás nem sikerült!");
+            return;
+	        }
+	        else
+	        {
+		        string destination = FileStorageRelativePath + hovaMasolja + returnValue + ".dat";
+		        File.Copy(GlobFeltoltendoFileEleresiUt, destination);
+		        Console.WriteLine("Sikeres File mozgatás");
+	        }
+	        
         }
 
-        private static byte SetTavaszOrOszValue(dynamic radioButtonOszFeltolt, byte tavaszOrOsz)
-        {
-            if (radioButtonOszFeltolt is RadioButton)
-            {
-                tavaszOrOsz = radioButtonOszFeltolt.Checked ? (byte) 0 : (byte) 1;
-            }
+        
 
-            return tavaszOrOsz;
-        }
 
-        private static int TryGetLastId(object modified, int returnValue)
-        {
-            if (modified != null)
-            {
-                int.TryParse(modified.ToString(), out returnValue);
-            }
 
-            return returnValue;
-        }
+        
 
-        private static void AddParametersToCmdTavaszOrOsz(
-                                                        dynamic radioButtonOszFeltolt,
-                                                        string rowTavaszVosz,
-                                                        MySqlCommand cmd,
-                                                        byte tavaszOsz
-        )
-        {
-            if (radioButtonOszFeltolt is RadioButton)
-            {
-                cmd.Parameters.AddWithValue($"@{rowTavaszVosz}", tavaszOsz);
-            }
-            else if (radioButtonOszFeltolt is NumericUpDown)
-            {
-                cmd.Parameters.AddWithValue($"@{rowTavaszVosz}", radioButtonOszFeltolt.Value);
-            }
-            else if (radioButtonOszFeltolt is TextBox)
-            {
-                cmd.Parameters.AddWithValue($"@{rowTavaszVosz}", int.Parse(radioButtonOszFeltolt.Text));
-            }
-        }
+        
 
-        private static void AddParametersToCmdVizsgaEvKezdet(
-                                                            dynamic numericUpDownEvFeltoltKezdet,
-                                                            string rowVevKezdet,
-                                                            MySqlCommand cmd
-        )
-        {
-            if (numericUpDownEvFeltoltKezdet is NumericUpDown)
-            {
-                cmd.Parameters.AddWithValue($"@{rowVevKezdet}", numericUpDownEvFeltoltKezdet.Value);
-            }
-            else if (numericUpDownEvFeltoltKezdet is TextBox)
-            {
-                cmd.Parameters.AddWithValue($"@{rowVevKezdet}", int.Parse(numericUpDownEvFeltoltKezdet.Text));
-            }
-        }
 
-        private static void AddParametersToCmdRemaining(
-                                                    string textBoxAnyjaNeveFeltolt,
-                                                    string textBoxTanuloNeveFeltolt,
-                                                    string rowDokLegutobbModositva,
-                                                    MySqlCommand cmd
-        )
-        {
-            cmd.Parameters.AddWithValue($"@rowTanuloNeve", textBoxTanuloNeveFeltolt);
-            cmd.Parameters.AddWithValue($"@rowAnyja", textBoxAnyjaNeveFeltolt);
-            cmd.Parameters.AddWithValue($"@rowSzerzo", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            cmd.Parameters.AddWithValue($"@{rowDokLegutobbModositva}", File.GetLastWriteTime(GlobFeltoltendoFileEleresiUt));
-            cmd.Parameters.AddWithValue($"@rowFeltoltesIdopontja", DateTime.Now);
-            cmd.Parameters.AddWithValue($"@filename", Path.GetFileName(GlobFeltoltendoFileEleresiUt));
-        }
-
-        private static string SetSqlCommandInsertInto(
-                                                    string into,
-                                                    string rowVevKezdet,
-                                                    string rowTavaszVosz,
-                                                    string rowDokLegutobbModositva
-        )
-        {
-            return "INSERT INTO " +
-                         $"{into} " +
-                         "VALUES" +
-                         "(" +
-                         $"NULL, " +
-                         $"@rowTanuloNeve, " +
-                         $"@rowAnyja, " +
-                         $"@rowSzerzo, " +
-                         $"@{rowVevKezdet}, " +
-                         $"@{rowTavaszVosz}, " +
-                         $"@{rowDokLegutobbModositva}," +
-                         $"@rowFeltoltesIdopontja," +
-                         $"@filename " +
-                         ");" +
-                         "SELECT LAST_INSERT_ID();"
-                ;
-        }
 
         public static void Torles(string id, string from, string destination)
         {
@@ -623,7 +259,7 @@ namespace Nyilvantarto_v2
                              $"WHERE " +
                              $"id = @{id}"
                     ;
-                var cmd = CreateCommand(sql);
+                var cmd = Database.CreateCommand(sql);
                 cmd.Parameters.AddWithValue($"@{from}", from);
                 cmd.Parameters.AddWithValue($"@{id}", id);
 
@@ -659,7 +295,7 @@ namespace Nyilvantarto_v2
             {
                 try
                 {
-                    var sql = SetSqlCommandUpdate(
+                    var sql = Database.SetSqlCommandUpdate(
                                                         textBoxAnyjaNeveModositas,
                                                         textBoxNevModositas,
                                                         numericUpDownEvKezdetModositas,
@@ -669,7 +305,7 @@ namespace Nyilvantarto_v2
                                                         rowId,
                                                         tavaszVosz
                     );
-                    var cmd = CreateCommand(sql);
+                    var cmd = Database.CreateCommand(sql);
 
                     cmd.ExecuteNonQuery();
 
@@ -690,29 +326,7 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private static string SetSqlCommandUpdate(
-                                                string textBoxAnyjaNeveModositas,
-                                                string textBoxNevModositas,
-                                                int numericUpDownEvKezdetModositas,
-                                                string update,
-                                                string rowVkezdet,
-                                                string rowTavaszVosz,
-                                                string rowId,
-                                                int tavaszVosz
-        )
-        {
-            return
-                    "UPDATE " +
-                    $"{update} " +
-                    "SET " +
-                    $"tanuloNeve = '{textBoxNevModositas}', " +
-                    $"anyjaNeve = '{textBoxAnyjaNeveModositas}', " +
-                    $"{rowVkezdet} = {numericUpDownEvKezdetModositas} , " +
-                    $"{rowTavaszVosz} = {tavaszVosz} " +
-                    "WHERE " +
-                    $"id = '{rowId}';"
-                ;
-        }
+        
 
         private static int SetTavaszOrOszValue(
                                                 RadioButton radioButtonTavaszModosit,
@@ -787,21 +401,27 @@ namespace Nyilvantarto_v2
             //MessageBox.Show($"original filename from db: {originalFileName}");
             string filePathInDb = $"{FileStorageRelativePath + specDir}\\{id}.dat";
             if (CheckIfFileExists(filePathInDb)) return;
-            string tempDirectory = Path.Combine(Path.GetTempPath(), "nyilvantarto_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
-            Directory.CreateDirectory(tempDirectory);
+            string tempDirectory = CreateTempDir();
             string filePathInTemp = Path.Combine(tempDirectory, originalFileName);
             try
             {
                 File.Copy(filePathInDb, filePathInTemp);
-                
                 Process.Start(filePathInTemp);
-                TorlendoMappak.Add(tempDirectory);
+                FoldersToDeleteList.Add(tempDirectory);
             }
 
             catch (NullReferenceException)
             {
                 MessageBox.Show("Nincs kijelölve semmi!");
             }
+        }
+
+        private static string CreateTempDir()
+        {
+	        string tempDirectory = Path.Combine(Path.GetTempPath(),
+		        "nyilvantarto_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
+	        Directory.CreateDirectory(tempDirectory);
+	        return tempDirectory;
         }
 
         private static bool CheckIfFileExists(string filePathInDb)
@@ -817,7 +437,7 @@ namespace Nyilvantarto_v2
 
         private static string GetOriginalFileName(string id, string tableName)
         {
-            var cmd = CreateCommand($"SELECT filename FROM {tableName} WHERE id = @id");
+            var cmd = Database.CreateCommand($"SELECT filename FROM {tableName} WHERE id = @id");
             cmd.Parameters.AddWithValue("@id", id);
             var originalFileName = cmd.ExecuteScalar().ToString();
             return originalFileName;
@@ -879,7 +499,7 @@ namespace Nyilvantarto_v2
 
         public static void LoadFileStorageRelativePath()
         {
-            MySqlCommand cmd = CreateCommand("Select value From settings Where var = @var");
+            MySqlCommand cmd = Database.CreateCommand("Select value From settings Where var = @var");
             cmd.Parameters.AddWithValue("@var", "eleresiUt");
             FileStorageRelativePath = cmd.ExecuteScalar().ToString();
             cmd.Parameters.Clear();
@@ -887,20 +507,20 @@ namespace Nyilvantarto_v2
         }
         public static void Tallozas(TextBox textBoxFilename)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            DialogResult result = openFileDialog1.ShowDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult result = openFileDialog.ShowDialog();
             if (result != DialogResult.OK)
             {
                 MessageBox.Show("Hiba");
             }
             else
             {
-                string fileNameWExtension = Path.GetFileName(openFileDialog1.FileName);
+                string fileNameWExtension = Path.GetFileName(openFileDialog.FileName);
 
                 GlobKiterjesztes = Path.GetExtension(fileNameWExtension);
                 textBoxFilename.Text = fileNameWExtension;
 
-                GlobFeltoltendoFileEleresiUt = openFileDialog1.FileName;
+                GlobFeltoltendoFileEleresiUt = openFileDialog.FileName;
             }
         }
         public static void ClearSearchValues(
