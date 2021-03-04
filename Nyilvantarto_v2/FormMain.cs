@@ -47,7 +47,7 @@ namespace Nyilvantarto_v2
         {
             panelMenu.Left = -panelMenu.Width;
 
-            if (!Controll.CheckDB_Conn(true))
+            if (!Database.CheckDB_Conn(true))
             {
                 return;
             }
@@ -57,7 +57,7 @@ namespace Nyilvantarto_v2
 
         private void LoadSetupCheck(object sender, EventArgs e)
         {
-            Controll.CreateTables();
+            Database.CreateTables();
             Controll.CheckDirs(groupBoxEleresi, labelMentesiHely, panelKeres, "eleresiUt");
             labelPath.Text = Controll.FileStorageRelativePath;
             Controll.DataGridViewBasicSettings(dataGridView1, panelKeres);
@@ -103,13 +103,13 @@ namespace Nyilvantarto_v2
         private void ElsoInditasSetup()
         {
             Controll.Tallozas(labelMentesiHely);
-            Controll.SetPathInDb(labelMentesiHely.Text, groupBoxEleresi, "eleresiUt");
+            Database.SetPathInDb(labelMentesiHely.Text, groupBoxEleresi, "eleresiUt");
             Controll.CreateDirectiories(labelMentesiHely.Text);
             Controll.LoadFileStorageRelativePath();
         }
 
 
-        //Feltolt, modosít, törölt gombok eseményei
+        //Feltölt, módosít, töröl gombok eseményei
         private void ButtonModositas_Click(object sender, EventArgs e)
         {
             _feltoltTrueModFalse = false;
@@ -125,13 +125,13 @@ namespace Nyilvantarto_v2
                 buttonTorles.Visible = false;
                 //MessageBox.Show(selectedCategory.sqlTableName);
 
-                SwitchCaseSelectedCategory();
+                SwitchCaseSelectedCategoryMod();
 
                 //UpdateResultSet();
             }
         }
 
-        private void SwitchCaseSelectedCategory()
+        private void SwitchCaseSelectedCategoryMod()
         {
             switch (_selectedCategory.sqlTableName)
             {
@@ -170,56 +170,56 @@ namespace Nyilvantarto_v2
         private void ModSzakmaivizsgaAnyakonyv()
         {
             Controll.LoadSelectedDataWhenModifying(
-                                                dataGridView1,
-                                                textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
-                                                numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                                null,
-                                                null,
-                                                null,
-                                                numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv
+                                                    dataGridView1,
+                                                    textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
+                                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt,
+                                                    numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv
             );
         }
 
         private void ModErettsegiTanusitvany()
         {
             Controll.LoadSelectedDataWhenModifying(
-                                                dataGridView1,
-                                                textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
-                                                textBoxTanuloNeveFeltoltErettsegiTanusitvany,
-                                                numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                                textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                                null,
-                                                null,
-                                                null
+                                                    dataGridView1,
+                                                    textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
+                                                    textBoxTanuloNeveFeltoltErettsegiTanusitvany,
+                                                    numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
+                                                    textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                                                    null,
+                                                    null,
+                                                    null
             );
         }
 
         private void ModErettsegiTorzslap()
         {
             Controll.LoadSelectedDataWhenModifying(
-                                                dataGridView1,
-                                                textBoxAnyjaNeveFeltoltErettsegiTorzslap,
-                                                textBoxTanuloNeveFeltoltErettsegiTorzslap,
-                                                numericUpDownVizsgaEveFeltoltErettsegiTorzslap,
-                                                null,
-                                                radioButtonTavaszFeltoltErettsegiTorzslap,
-                                                radioButtonOszFeltoltErettsegiTorzslap,
-                                                null
+                                                    dataGridView1,
+                                                    textBoxAnyjaNeveFeltoltErettsegiTorzslap,
+                                                    textBoxTanuloNeveFeltoltErettsegiTorzslap,
+                                                    numericUpDownVizsgaEveFeltoltErettsegiTorzslap,
+                                                    null,
+                                                    radioButtonTavaszFeltoltErettsegiTorzslap,
+                                                    radioButtonOszFeltoltErettsegiTorzslap,
+                                                    null
             );
         }
 
         private void ModSzakmaiVizsgaTorzslap()
         {
             Controll.LoadSelectedDataWhenModifying(
-                                                dataGridView1,
-                                                textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap,
-                                                textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap,
-                                                numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap,
-                                                null,
-                                                radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap,
-                                                radioButtonOszFeltoltSzakmaiVizsgaTorzslap,
-                                                null
+                                                    dataGridView1,
+                                                    textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap,
+                                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap,
+                                                    numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap,
+                                                    null,
+                                                    radioButtonTavaszFeltoltSzakmaiVizsgaTorzslap,
+                                                    radioButtonOszFeltoltSzakmaiVizsgaTorzslap,
+                                                    null
             );
         }
 
@@ -428,14 +428,14 @@ namespace Nyilvantarto_v2
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            _selectedCategory.OpenFile(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString());
+            _selectedCategory.OpenFile(GetIdFromDataGridView(dataGridView1));
         }
 
 
         //Timer tick
         private void updateDbStateTimer_Tick(object sender, EventArgs e)
         {
-            if (Controll.CheckDB_Conn(false))
+            if (Database.CheckDB_Conn(false))
             {
                 ModifyLabelKapcsolatAdatbazissal("aktív", Color.LightGreen);
                 Controll.DataGridViewBasicSettings(dataGridView1, panelKeres);
@@ -481,10 +481,10 @@ namespace Nyilvantarto_v2
         {
             Controll.DataGridViewClear(dataGridView1);
             Controll.ClearSearchValues(
-                textBoxTanuloNeveKeres,
-                textBoxanyjaNeveKeres,
-                numericUpDownVizsgaÉveKeres,
-                checkBoxVizsgaEve
+                                        textBoxTanuloNeveKeres,
+                                        textBoxanyjaNeveKeres,
+                                        numericUpDownVizsgaÉveKeres,
+                                        checkBoxVizsgaEve
             );
             labelMenuKat.Text = Controll.GlobSelectedButton;
             ShowPanel(_selectedCategory.panelFeltolt);
@@ -500,17 +500,17 @@ namespace Nyilvantarto_v2
 
             Controll.DataGridViewClear(dataGridView1);
             Controll.DatagridViewKeres(
-                                    "tanuloNeve",
-                                    row1ErreKeres,
-                                    row2EztIsKiir,
-                                    "anyjaNeve",
-                                    @from,
-                                    textBoxTanuloNeveKeres.Text,
-                                    textBoxanyjaNeveKeres.Text,
-                                    numericUpDownVizsgaÉveKeres.Value.ToString(),
-                                    dataGridView1,
-                                    checkBoxVizsgaEve.Checked,
-                                    int.Parse(numericUpDownTalalatokSzama.Value.ToString())
+                                        "tanuloNeve",
+                                        row1ErreKeres,
+                                        row2EztIsKiir,
+                                        "anyjaNeve",
+                                        @from,
+                                        textBoxTanuloNeveKeres.Text,
+                                        textBoxanyjaNeveKeres.Text,
+                                        numericUpDownVizsgaÉveKeres.Value.ToString(),
+                                        dataGridView1,
+                                        checkBoxVizsgaEve.Checked,
+                                        int.Parse(numericUpDownTalalatokSzama.Value.ToString())
             );
         }
 
@@ -549,6 +549,11 @@ namespace Nyilvantarto_v2
                                         panelSzakmaivizsgaAnyakonyvFileName,
                                         true
             );
+            MovePanelMenu();
+        }
+
+        private void MovePanelMenu()
+        {
             panelMenu.BringToFront();
             panelMenu.Visible = true;
 
@@ -583,6 +588,7 @@ namespace Nyilvantarto_v2
                     SwitchCaseModifyCategories();
                     break;
             }
+
             UpdateResultSet();
         }
 
@@ -708,7 +714,8 @@ namespace Nyilvantarto_v2
                                                     textBoxFileNameFeltoltKozepsikolaAnyakonyv)
             )
             {
-                FileFeltolteseBDreEsFileMozgatasaKozepiskolaAnyakonyv();
+                FileFeltolteseBDreKozepiskolaAnyakonyv();
+                Controll.CopyFile(@"\Adatok\Középiskola\Anyakönyv\", Database.GetLastIdFromDb("kozepiskolaanyakonyv"));
 
                 Controll.ClearUploadedValues(
                                             textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv,
@@ -732,7 +739,9 @@ namespace Nyilvantarto_v2
                                                     textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv)
             )
             {
-                FileFeltolteseBDreEsFileMozgatasaSzakmaivizsgaAnyakonyv();
+                FileFeltolteseBDreSzakmaivizsgaAnyakonyv();
+                Controll.CopyFile(@"\Adatok\Szakmai Vizsga\Anyakönyv\",
+                    Database.GetLastIdFromDb("szakmaivizsgaanyakonyv"));
 
                 Controll.ClearUploadedValues(
                                             textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv,
@@ -756,7 +765,8 @@ namespace Nyilvantarto_v2
                                                     textBoxFileNameFeltoltErettsegiTanusitvany)
             )
             {
-                FileFeltolteseBDreEsFileMozgatasaErettsegitanusitvany();
+                FileFeltolteseBDreErettsegitanusitvany();
+                Controll.CopyFile(@"\Adatok\Érettségi\Tanusítvány\", Database.GetLastIdFromDb("erettsegitanusitvany"));
 
                 Controll.ClearUploadedValues(
                                             textBoxAnyjaNeveFeltoltErettsegiTanusitvany,
@@ -780,7 +790,8 @@ namespace Nyilvantarto_v2
                                                     textBoxFileNameFeltoltErettsegiTorzslap)
             )
             {
-                FileFeltolteseBDreEsFileMozgatasaErettsegiTorzslap();
+                FileFeltolteseBDreErettsegiTorzslap();
+                Controll.CopyFile(@"\Adatok\Érettségi\Törzslap\", Database.GetLastIdFromDb("erettsegitorzslap"));
 
                 Controll.ClearUploadedValues(
                                             textBoxAnyjaNeveFeltoltErettsegiTorzslap,
@@ -804,7 +815,9 @@ namespace Nyilvantarto_v2
                                                     textBoxFileNameFeltoltSzakmaiVizsgaTorzslap)
             )
             {
-                FileFeltolteseBDreEsFileMozgatasaSzakmaivizsgaTorzslap();
+                FileFeltolteseBDreSzakmaivizsgaTorzslap();
+                Controll.CopyFile(@"\Adatok\Szakmai Vizsga\Törzslap\",
+                    Database.GetLastIdFromDb("szakmaivizsgaTorzslap"));
 
                 Controll.ClearUploadedValues(
                                             textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap,
@@ -819,78 +832,73 @@ namespace Nyilvantarto_v2
             }
         }
 
-        private void FileFeltolteseBDreEsFileMozgatasaKozepiskolaAnyakonyv()
+        private void FileFeltolteseBDreKozepiskolaAnyakonyv()
         {
-            Controll.FileFeltolteseBDreEsFileMozgatasa(
-                                                        textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv.Text,
-                                                        textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv.Text,
-                                                        @"\Adatok\Középiskola\Anyakönyv\",
-                                                        numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
-                                                        numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
-                                                        "kozepiskolaanyakonyv",
-                                                        "vizsgaEvKezdet",
-                                                        "vizsgaEvVeg",
-                                                        "dokLegutobbModositva"
+            Database.FileFeltoltese(
+                                    textBoxAnyjaNeveFeltoltKozepiskolaAnyakonyv.Text,
+                                    textBoxTanuloNeveFeltoltKozepiskolaAnyakonyv.Text,
+                                    numericUpDownErettsegiEveFeltoltKozepiskolaAnyakonyv,
+                                    numericUpDownKozepiskKezdeteFeltoltKozepiskolaAnyakonyv,
+                                    "kozepiskolaanyakonyv",
+                                    "vizsgaEvKezdet",
+                                    "vizsgaEvVeg",
+                                    "dokLegutobbModositva"
             );
         }
 
-        private void FileFeltolteseBDreEsFileMozgatasaSzakmaivizsgaAnyakonyv()
+        private void FileFeltolteseBDreSzakmaivizsgaAnyakonyv()
         {
-            Controll.FileFeltolteseBDreEsFileMozgatasa(
-                                                        textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv.Text,
-                                                        textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt.Text,
-                                                        @"\Adatok\Szakmai Vizsga\Anyakönyv\",
-                                                        numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
-                                                        numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
-                                                        "szakmaivizsgaanyakonyv",
-                                                        "vizsgaEvVeg",
-                                                        "vizsgaEvKezdet",
-                                                        "dokLegutobbModositva"
+            Database.FileFeltoltese(
+                                    textBoxAnyjaNeveFeltoltSzakmaiVizsgaAnyakonyv.Text,
+                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaAnyakonyvFeltolt.Text,
+                                    numericUpDownErettsegiEveFeltoltSzakmaiVizsgaAnyakonyv,
+                                    numericUpDownKozepiskKezdeteFeltoltSzakmaiVizsgaAnyakonyv,
+                                    "szakmaivizsgaanyakonyv",
+                                    "vizsgaEvVeg",
+                                    "vizsgaEvKezdet",
+                                    "dokLegutobbModositva"
             );
         }
 
-        private void FileFeltolteseBDreEsFileMozgatasaErettsegitanusitvany()
+        private void FileFeltolteseBDreErettsegitanusitvany()
         {
-            Controll.FileFeltolteseBDreEsFileMozgatasa(
-                                                        textBoxAnyjaNeveFeltoltErettsegiTanusitvany.Text,
-                                                        textBoxTanuloNeveFeltoltErettsegiTanusitvany.Text,
-                                                        @"\Adatok\Érettségi\Tanusítvány\",
-                                                        textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
-                                                        numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
-                                                        "erettsegitanusitvany",
-                                                        "vizsgaEvVeg",
-                                                        "tanuloiAzonosito",
-                                                        "dokLegutobbModositva"
+            Database.FileFeltoltese(
+                                    textBoxAnyjaNeveFeltoltErettsegiTanusitvany.Text,
+                                    textBoxTanuloNeveFeltoltErettsegiTanusitvany.Text,
+                                    textBoxTanuloiAzonositoFeltoltErettsegiTanusitvany,
+                                    numericUpDownVizsgaEveFeltoltErettsegiTanusitvany,
+                                    "erettsegitanusitvany",
+                                    "vizsgaEvVeg",
+                                    "tanuloiAzonosito",
+                                    "dokLegutobbModositva"
             );
         }
 
-        private void FileFeltolteseBDreEsFileMozgatasaErettsegiTorzslap()
+        private void FileFeltolteseBDreErettsegiTorzslap()
         {
-            Controll.FileFeltolteseBDreEsFileMozgatasa(
-                                                        textBoxAnyjaNeveFeltoltErettsegiTorzslap.Text,
-                                                        textBoxTanuloNeveFeltoltErettsegiTorzslap.Text,
-                                                        @"\Adatok\Érettségi\Törzslap\",
-                                                        radioButtonOszFeltoltErettsegiTorzslap,
-                                                        numericUpDownVizsgaEveFeltoltErettsegiTorzslap,
-                                                        "erettsegitorzslap",
-                                                        "vizsgaEvVeg",
-                                                        "vizsgaTavasz1Osz0",
-                                                        "dokLegutobbModositva"
+            Database.FileFeltoltese(
+                                    textBoxAnyjaNeveFeltoltErettsegiTorzslap.Text,
+                                    textBoxTanuloNeveFeltoltErettsegiTorzslap.Text,
+                                    radioButtonOszFeltoltErettsegiTorzslap,
+                                    numericUpDownVizsgaEveFeltoltErettsegiTorzslap,
+                                    "erettsegitorzslap",
+                                    "vizsgaEvVeg",
+                                    "vizsgaTavasz1Osz0",
+                                    "dokLegutobbModositva"
             );
         }
 
-        private void FileFeltolteseBDreEsFileMozgatasaSzakmaivizsgaTorzslap()
+        private void FileFeltolteseBDreSzakmaivizsgaTorzslap()
         {
-            Controll.FileFeltolteseBDreEsFileMozgatasa(
-                                                        textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.Text,
-                                                        textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.Text,
-                                                        @"\Adatok\Szakmai Vizsga\Törzslap\",
-                                                        radioButtonOszFeltoltSzakmaiVizsgaTorzslap,
-                                                        numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap,
-                                                        "szakmaivizsgaTorzslap",
-                                                        "vizsgaEvVeg",
-                                                        "vizsgaTavasz1Osz0",
-                                                        "dokLegutobbModositva"
+            Database.FileFeltoltese(
+                                    textBoxAnyjaNeveFeltoltSzakmaiVizsgaTorzslap.Text,
+                                    textBoxTanuloNeveFeltoltSzakmaiVizsgaTorzslap.Text,
+                                    radioButtonOszFeltoltSzakmaiVizsgaTorzslap,
+                                    numericUpDownVizsgaEveFeltoltSzakmaiVizsgaTorzslap,
+                                    "szakmaivizsgaTorzslap",
+                                    "vizsgaEvVeg",
+                                    "vizsgaTavasz1Osz0",
+                                    "dokLegutobbModositva"
             );
         }
 

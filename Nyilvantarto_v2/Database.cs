@@ -81,11 +81,11 @@ namespace Nyilvantarto_v2
 
 		{
 			var cmd = CreateCommand(
-				$"SELECT id, tanuloNeve, {rowVkezdet}, {rowExtra}, anyjaNeve " +
-				$"FROM {@from} " +
-				$"WHERE tanuloNeve like '%{likeTanuloNeve}%' " +
-				$"AND anyjaNeve like '%{likeAnyjaNeve}%' " +
-				$"AND {rowVkezdet} like '%{likeVkezdet}%'"
+				                        $"SELECT id, tanuloNeve, {rowVkezdet}, {rowExtra}, anyjaNeve " +
+				                                    $"FROM {@from} " +
+				                                    $"WHERE tanuloNeve like '%{likeTanuloNeve}%' " +
+				                                    $"AND anyjaNeve like '%{likeAnyjaNeve}%' " +
+				                                    $"AND {rowVkezdet} like '%{likeVkezdet}%'"
 			);
 			return cmd;
 		}
@@ -155,7 +155,7 @@ namespace Nyilvantarto_v2
 		{
 			try
 			{
-				Database.__getConnection();
+				__getConnection();
 				return true;
 			}
 			catch (ArgumentException aEx)
@@ -172,14 +172,14 @@ namespace Nyilvantarto_v2
 
 		public static void CreateTableSettings()
 		{
-			var command = CreateCommand(@"
-														CREATE TABLE IF NOT EXISTS 
-																settings 
-																(
-																id INTEGER PRIMARY KEY AUTO_INCREMENT,
-																var TEXT NOT NULL,
-																value TEXT NOT NULL
-																);"
+			var command = CreateCommand(
+                                @"CREATE TABLE IF NOT EXISTS 
+												settings 
+												(
+												id INTEGER PRIMARY KEY AUTO_INCREMENT,
+												var TEXT NOT NULL,
+												value TEXT NOT NULL
+												);"
 			);
 			command.ExecuteNonQuery();
 		}
@@ -187,114 +187,112 @@ namespace Nyilvantarto_v2
 		public static void CreateTableKozepiskolaAnyakonyv()
 		{
 			var command = CreateCommand(
-				@"
-														CREATE TABLE IF NOT EXISTS 
-																kozepiskolaanyakonyv 
-																(
-																id INTEGER PRIMARY KEY AUTO_INCREMENT,
-																tanuloNeve TEXT NOT NULL,
-																anyjaNeve TEXT NOT NULL,
-																szerzo TEXT NOT NULL,
-																vizsgaEvKezdet INT NOT NULL,
-																vizsgaEvVeg INT NOT NULL,
-																dokLegutobbModositva DATETIME NOT NULL,
-																feltoltesIdopontja DATETIME NOT NULL,
-																filename TEXT NULL
-																);"
+			                    @"CREATE TABLE IF NOT EXISTS 
+											    kozepiskolaanyakonyv 
+											    (
+											    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+											    tanuloNeve TEXT NOT NULL,
+											    anyjaNeve TEXT NOT NULL,
+											    szerzo TEXT NOT NULL,
+											    vizsgaEvKezdet INT NOT NULL,
+											    vizsgaEvVeg INT NOT NULL,
+											    dokLegutobbModositva DATETIME NOT NULL,
+											    feltoltesIdopontja DATETIME NOT NULL,
+											    filename TEXT NULL
+											    );"
 			);
 			command.ExecuteNonQuery();
 		}
 
 		public static void CreateTableSzakmaivizsgaAnyakonyv()
 		{
-			var command = CreateCommand(@"
-														CREATE TABLE IF NOT EXISTS 
-																szakmaivizsgaanyakonyv 
-																(
-																id INTEGER PRIMARY KEY AUTO_INCREMENT,
-																tanuloNeve TEXT NOT NULL,
-																anyjaNeve TEXT NOT NULL,
-																szerzo TEXT NOT NULL,
-																vizsgaEvKezdet INT NOT NULL,
-																vizsgaEvVeg INT NOT NULL,
-																dokLegutobbModositva DATETIME NOT NULL,
-																feltoltesIdopontja DATETIME NOT NULL,
-																filename TEXT NULL
-																);
-																");
-			command.ExecuteNonQuery();
+			var command = CreateCommand(
+                                @"CREATE TABLE IF NOT EXISTS 
+												szakmaivizsgaanyakonyv 
+												(
+												id INTEGER PRIMARY KEY AUTO_INCREMENT,
+												tanuloNeve TEXT NOT NULL,
+												anyjaNeve TEXT NOT NULL,
+												szerzo TEXT NOT NULL,
+												vizsgaEvKezdet INT NOT NULL,
+												vizsgaEvVeg INT NOT NULL,
+												dokLegutobbModositva DATETIME NOT NULL,
+												feltoltesIdopontja DATETIME NOT NULL,
+												filename TEXT NULL
+												);
+												");
+	command.ExecuteNonQuery();
 		}
 
 		public static void CreateTableSzakmaivizsgaTorzslap()
 		{
 			var command = CreateCommand(
-				@"
-														CREATE TABLE IF NOT EXISTS 
-																szakmaivizsgaTorzslap 
-																(
-																id INTEGER PRIMARY KEY AUTO_INCREMENT,
-																tanuloNeve TEXT NOT NULL,
-																anyjaNeve TEXT NOT NULL,
-																szerzo TEXT NOT NULL,
-																vizsgaEvVeg INT NOT NULL,
-																vizsgaTavasz1Osz0 BOOLEAN NOT NULL,
-																dokLegutobbModositva DATETIME NOT NULL,
-																feltoltesIdopontja DATETIME NOT NULL,
-																filename TEXT NULL
-																);
-																");
+				                @"CREATE TABLE IF NOT EXISTS 
+											    szakmaivizsgaTorzslap 
+											    (
+											    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+											    tanuloNeve TEXT NOT NULL,
+											    anyjaNeve TEXT NOT NULL,
+											    szerzo TEXT NOT NULL,
+											    vizsgaEvVeg INT NOT NULL,
+											    vizsgaTavasz1Osz0 BOOLEAN NOT NULL,
+											    dokLegutobbModositva DATETIME NOT NULL,
+											    feltoltesIdopontja DATETIME NOT NULL,
+											    filename TEXT NULL
+											    );
+											    ");
 			command.ExecuteNonQuery();
 		}
 
 		public static void CreateTableErettsegiTanusitvany()
 		{
-			var command = CreateCommand(@"
-														CREATE TABLE IF NOT EXISTS 
-																erettsegitanusitvany 
-																(
-																id INTEGER PRIMARY KEY AUTO_INCREMENT,
-																tanuloNeve TEXT NOT NULL,
-																anyjaNeve TEXT NOT NULL,
-																szerzo TEXT NOT NULL,
-																vizsgaEvVeg INT NOT NULL,
-																tanuloiAzonosito INT NOT NULL,
-																dokLegutobbModositva DATETIME NOT NULL,
-																feltoltesIdopontja DATETIME NOT NULL,
-																filename TEXT NULL
-																);
-																");
+			var command = CreateCommand(
+                                @"CREATE TABLE IF NOT EXISTS 
+												erettsegitanusitvany 
+												(
+												id INTEGER PRIMARY KEY AUTO_INCREMENT,
+												tanuloNeve TEXT NOT NULL,
+												anyjaNeve TEXT NOT NULL,
+												szerzo TEXT NOT NULL,
+												vizsgaEvVeg INT NOT NULL,
+												tanuloiAzonosito INT NOT NULL,
+												dokLegutobbModositva DATETIME NOT NULL,
+												feltoltesIdopontja DATETIME NOT NULL,
+												filename TEXT NULL
+												);
+												");
 			command.ExecuteNonQuery();
 		}
 
 		public static void CreateTableErettsegiTorzslap()
 		{
-			var command = CreateCommand(@"
-														CREATE TABLE IF NOT EXISTS 
-																erettsegitorzslap 
-																(
-																id INTEGER PRIMARY KEY AUTO_INCREMENT,
-																tanuloNeve TEXT NOT NULL,
-																anyjaNeve TEXT NOT NULL,
-																szerzo TEXT NOT NULL,
-																vizsgaEvVeg INT NOT NULL,
-																vizsgaTavasz1Osz0 BOOLEAN NOT NULL,
-																dokLegutobbModositva DATETIME NOT NULL,
-																feltoltesIdopontja DATETIME NOT NULL,
-																filename TEXT NULL
-																);
-																");
+			var command = CreateCommand(
+                                @"CREATE TABLE IF NOT EXISTS 
+												erettsegitorzslap 
+												(
+												id INTEGER PRIMARY KEY AUTO_INCREMENT,
+												tanuloNeve TEXT NOT NULL,
+												anyjaNeve TEXT NOT NULL,
+												szerzo TEXT NOT NULL,
+												vizsgaEvVeg INT NOT NULL,
+												vizsgaTavasz1Osz0 BOOLEAN NOT NULL,
+												dokLegutobbModositva DATETIME NOT NULL,
+												feltoltesIdopontja DATETIME NOT NULL,
+												filename TEXT NULL
+												);
+												");
 			command.ExecuteNonQuery();
 		}
 
 		public static string SetSqlCommandUpdate(
-			string textBoxAnyjaNeveModositas,
-			string textBoxNevModositas,
-			int numericUpDownEvKezdetModositas,
-			string update,
-			string rowVkezdet,
-			string rowTavaszVosz,
-			string rowId,
-			int tavaszVosz
+			                                    string textBoxAnyjaNeveModositas,
+			                                    string textBoxNevModositas,
+			                                    int numericUpDownEvKezdetModositas,
+			                                    string update,
+			                                    string rowVkezdet,
+			                                    string rowTavaszVosz,
+			                                    string rowId,
+			                                    int tavaszVosz
 		)
 		{
 			return
@@ -311,10 +309,10 @@ namespace Nyilvantarto_v2
 		}
 
 		public static string SetSqlCommandInsertInto(
-			string into,
-			string rowVevKezdet,
-			string rowTavaszVosz,
-			string rowDokLegutobbModositva
+			                                        string into,
+			                                        string rowVevKezdet,
+			                                        string rowTavaszVosz,
+			                                        string rowDokLegutobbModositva
 		)
 		{
 			return "INSERT INTO " +
@@ -338,19 +336,19 @@ namespace Nyilvantarto_v2
 		public static int GetLastIdFromDb(string tableName)
 		{
 			string sql = $"SELECT MAX(id) FROM {tableName};";
-			var cmd = Database.CreateCommand(sql);
+			var cmd = CreateCommand(sql);
 			return int.Parse(cmd.ExecuteScalar().ToString());
 		}
 
 		public static void FileFeltoltese(
-			string textBoxAnyjaNeveFeltolt,
-			string textBoxTanuloNeveFeltolt,
-			dynamic radioButtonOszFeltolt,
-			dynamic numericUpDownEvFeltoltKezdet,
-			string into,
-			string rowVevKezdet,
-			string rowTavaszVosz,
-			string rowDokLegutobbModositva
+			                            string textBoxAnyjaNeveFeltolt,
+			                            string textBoxTanuloNeveFeltolt,
+			                            dynamic radioButtonOszFeltolt,
+			                            dynamic numericUpDownEvFeltoltKezdet,
+			                            string into,
+			                            string rowVevKezdet,
+			                            string rowTavaszVosz,
+			                            string rowDokLegutobbModositva
 		)
 		{
 			try
@@ -360,9 +358,9 @@ namespace Nyilvantarto_v2
 				tavaszOsz = SetTavaszOrOszValue(radioButtonOszFeltolt, tavaszOsz);
 
 
-				var sql = Database.SetSqlCommandInsertInto(@into, rowVevKezdet, rowTavaszVosz, rowDokLegutobbModositva);
+				var sql = SetSqlCommandInsertInto(@into, rowVevKezdet, rowTavaszVosz, rowDokLegutobbModositva);
 
-				var cmd = Database.CreateCommand(sql);
+				var cmd = CreateCommand(sql);
 
 				AddParametersToCmdVizsgaEvKezdet(numericUpDownEvFeltoltKezdet, rowVevKezdet, cmd);
 
@@ -396,15 +394,14 @@ namespace Nyilvantarto_v2
 			{
 				tavaszOrOsz = radioButtonOszFeltolt.Checked ? (byte) 0 : (byte) 1;
 			}
-
 			return tavaszOrOsz;
 		}
 
 		private static void AddParametersToCmdTavaszOrOsz(
-			dynamic radioButtonOszFeltolt,
-			string rowTavaszVosz,
-			MySqlCommand cmd,
-			byte tavaszOsz
+			                                            dynamic radioButtonOszFeltolt,
+			                                            string rowTavaszVosz,
+			                                            MySqlCommand cmd,
+			                                            byte tavaszOsz
 		)
 		{
 			if (radioButtonOszFeltolt is RadioButton)
@@ -422,9 +419,9 @@ namespace Nyilvantarto_v2
 		}
 
 		private static void AddParametersToCmdVizsgaEvKezdet(
-			dynamic numericUpDownEvFeltoltKezdet,
-			string rowVevKezdet,
-			MySqlCommand cmd
+			                                                dynamic numericUpDownEvFeltoltKezdet,
+			                                                string rowVevKezdet,
+			                                                MySqlCommand cmd
 		)
 		{
 			if (numericUpDownEvFeltoltKezdet is NumericUpDown)
@@ -438,17 +435,16 @@ namespace Nyilvantarto_v2
 		}
 
 		private static void AddParametersToCmdRemaining(
-			string textBoxAnyjaNeveFeltolt,
-			string textBoxTanuloNeveFeltolt,
-			string rowDokLegutobbModositva,
-			MySqlCommand cmd
+			                                            string textBoxAnyjaNeveFeltolt,
+			                                            string textBoxTanuloNeveFeltolt,
+			                                            string rowDokLegutobbModositva,
+			                                            MySqlCommand cmd
 		)
 		{
 			cmd.Parameters.AddWithValue($"@rowTanuloNeve", textBoxTanuloNeveFeltolt);
 			cmd.Parameters.AddWithValue($"@rowAnyja", textBoxAnyjaNeveFeltolt);
 			cmd.Parameters.AddWithValue($"@rowSzerzo", WindowsIdentity.GetCurrent().Name);
-			cmd.Parameters.AddWithValue($"@{rowDokLegutobbModositva}",
-				File.GetLastWriteTime(Controll.GlobFeltoltendoFileEleresiUt));
+			cmd.Parameters.AddWithValue($"@{rowDokLegutobbModositva}", File.GetLastWriteTime(Controll.GlobFeltoltendoFileEleresiUt));
 			cmd.Parameters.AddWithValue($"@rowFeltoltesIdopontja", DateTime.Now);
 			cmd.Parameters.AddWithValue($"@filename", Path.GetFileName(Controll.GlobFeltoltendoFileEleresiUt));
 		}
@@ -459,7 +455,6 @@ namespace Nyilvantarto_v2
 			{
 				int.TryParse(modified.ToString(), out returnValue);
 			}
-
 			return returnValue;
 		}
 	}
