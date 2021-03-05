@@ -116,6 +116,8 @@ namespace Nyilvantarto_v2
             if (panelMenu.Visible)
             {
                 HidePanelMenu();
+                buttonFeltoltes.Visible = true;
+                buttonTorles.Visible = true;
             }
             else
             {
@@ -310,9 +312,10 @@ namespace Nyilvantarto_v2
             _selectedCategory = new ErettsegiTorzslap
             {
                 panelFeltolt = panelErettsegiTorzslapFeltolt,
-                textBoxFileNameFeltolt = textBoxFileNameFeltoltErettsegiTorzslap
+                textBoxFileNameFeltolt = textBoxFileNameFeltoltErettsegiTorzslap,
+                button = buttonErettsegiTorzslap
             };
-            SetAndResetButtonColors(buttonErettsegiTorzslap);
+            SetAndResetButtonColors();
 
             CategorySelected();
         }
@@ -323,9 +326,10 @@ namespace Nyilvantarto_v2
             _selectedCategory = new ErettsegiTanusitvany
             {
                 panelFeltolt = panelErettsegiTanusitvanyFeltolt,
-                textBoxFileNameFeltolt = textBoxFileNameFeltoltErettsegiTanusitvany
+                textBoxFileNameFeltolt = textBoxFileNameFeltoltErettsegiTanusitvany,
+                button = buttonErettsegiTanusitvany
             };
-            SetAndResetButtonColors(buttonErettsegiTanusitvany);
+            SetAndResetButtonColors();
 
             CategorySelected();
         }
@@ -335,9 +339,10 @@ namespace Nyilvantarto_v2
             _selectedCategory = new SzakmaiVizsgaTorzslap
             {
                 panelFeltolt = panelSzakmaiVizsgaTorzslapFeltolt,
-                textBoxFileNameFeltolt = textBoxFileNameFeltoltSzakmaiVizsgaTorzslap
+                textBoxFileNameFeltolt = textBoxFileNameFeltoltSzakmaiVizsgaTorzslap,
+                button = buttonSzakmaiVizsgaTorzslap
             };
-            SetAndResetButtonColors(buttonSzakmaiVizsgaTorzslap);
+            SetAndResetButtonColors();
 
             CategorySelected();
         }
@@ -347,9 +352,10 @@ namespace Nyilvantarto_v2
             _selectedCategory = new SzakmaiVizsgaAnyakonyv
             {
                 panelFeltolt = panelSzakmaiVizsgaAnyakonyvFeltolt,
-                textBoxFileNameFeltolt = textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv
+                textBoxFileNameFeltolt = textBoxFileNameFeltoltSzakmaiVizsgaAnyakonyv,
+                button = buttonSzakmaiVizsgaAnyakonyv
             };
-            SetAndResetButtonColors(buttonSzakmaiVizsgaAnyakonyv);
+            SetAndResetButtonColors();
 
             CategorySelected();
         }
@@ -359,9 +365,10 @@ namespace Nyilvantarto_v2
             _selectedCategory = new KozepiskolaiAnyakonyv
             {
                 panelFeltolt = panelKozepiskolaAnyakonyvFeltolt,
-                textBoxFileNameFeltolt = textBoxFileNameFeltoltKozepsikolaAnyakonyv
+                textBoxFileNameFeltolt = textBoxFileNameFeltoltKozepsikolaAnyakonyv,
+                button = buttonKozepiskolaAnyakonyv
             };
-            SetAndResetButtonColors(buttonKozepiskolaAnyakonyv);
+            SetAndResetButtonColors();
 
             CategorySelected();
         }
@@ -538,8 +545,8 @@ namespace Nyilvantarto_v2
         private void ShowPanelMenu()
         {
             panelFeltolt.Visible = true;
-            SetAndResetButtonColors(buttonFeltoltes);
-            panelModTorol.Visible = false;
+            SetAndResetButtonColors();
+            //panelModTorol.Visible = false;
             Controll.Set6PanelsVisibility(
                                         panelTallozMentesujButton,
                                         panelSzakmaiVizsgaTorzslapFileName,
@@ -572,7 +579,7 @@ namespace Nyilvantarto_v2
             panelMenu.Visible = false;
             panelFeltolt.Visible = false;
             panelModTorol.Visible = true;
-            SetAndResetButtonColors(buttonFeltoltes);
+            SetAndResetButtonColors();
 
             CleanupForm();
         }
@@ -997,11 +1004,11 @@ namespace Nyilvantarto_v2
             );
         }
 
-        public void SetAndResetButtonColors(Button activeButton)
+        public void SetAndResetButtonColors()
         {
             foreach (Button button in _buttons)
             {
-                SetButtonColor(activeButton, button);
+                SetButtonColor(_selectedCategory.button, button);
             }
         }
 

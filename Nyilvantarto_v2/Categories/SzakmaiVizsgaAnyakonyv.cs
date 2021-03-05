@@ -17,6 +17,7 @@ namespace Nyilvantarto_v2.Categories
         public override Panel panelFeltolt { get; set; }
         public override TextBox textBoxFileNameFeltolt { get; set; }
 
+        public override Button button { get; set; }
         protected override List<string> customSqlColumns => new List<string>
         {
             "Középiskola kezdete",

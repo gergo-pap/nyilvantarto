@@ -16,11 +16,13 @@ namespace Nyilvantarto_v2.Categories
         public override string row2Spec => "tanuloiazonosito";
         public override Panel panelFeltolt { get; set; }
         public override TextBox textBoxFileNameFeltolt { get; set; }
+        public override Button button { get; set; }
 
         protected override List<string> customSqlColumns => new List<string>
         {
             "Vizsga éve",
             "Tanulói azonosító"
         };
+
     }
 }

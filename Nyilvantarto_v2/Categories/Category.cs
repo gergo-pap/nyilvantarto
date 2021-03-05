@@ -17,8 +17,8 @@ namespace Nyilvantarto_v2.Categories
         public abstract string row2Spec { get; }
         public abstract Panel panelFeltolt { get; set; }
         public abstract TextBox textBoxFileNameFeltolt { get; set; }
-
         protected abstract List<string> customSqlColumns { get; }
+        public abstract Button button { get; set; }
 
         private List<string> commonSqlColumns => new List<string>
         {
